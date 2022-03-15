@@ -15,7 +15,7 @@ The code examples presented below can be built/run with the following tools:
 |:----------------|:-------------------|:------------|:---------------|
 | [`build.bat`](./hello/build.bat) | *none* | &nbsp; | Windows only |
 | [`make.exe`][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
-<div style="font-size:80%;">
+<div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".
 </div>
 

@@ -28,7 +28,9 @@ The code examples presented below can be built/run with the following tools:
 
 ## <span id="fib">`fib`</span>
 
-Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give the appropriate option, i.e, `-clang`, `-gcc` or `-msvc`, to specify the C++ compiler :
+This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
+
+Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one the options `-clang`, `-gcc` or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="fib/build.bat">build</a> -verbose clean compile</b>
@@ -58,7 +60,9 @@ Copy file "pthreadVC2.dll" to directory "target"
 
 ## <span id="myTurn">`myTurn`</span>
 
-In this second example we run [`make.exe`][make_cli] with [`Makefile`](./myTurn/Makefile) as build configuration and variable `TOOLSET` whose value specifies the C++ compiler :
+This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
+
+We run [`make.exe`][make_cli] which reads the build configuration from file [`Makefile`](./myTurn/Makefile). We give to variable `TOOLSET` one of the values `clang`, `gcc` or `msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_86.html">make</a> TOOLSET=gcc clean run</b>
@@ -102,7 +106,7 @@ My Turn! 8/8
 <b>&gt; <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_86.html">make</a> TOOLSET=msvc clean run</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "$(MSVC_HOME)/bin/Hostx64/x64/cl.exe"  -nologo -std:c++17 -EHsc\
- -I"%MSVC_HOME%/include" -I"$(WINSDK_HOME)/include/10.0.22000.0/ucrt"\
+ -I"$(MSVC_HOME)/include" -I"$(WINSDK_HOME)/include/10.0.22000.0/ucrt"\
  -I"$(WINSDK_HOME)/include/10.0.22000.0/um"\
  -D_TIMESPEC_DEFINED -I"../pthreads-win32/include" -Fo"build/"\
  -Fe"build/Release/myTurn.exe" src/main/cpp/threads.cpp\
@@ -128,7 +132,9 @@ My Turn! 8/8
 
 ## <span id="pThreadDemo">`pThreadDemo`</span>
 
-*WIP*
+This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
+
+Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one the options `-clang`, `-gcc` or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./pThreadDemo/build.bat">build</a> -verbose -gcc clean run</b>
