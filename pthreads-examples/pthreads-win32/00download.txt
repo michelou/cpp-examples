@@ -1,1 +1,2 @@
 Source: https://sourceware.org/pub/pthreads-win32/dll-latest/
+Website: https://sourceware.org/pthreads-win32/

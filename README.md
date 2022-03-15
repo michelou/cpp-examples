@@ -15,15 +15,15 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Bazel 5][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
-- [LLVM 12][llvm_downloads] ([*release notes*][llvm_relnotes])
-- [Microsoft Visual Studio Community 2019][vs2019_downloads] ([*release notes*][vs2019_relnotes])
+- [LLVM 12][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
+- [Microsoft Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
+- [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
 Optionally one may also install the following software:
 
-- [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
+- [Bazel 5][bazel_downloads] ([*release notes*][bazel_relnotes])
 
 For instance our development environment looks as follows (*March 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
@@ -75,7 +75,7 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 <a id="footnote_01">[1]</a> ***C++ Compilers*** [↩](#anchor_01)
 
 <dl><dd>
-The Windows software installed in this project give us access to three C++ compilers:
+With the installed development tools for Windows we have access to 3 C++ compilers:
 </dd>
 <dd>
 <table>
@@ -99,6 +99,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/5.0.0">bazel-5.0.0-windows-x86_64.zip</a>    <i>( 43 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-12.0.1">llvm-12.0.1.src.tar.xz</a>            <i>( 31 MB)</i>
+<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>         <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>  <i>( 41 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                   <i>(1.3 MB)</i>
 </pre>

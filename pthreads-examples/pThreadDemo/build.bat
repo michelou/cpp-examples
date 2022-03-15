@@ -210,11 +210,11 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CLANG_CMD%" %__CLANG_FLAGS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CLANG_CMD%" %__CLANG_FLAGS% %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -225,7 +225,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>
 )
 copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directoy "!_TARGET_DIR:%_ROOT_DIR%=!"
+    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!"
     set _EXITCODE=1
     goto :eof
 )
@@ -248,11 +248,11 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -306,11 +306,11 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS%
+call "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -321,7 +321,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>
 )
 copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directoy "!_TARGET_DIR:%_ROOT_DIR%=!"
+    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!"
     set _EXITCODE=1
     goto :eof
 )

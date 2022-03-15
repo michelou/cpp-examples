@@ -39,7 +39,6 @@ WINSDK_INCROOT = $(subst \,/,$(WINSDK_HOME))/include
 WINSDK_INCPATH = $(WINSDK_INCROOT)/$(shell cd "$(WINSDK_INCROOT)" && ls -d */ | tail -n 1)
 WINSDK_LIBROOT = $(subst \,/,$(WINSDK_HOME))/lib
 WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d */ | tail -n 1)
-MINGW_XXX      = $(subst \,/,$(MSYS_HOME))/mingw64/include
 MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
 else

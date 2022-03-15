@@ -52,12 +52,12 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
-if not exist "%LLVM_HOME%\bin\clang.exe" (
+if not exist "%LLVM_HOME%\bin\clang++.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
+set "_CLANG_CMD=%LLVM_HOME%\bin\clang++.exe"
 
 if not exist "%MSYS_HOME%\mingw64\bin\g++.exe" (
     echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
@@ -185,15 +185,17 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_clang
-set "__MINGW_XXX=%MSYS_HOME%\mingw64\include"
-set "__MINGW_INCPATH=%MSYS_HOME%\mingw64\x86_64-w64-mingw32\include"
-if not exist "%__MINGW_INCPATH%\pthread.h" (
-    echo %_ERROR_LABEL% pthread library not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
 )
-set __CLANG_FLAGS=-g --std=%_CXX_STD% -O0 -I"%__MINGW_XXX%" -I"%__MINGW_INCPATH%" -lpthread -o "%_TARGET%"
-set __CLANG_FLAGS=%__CLANG_FLAGS% -Wall -Wno-unused-variable "-ferror-limit=5"
+set __PTHREADS_INCPATH=..\pthreads-win32\include
+set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%__ARCH%
+set __PTHREADS_LIBNAME=pthreadVC2
+
+set __CLANG_FLAGS=-g --std=%_CXX_STD% -O0 -D_TIMESPEC_DEFINED
+set __CLANG_FLAGS=%__CLANG_FLAGS% -I"%__PTHREADS_INCPATH%" -l%__PTHREADS_LIBNAME%
+set __CLANG_FLAGS=%__CLANG_FLAGS% -Wall -Wno-unused-variable
+set __CLANG_FLAGS=%__CLANG_FLAGS% -L"%__PTHREADS_LIBPATH%" -o "%_TARGET%"
 
 set __SOURCE_FILES=
 set __N=0
@@ -208,11 +210,22 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CLANG_CMD%" %__CLANG_FLAGS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CLANG_CMD%" %__CLANG_FLAGS% %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__DLL_FILE=..\pthreads-win32\dll\%__ARCH%\%__PTHREADS_LIBNAME%.dll"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1>NUL
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!"
     set _EXITCODE=1
     goto :eof
 )
@@ -220,7 +233,7 @@ goto :eof
 
 :compile_gcc
 set __CXX_FLAGS=-g --std=%_CXX_STD% -O0 -lpthread -o "%_TARGET%"
-set __CXX_FLAGS=%__CXX_FLAGS% -Wall -Wno-unused-variable
+set __CXX_FLAGS=%__CXX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable
 
 set __SOURCE_FILES=
 set __N=0
@@ -235,11 +248,11 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -293,11 +306,11 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -308,7 +321,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>
 )
 copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directoy "!_TARGET_DIR:%_ROOT_DIR%=!"
+    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!"
     set _EXITCODE=1
     goto :eof
 )

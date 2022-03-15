@@ -1,15 +1,8 @@
+#include <cstdio>
 #include <iostream>
-#ifdef _WIN32
-#include <io.h>
-#else
-#include <unistd.h>
-#endif
-#include <sys/types.h>
+
 #include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#include <string.h> // strcmp
 
 #include "thread.h"
 

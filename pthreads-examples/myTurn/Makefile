@@ -21,7 +21,7 @@ CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)
 CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)" -defaultlib:"$(PTHREADS_LIBPATH)/$(PTHREADS_LIBNAME)" -machine:$(ARCH)
 else ifeq ($(TOOLSET),gcc)
 CXX = $(CC)
-CXXFLAGS = --std=$(CXXSTD) -O2 -lpthread -Wall -Wno-unused-variable
+CXXFLAGS = --std=$(CXXSTD) -O2 -lpthread -Wall -Wno-unused-variable -Wno-unused-but-set-variable
 CXXLINK =
 else ifeq ($(TOOLSET),clang)
 CXX = $(CLANG)

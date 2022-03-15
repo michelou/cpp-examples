@@ -1,13 +1,23 @@
-# <span id="top">C++ Examples</span>
+# <span id="top">C++ Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="hhttps://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples coming from various websites - mostly from the <a href="hhttps://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, Makefiles) for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
+
+The code examples presented below can be built/run with the following tools:
+
+| Build&nbsp;tool | Configuration file | Parent file | Environment(s) |
+|:----------------|:-------------------|:------------|:---------------|
+| [`build.bat`](./hello/build.bat) | *none* | &nbsp; | Windows only |
+| [`make.exe`][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+<div style="font-size:80%;">
+<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".
+</div>
 
 ## <span id="hello">`hello`</span>
 
@@ -23,7 +33,7 @@ Generate configuration files into directory "build"
 Generate executable "hello.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] invokes one of three C++ compilers to generate executable `hello.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and invokes one of three C++ compilers to generate executable `hello.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
@@ -86,7 +96,7 @@ Generate configuration files into directory "build"
 Generate executable "move-constructor.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] invokes one of three C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of three C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
