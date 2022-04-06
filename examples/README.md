@@ -23,7 +23,7 @@ The code examples presented below can be built/run with the following tools:
 
 This example consists of one source file [`src\main.cpp`](./hello/src/main.cpp).
 
-Command [`build.bat`](./hello/build.bat) invokes one of three C++ compilers to generate executable `hello.exe` using the options `-clang`, `-gcc` or `-msvc` :
+Command [**`build.bat`**](./hello/build.bat) invokes one of three C++ compilers to generate executable `hello.exe` using the options `-clang`, `-gcc` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./hello/build.bat">build</a> -clang -verbose clean compile</b>
@@ -45,7 +45,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing) and consists of one source file [`src\main\cpp\Main.cpp`](./call-by-copy/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./call-by-copy/build.bat) invokes one of three C++ compilers to generate executable `call-by-copy.exe` using the options `-clang`, `-gcc` or `-msvc` :
+Command [**`build.bat`**](./call-by-copy/build.bat) invokes one of three C++ compilers to generate executable `call-by-copy.exe` using the options `-clang`, `-gcc` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./call-by-copy/build.bat">build</a> -msvc -verbose clean compile</b>
