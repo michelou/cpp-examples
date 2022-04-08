@@ -28,7 +28,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*March 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-5.0.0\                      <i>( 41 MB)</i>
+C:\opt\bazel-5.1.0\                      <i>( 46 MB)</i>
 C:\opt\Git-2.35.1\                       <i>(282 MB)</i>
 C:\opt\LLVM-14.0.0\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
@@ -108,7 +108,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -129,7 +129,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.0
 [llvm_examples]: https://github.com/michelou/llvm-examples
-[llvm_relnotes]: https://releases.llvm.org/12.0.1/docs/ReleaseNotes.html
+[llvm_relnotes]: https://releases.llvm.org/14.0.0/docs/ReleaseNotes.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html
