@@ -23,7 +23,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Bazel 5][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 5.1][bazel_downloads] ([*release notes*][bazel_relnotes])
 
 For instance our development environment looks as follows (*March 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
@@ -98,7 +98,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.0.0">bazel-5.0.0-windows-x86_64.zip</a>    <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/5.1.0">bazel-5.1.0-windows-x86_64.zip</a>    <i>( 43 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.0">LLVM-14.0.0-win64.exe</a>             <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>         <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>  <i>( 41 MB)</i>
@@ -115,13 +115,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.0.0
-[bazel_relnotes]: https://blog.bazel.build/2020/06/17/bazel-3-3.html
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.1.0
+[bazel_relnotes]: https://blog.bazel.build/2022/03/24/bazel-5.1.html
 [cpp_lang]: https://isocpp.org/
 [deno_examples]: https://github.com/michelou/deno-examples
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
