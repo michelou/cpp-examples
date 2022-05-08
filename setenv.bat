@@ -37,13 +37,16 @@ if not %_EXITCODE%==0 goto end
 call :cmake
 if not %_EXITCODE%==0 goto end
 
+call :llvm 14
+if not %_EXITCODE%==0 goto end
+
 call :msys
 if not %_EXITCODE%==0 goto end
 
-call :llvm
+call :msvs
 if not %_EXITCODE%==0 goto end
 
-call :msvs
+call :oneapi
 if not %_EXITCODE%==0 goto end
 
 call :winsdk 10
@@ -294,11 +297,12 @@ if not exist "%_MSYS_HOME%\usr\bin\make.exe" (
 set "_MSYS_PATH=;%_MSYS_HOME%\usr\bin;%_MSYS_HOME%\mingw64\bin"
 goto :eof
 
+@rem input parameter: %1=LLVM major version
 @rem output parameter: _LLVM_HOME
 :llvm
 set _LLVM_HOME=
 
-set __DISTRO=llvm-11
+set __DISTRO=llvm-%~1
 set __CLANG_CMD=
 for /f %%f in ('where clang.exe 2^>NUL') do set "__CLANG_CMD=%%f"
 if defined __CLANG_CMD (
@@ -376,6 +380,32 @@ if not exist "%_MSVS_CMAKE_HOME%\bin\cmake.exe" (
 set "_MSVS_PATH=;%_MSVC_HOME%\bin%__MSVC_ARCH%;%_MSVS_MSBUILD_HOME%\bin%__MSBUILD_ARCH%"
 goto :eof
 
+@rem output parameters: _ONEAPI_HOME, _ONEAPI_PATH
+:oneapi
+set _ONEAPI_HOME=
+set _ONEAPI_PATH=
+
+set __ICX_CMD=
+for /f %%f in ('where icx.exe 2^>NUL') do set "__ICX_CMD=%%f"
+if defined __ICX_CMD (
+    for /f "delims=" %%i in ("%__ICX_CMD%") do set "__ICX_BIN_DIR=%%~dpi"
+    for %%f in ("!__ICX_BIN_DIR!.") do set "_ONEAPI_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Intel DPC++ compiler executable found in PATH 1>&2
+) else if defined ONEAPI_HOME (
+    set "_ONEAPI_HOME=%ONEAPI_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ONEAPI_HOME 1>&2
+) else (
+    set "_ONEAPI_HOME=%ProgramFiles(x86)%\Intel\oneAPI\compiler\latest\windows"
+)
+if not exist "%_ONEAPI_HOME%\bin\icx.exe" (
+    echo %_ERROR_LABEL% Intel DPC++ compiler executable not found ^("%_ONEAPI_HOME%"^) 1>&2
+    set _ONEAPI_HOME=
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ONEAPI_PATH=%_ONEAPI_HOME%\bin"
+goto :eof
+
 @rem input parameter: %1=Windows SDK version
 @rem output parameter: _WINSDK_HOME
 :winsdk
@@ -444,9 +474,14 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-7,*" %%i in ('"%MSYS_HOME%\mingw64\bin\gcc.exe" --version 2^>^&1 ^| findstr gcc') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gcc %%o,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:gcc.exe"
 )
+where /q "%ONEAPI_HOME%\bin:icx.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-11,12,*" %%a in ('"%ONEAPI_HOME%\bin\icx.exe" /v 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% icx %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%ONEAPI_HOME%\bin:icx.exe"
+)
 where /q "%CMAKE_HOME%\bin:cmake.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%CMAKE_HOME%\bin\cmake.exe" --version ^| findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% cmake %%k"
+    for /f "tokens=1,2,*" %%i in ('"%CMAKE_HOME%\bin\cmake.exe" --version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cmake %%k"
     set __WHERE_ARGS=%__WHERE_ARGS% "%CMAKE_HOME%\bin:cmake.exe"
 )
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __CL_BIN_DIR=Bin\Hostx64\x64
@@ -498,6 +533,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MSVS_MSBUILD_HOME echo    "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
+    if defined ONEAPI_HOME echo    "ONEAPI_HOME=%ONEAPI_HOME%" 1>&2
     if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
@@ -519,6 +555,7 @@ endlocal & (
     if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
     if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
     if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
+    if not defined ONEAPI_HOME set "ONEAPI_HOME=%_ONEAPI_HOME%"
     if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
     set "PATH=%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
     call :print_env %_VERBOSE%

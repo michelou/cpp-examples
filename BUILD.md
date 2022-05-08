@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;;min-width:100px;"><a href="https://isocpp.org/"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;;min-width:100px;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers resources about build configurations on the Windows platform.
   </td>
   </tr>
@@ -25,7 +25,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

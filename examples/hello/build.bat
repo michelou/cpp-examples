@@ -171,7 +171,8 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
+    if "%__ARG%"=="-bcc" ( set _TOOLSET=bcc
+    ) else if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-clang" ( set _TOOLSET=clang
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
@@ -230,9 +231,10 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset (default)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
+echo     %__BEG_O%-debug%__END%      show commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
 echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
@@ -269,7 +271,8 @@ goto :eof
 setlocal
 if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
-if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
+if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
+) else if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
@@ -279,6 +282,42 @@ call :compile_%_TOOLSET%
 
 @rem save _EXITCODE value into parent environment
 endlocal & set _EXITCODE=%_EXITCODE%
+goto :eof
+
+:compile_bcc
+
+set "CC=%BCC_HOME%\bin\bcc32x.exe"
+set "CXX=%BCC_HOME%\bin\bcc32x.exe"
+set "MAKE=%MSYS_HOME%\usr\bin\make.exe"
+set "RC=%MSYS_HOME%\mingw64\bin\windres.exe"
+
+set "__CMAKE_CMD=%CMAKE_HOME%\bin\cmake.exe"
+set __CMAKE_OPTS=-G "Unix Makefiles"
+
+pushd "%_TARGET_DIR%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
+) else if %_VERBOSE%==1 ( echo Generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%__CMAKE_CMD%" %__CMAKE_OPTS% .. %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+)
+call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
 goto :eof
 
 :compile_clang

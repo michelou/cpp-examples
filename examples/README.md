@@ -38,7 +38,7 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
-"C:/opt/LLVM-12.0.1//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
+"C:/opt/LLVM-14.0.3//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
 </pre>
 
 ## <span id="call-by-copy">`call-by-copy`</span>
@@ -101,7 +101,7 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
-"C:/opt/LLVM-12.0.1//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/move-constructor.exe src/main/cpp/Main.cpp
+"C:/opt/LLVM-14.0.3//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/move-constructor.exe src/main/cpp/Main.cpp
 </pre>
 
 ## <span id="tuple-iterators">`tuple-iterators`</span>
@@ -128,7 +128,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

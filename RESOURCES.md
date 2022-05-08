@@ -10,10 +10,13 @@
 
 ## <span id="articles">Articles</span>
 
+- [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw), January 2022.
 - [Red Hat Developer](https://developers.redhat.com/) articles :
   - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton] by Serge Guelton, May 2021.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
+- [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
 - [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
+- [Internals of Compiling - Journey from C/C++ program to an Executable][article_gautham] by Adwaith Gautham, June 2018.
 
 ## <span id="blogs">Blogs</span>
 
@@ -35,11 +38,17 @@
 
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
+- [C++20 - The Complete Guide][book_josuttis] by Nicolai M. Josuttis, December 2021.<br/><span style="">(Leanpub, 474 pages)</span>
 - [Demystified Object-Oriented Programming with C++ ][book_kirk] by Dorothy R. Kirk, March 2021.<br/><span style="font-size:80%;">(Packt Publishing, ISBN 978-1-8392-1883-5, 568 pages)</span>
 - [Professional C++][book_gregoire] (<sup>5th</sup> Ed) by Marc Gregoire, February 2021.<br/><span style="font-size:80%;">(Wiley, ISBN 978-1-1196-9540-0, 1312 pages)</span>
 - [Real-Time C++][book_kormanyos] (4<sup>th</sup> Ed.) by Christopher Kormanyos, 2021.<br/><span style="font-size:80%;">(Springer, ISBN 978-3-6626-2995-6, 510 pages)</span>
 - [C++ Early Objects][book_gaddis] (10<sup>th</sup> Ed.) by Tony Gaddis et al., 2020.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-13-523500-3)</span>
 - [C++ Distilled][book_pohl] by Ira Pohl, July 2007.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-2016-9587-8, 210 pages)</span>
+
+## <span id="tools">Tools</span>
+
+- [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.
+- [Conan](https://conan.io/downloads.html) &ndash; a C/C++ package manager.
 
 ## <span id="tutorials">Tutorials</span>
 
@@ -51,12 +60,14 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
 [article_dinechin]: ttps://grenouillebouillie.wordpress.com/2021/02/07/c-generating-a-native-interface-automatically/
+[article_ferenc]: https://accu.org/journals/overload/28/159/deak/
+[article_gautham]: https://www.pwnthebox.net/reverse/engineering/and/binary/exploitation/series/2018/06/21/internals-of-compiling-Journey-from-C-program-to-an-executable.html
 [article_guelton]: https://developers.redhat.com/blog/2021/05/04/optimizing-the-clang-compilers-line-to-offset-mapping
 [article_ritchie]: http://www.gotw.ca/publications/c_family_interview.htm
 [blog_benderksy_2014]: https://eli.thegreenplace.net/2014/variadic-templates-in-c/
@@ -64,6 +75,7 @@
 [book_gaddis]: https://www.pearson.com/store/p/starting-out-with-c-early-objects/P100002716184/9780135213698
 [book_gregoire]: https://www.wiley.com/en-us/Professional+C%2B%2B%2C+5th+Edition-p-9781119695400
 [book_grimm]: https://leanpub.com/concurrencywithmodernc
+[book_josuttis]: https://cppstd20.com/
 [book_kirk]: https://www.packtpub.com/product/demystifying-object-oriented-programming-with-c/9781839218835
 [book_kormanyos]: https://www.springer.com/gp/book/9783662629956
 [book_nesteruk]: https://www.springerprofessional.de/en/design-patterns-in-modern-c-20/19833000
