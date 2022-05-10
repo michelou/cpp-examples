@@ -32,7 +32,7 @@ For instance our development environment looks as follows (*May 2022*) <sup id="
 <pre style="font-size:80%;">
 C:\opt\bazel-5.1.1\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.23.1-windows-x86_64\      <i>( 92 MB)</i>
-C:\opt\Git-2.36.0\                       <i>(282 MB)</i>
+C:\opt\Git-2.36.1\                       <i>(282 MB)</i>
 C:\opt\LLVM-14.0.3\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
@@ -109,7 +109,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="">w_dpcpp-cpp-compiler_p_2022.0.3.118_offline.exe</a>  <i>(  1 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.3">LLVM-14.0.3-win64.exe</a>                            <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                        <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.36.0-64-bit.7z.exe</a>                 <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.36.1-64-bit.7z.exe</a>                 <i>( 41 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                  <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
@@ -131,7 +131,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [deno_examples]: https://github.com/michelou/deno-examples
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

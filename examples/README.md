@@ -33,7 +33,7 @@ Generate configuration files into directory "build"
 Generate executable "hello.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and invokes one of three C++ compilers to generate executable `hello.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and invokes one of three C++ compilers to generate executable `hello.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
@@ -96,7 +96,7 @@ Generate configuration files into directory "build"
 Generate executable "move-constructor.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of three C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or `gcc`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of three C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
@@ -134,6 +134,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 <!-- link refs -->
 
 [bazel_cli]: https://bazel.build/reference/command-line-reference
+[gcc_cmd]: https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html
 [invivoo]: https://www.invivoo.com/
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Running.html
 [stackoverflow]: https://stackoverflow.com/

@@ -12,7 +12,10 @@
 
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw), January 2022.
 - [Red Hat Developer](https://developers.redhat.com/) articles :
-  - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton] by Serge Guelton, May 2021.
+  - [New C++ features in GCC 12][article_placek] by Marek Polacek, April 2022.
+  - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
+  - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
+  - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
 - [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
 - [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
@@ -20,6 +23,8 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Modern C++ In-Depth — Move Semantics, Part 2][blog_kootker_2] by Ralph Kootker, March 2022.
+- [Modern C++ In-Depth — Move Semantics, Part 1][blog_kootker_1] by Ralph Kootker, March 2022.
 - [Fluent **{**C**++}**](https://www.fluentcpp.com/):
   - [The Evolutions of Lambdas in C++14, C++17 and C++20](https://www.fluentcpp.com/2021/12/13/the-evolutions-of-lambdas-in-c14-c17-and-c20/), December 2021.
   - [Strong Types for Safe Indexing in Collections – Part 2](https://www.fluentcpp.com/2021/11/04/strong-types-for-safe-indexing-in-collections-part-2/), November 2021.
@@ -45,6 +50,17 @@
 - [C++ Early Objects][book_gaddis] (10<sup>th</sup> Ed.) by Tony Gaddis et al., 2020.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-13-523500-3)</span>
 - [C++ Distilled][book_pohl] by Ira Pohl, July 2007.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-2016-9587-8, 210 pages)</span>
 
+## <span id="papers">Papers</span>
+
+- [C++ Standards Committee Papers](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/): [2019](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/), [2020](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/), [2021](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/), [2022](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/).
+
+## <span id="news">News</span>
+
+- [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
+  - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021.
+  - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
+
 ## <span id="tools">Tools</span>
 
 - [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.
@@ -68,10 +84,15 @@
 [article_dinechin]: ttps://grenouillebouillie.wordpress.com/2021/02/07/c-generating-a-native-interface-automatically/
 [article_ferenc]: https://accu.org/journals/overload/28/159/deak/
 [article_gautham]: https://www.pwnthebox.net/reverse/engineering/and/binary/exploitation/series/2018/06/21/internals-of-compiling-Journey-from-C-program-to-an-executable.html
-[article_guelton]: https://developers.redhat.com/blog/2021/05/04/optimizing-the-clang-compilers-line-to-offset-mapping
+[article_guelton_format]: https://developers.redhat.com/articles/2022/02/25/enforce-code-consistency-clang-format
+[article_guelton_mapping]: https://developers.redhat.com/blog/2021/05/04/optimizing-the-clang-compilers-line-to-offset-mapping
+[article_malcolm]: https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler
+[article_placek]: https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12
 [article_ritchie]: http://www.gotw.ca/publications/c_family_interview.htm
 [blog_benderksy_2014]: https://eli.thegreenplace.net/2014/variadic-templates-in-c/
 [blog_bendersky_2016]: https://eli.thegreenplace.net/2016/c11-threads-affinity-and-hyperthreading/
+[blog_kootker_2]: https://medium.com/factset/modern-c-in-depth-move-semantics-part-2-4c53e90d5f2
+[blog_kootker_1]: https://medium.com/factset/modern-c-in-depth-move-semantics-part-1-8a29d33944e4
 [book_gaddis]: https://www.pearson.com/store/p/starting-out-with-c-early-objects/P100002716184/9780135213698
 [book_gregoire]: https://www.wiley.com/en-us/Professional+C%2B%2B%2C+5th+Edition-p-9781119695400
 [book_grimm]: https://leanpub.com/concurrencywithmodernc
