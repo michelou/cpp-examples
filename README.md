@@ -16,10 +16,10 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.23][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [DPC++ 2022.0.3][intel_dpc] ([*release notes*][intel_dpc_relnotes])
 - [Git 2.36][git_downloads] ([*release notes*][git_relnotes])
 - [LLVM 14][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
+- [oneAPI DPC++ 2022.0.3][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
@@ -75,6 +75,24 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 > </pre>
 -->
 
+## <span id="commands">Batch commands</span>
+
+### **`setenv.bat`**
+
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`clang.exe`**][clang_cli], [**`cmake.exe`**][cmake_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="setenv.bat">setenv</a></b>
+Tool versions:
+   bazel 5.1.1, clang 14.0.3, gcc 11.3.0, icx 2022.0.0
+   cmake 3.23.1, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
+   diff 3.8, git 2.36.1.windows.1
+
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
+C:\opt\LLVM-14.0.3\bin\clang.exe
+C:\opt\msys64\mingw64\bin\gcc.exe
+</pre>
+
 ## <span id="footnotes">Footnotes</span>
 
 <span id="footnote_01">[1]</span> ***C++ Compilers*** [↩](#anchor_01)
@@ -88,7 +106,7 @@ The installed development tools for Windows give us access to the following C++ 
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>14.0.3</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
 <tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>11.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
-<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html">oneAPI</a></td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a><br/><code><b>icx.exe</b></code> <sup><b>c)</b></sup></td><td>2021.5.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
+<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a><br/><code><b>icx.exe</b></code> <sup><b>c)</b></sup></td><td>2021.5.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
 </table>
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Standard specified with compiler option, e.g. <code><b>-std=c++17</b></code>.<br/>
@@ -123,12 +141,16 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.1.1
 [bazel_relnotes]: https://blog.bazel.build/2022/03/24/bazel-5.1.html
+[clang_cli]: https://
+[cmake_cli]: https://
 [cmake_downloads]: https://cmake.org/download/
 [cmake_relnotes]: https://cmake.org/cmake/help/v3.23/release/3.23.html
 [cpp_lang]: https://isocpp.org/
 [deno_examples]: https://github.com/michelou/deno-examples
+[git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.1.txt

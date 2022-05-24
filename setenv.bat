@@ -481,7 +481,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%CMAKE_HOME%\bin:cmake.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%CMAKE_HOME%\bin\cmake.exe" --version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cmake %%k"
+    for /f "tokens=1,2,*" %%i in ('"%CMAKE_HOME%\bin\cmake.exe" --version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cmake %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%CMAKE_HOME%\bin:cmake.exe"
 )
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __CL_BIN_DIR=Bin\Hostx64\x64

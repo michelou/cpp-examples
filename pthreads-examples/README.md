@@ -30,7 +30,7 @@ The code examples presented below can be built/run with the following tools:
 
 This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
 
-Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one the options `-clang`, `-gcc` or `-msvc` to specify the C++ compiler :
+Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*) or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="fib/build.bat">build</a> -verbose clean compile</b>
@@ -134,7 +134,7 @@ My Turn! 8/8
 
 This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
 
-Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one the options `-clang`, `-gcc` or `-msvc` to specify the C++ compiler :
+Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*) or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./pThreadDemo/build.bat">build</a> -verbose -gcc clean run</b>

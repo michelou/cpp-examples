@@ -20,9 +20,14 @@
 - [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
 - [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
 - [Internals of Compiling - Journey from C/C++ program to an Executable][article_gautham] by Adwaith Gautham, June 2018.
+- [Mixing C and C++ Code in the Same Program][article_clamage] by Stephen Clamage, February 2011.
 
 ## <span id="blogs">Blogs</span>
 
+- [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
+  - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
+  - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
+  - [Mixins](http://www.modernescpp.com/index.php/mixins), March 2022.
 - [Modern C++ In-Depth — Move Semantics, Part 2][blog_kootker_2] by Ralph Kootker, March 2022.
 - [Modern C++ In-Depth — Move Semantics, Part 1][blog_kootker_1] by Ralph Kootker, March 2022.
 - [Fluent **{**C**++}**](https://www.fluentcpp.com/):
@@ -58,16 +63,21 @@
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
+  - [GCC 11.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000170.html), April 2022.
   - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021.
+  - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
   - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
 
 ## <span id="tools">Tools</span>
 
+- [Astrée](https://www.absint.com/astree/) &ndash; a fast and sound static analyzer for C/C++.
 - [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.
 - [Conan](https://conan.io/downloads.html) &ndash; a C/C++ package manager.
+- [RuleChecker](https://www.absint.com/rulechecker/) &ndash; a static analyzer that automatically checks your C or C++ code for compliance with MISRA rules, CERT recom­mendations, and other coding guidelines.
 
 ## <span id="tutorials">Tutorials</span>
 
+- [C++ Core Guidelines][tutorial_stroustrup] by Bjarne Stroustrup and Herb Sutter, April 2022.
 - [C++ Reference](https://en.cppreference.com/w/): [C++11](https://en.cppreference.com/w/cpp/11), [C++14](https://en.cppreference.com/w/cpp/14), [C++17](https://en.cppreference.com/w/cpp/17), [C++20](https://en.cppreference.com/w/cpp/20), [C++23](https://en.cppreference.com/w/cpp/23).
 
 ## <span id="videos">Videos</span>
@@ -81,6 +91,7 @@
 
 <!-- href links -->
 
+[article_clamage]: https://www.oracle.com/technical-resources/articles/it-infrastructure/mixing-c-and-cplusplus.html
 [article_dinechin]: ttps://grenouillebouillie.wordpress.com/2021/02/07/c-generating-a-native-interface-automatically/
 [article_ferenc]: https://accu.org/journals/overload/28/159/deak/
 [article_gautham]: https://www.pwnthebox.net/reverse/engineering/and/binary/exploitation/series/2018/06/21/internals-of-compiling-Journey-from-C-program-to-an-executable.html
@@ -101,4 +112,5 @@
 [book_kormanyos]: https://www.springer.com/gp/book/9783662629956
 [book_nesteruk]: https://www.springerprofessional.de/en/design-patterns-in-modern-c-20/19833000
 [book_pohl]: https://www.amazon.com/Distilled-Concise-Reference-Style-Guide/dp/0201695871
+[tutorial_stroustrup]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
 [video_meyers]: https://dconf.org/2017/talks/meyers.html
