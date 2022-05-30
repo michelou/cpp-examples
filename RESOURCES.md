@@ -44,7 +44,7 @@
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
 - [Variadic templates in C++][blog_benderksy_2014] by Eli Bendersky, October 2014.
 
-## <span id="books">Books</span>
+## <span id="books">Books</span>[**&#x25B4;**](#top)
 
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
@@ -59,7 +59,7 @@
 
 - [C++ Standards Committee Papers](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/): [2019](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/), [2020](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/), [2021](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/), [2022](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/).
 
-## <span id="news">News</span>
+## <span id="news">News</span>[**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
@@ -86,7 +86,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

@@ -58,7 +58,7 @@ Copy file "pthreadVC2.dll" to directory "target"
 > pthreadVC2.dll
 > </pre>
 
-## <span id="myTurn">`myTurn`</span>
+## <span id="myTurn">`myTurn`</span>[**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
 
@@ -130,7 +130,7 @@ My Turn! 8/8
 </pre>
 
 
-## <span id="pThreadDemo">`pThreadDemo`</span>
+## <span id="pThreadDemo">`pThreadDemo`</span>[**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
 
@@ -185,7 +185,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
