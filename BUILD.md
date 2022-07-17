@@ -8,6 +8,12 @@
   </tr>
 </table>
 
+## <span id="cmake_makefile">CMake</span>
+
+### <span id="cmake_books">Books</span>
+
+- [CMake Best Practices][cmake_berner] by Dominik Berner, May 2022.<br/><span>(Packt, ISBN 978-1-8032-3972-9, 343 pages)</span>
+
 ## <span id="gnu_makefile">GNU Make</span>
 
 ### <span id="gnu_books">Books</span>
@@ -25,11 +31,12 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[cmake_berner]: https://www.packtpub.com/product/cmake-best-practices/9781803239729
 [gnu_book_mecklenburg]: https://www.oreilly.com/library/view/managing-projects-with/0596006101/
 [gnu_riptutorial]: https://riptutorial.com/makefile
 [gnu_zhou]: https://www.math.colostate.edu/~yzhou/computer/writemakefile.html
