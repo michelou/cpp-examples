@@ -144,11 +144,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.2.0
-[bazel_relnotes]: https://blog.bazel.build/2022/03/24/bazel-5.1.html
+[bazel_relnotes]: https://blog.bazel.build/2022/06/08/bazel-5.2.html
 [clang_cli]: https://
 [cmake_cli]: https://
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.23/release/3.23.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.24/release/3.24.html
 [cpp_lang]: https://isocpp.org/
 [deno_examples]: https://github.com/michelou/deno-examples
 [git_cli]: https://git-scm.com/docs/git
@@ -162,7 +162,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [intel_dpc]: https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp
 [intel_dpc_relnotes]: https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.3
+[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [llvm_relnotes]: https://releases.llvm.org/14.0.0/docs/ReleaseNotes.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
