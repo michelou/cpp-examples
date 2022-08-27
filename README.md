@@ -25,13 +25,13 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Bazel 5.2][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 5.3][bazel_downloads] ([*release notes*][bazel_relnotes])
 
 For instance our development environment looks as follows (*August 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-5.2.0\                      <i>( 46 MB)</i>
-C:\opt\cmake-3.24.0-windows-x86_64\      <i>( 92 MB)</i>
+C:\opt\bazel-5.3.0\                      <i>( 46 MB)</i>
+C:\opt\cmake-3.24.1-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\Git-2.37.1\                       <i>(282 MB)</i>
 C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
@@ -85,8 +85,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.2.0, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
-   cmake 3.24.0, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
+   bazel 5.3.0, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
+   cmake 3.24.1, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
    diff 3.8, git 2.37.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
@@ -123,8 +123,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.2.0">bazel-5.2.0-windows-x86_64.zip</a>                   <i>( 43 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.24.0-rc5-windows-x86_64.zip</a>              <i>( 37 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.0">bazel-5.3.0-windows-x86_64.zip</a>                   <i>( 43 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.24.1-rc5-windows-x86_64.zip</a>              <i>( 37 MB)</i>
 <a href="">w_dpcpp-cpp-compiler_p_2022.0.3.118_offline.exe</a>  <i>(  1 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                            <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                        <i>( 86 MB)</i>
@@ -143,10 +143,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.2.0
-[bazel_relnotes]: https://blog.bazel.build/2022/06/08/bazel-5.2.html
-[clang_cli]: https://
-[cmake_cli]: https://
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.0
+[bazel_relnotes]: https://blog.bazel.build/2022/08/23/bazel-5.3.html
+[clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
+[cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
 [cmake_relnotes]: https://cmake.org/cmake/help/v3.24/release/3.24.html
 [cpp_lang]: https://isocpp.org/
@@ -154,7 +154,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
