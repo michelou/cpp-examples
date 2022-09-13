@@ -36,11 +36,14 @@
   - [Strong Types for Safe Indexing in Collections – Part 1](https://www.fluentcpp.com/2021/10/31/strong-types-for-safe-indexing-in-collections-part-1/), October 2021.
   - [How to Define Comparison Operators by Default in C++](https://www.fluentcpp.com/2021/08/23/how-to-define-comparison-operators-by-default-in-c/), August 2021.
   - [Extended Aggregate Initialisation in C++17](https://www.fluentcpp.com/2021/07/17/extended-aggregate-initialisation-in-c17/), July 2021.
-  - [How to Return Several Values from a Function in C++](https://www.fluentcpp.com/2021/07/09/how-to-return-several-values-from-a-function-in-c/), July 2021.0
+  - [How to Return Several Values from a Function in C++](https://www.fluentcpp.com/2021/07/09/how-to-return-several-values-from-a-function-in-c/), July 2021.
 - [The Old New Thing Blog](https://devblogs.microsoft.com/oldnewthing/) (Microsoft) :
   - [Compiler error message metaprogramming: Helping to find the conflicting macro definition](https://devblogs.microsoft.com/oldnewthing/20211206-00/?p=106002) by Raymond Chen, December 2021.
 - [The C++ Programming Language](https://www.stroustrup.com/C++.html) by Bjarne Stroustrup, October 2021.
 - [cstdlib in C++ – Explained](https://www.incredibuild.com/blog/cstdlib-in-c-explained) by Dori Exterman, September 2021.
+- [RedHat Developer Blog](https://developers.redhat.com/new) :
+  - [The joys and perils of aliasing in C and C++, Part 2](https://developers.redhat.com/blog/2020/06/03/the-joys-and-perils-of-aliasing-in-c-and-c-part-2) by Martin Sebor, June 2020.
+  - [The joys and perils of C and C++ aliasing, Part 1](https://developers.redhat.com/blog/2020/06/02/the-joys-and-perils-of-c-and-c-aliasing-part-1) by Martin Sebor, June 2020.
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
 - [Variadic templates in C++][blog_benderksy_2014] by Eli Bendersky, October 2014.
 
@@ -86,7 +89,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
