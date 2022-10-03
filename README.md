@@ -27,10 +27,10 @@ Optionally one may also install the following software:
 
 - [Bazel 5.3][bazel_downloads] ([*release notes*][bazel_relnotes])
 
-For instance our development environment looks as follows (*September 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-5.3.0\                      <i>( 46 MB)</i>
+C:\opt\bazel-5.3.1\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.24.2-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\Git-2.37.3\                       <i>(282 MB)</i>
 C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
@@ -85,7 +85,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.3.0, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
+   bazel 5.3.1, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
    cmake 3.24.2, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
    diff 3.8, git 2.37.3.windows.1
 
@@ -123,8 +123,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.0">bazel-5.3.0-windows-x86_64.zip</a>                   <i>( 43 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.24.2-rc5-windows-x86_64.zip</a>              <i>( 38 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.1">bazel-5.3.1-windows-x86_64.zip</a>                   <i>( 43 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.24.2-windows-x86_64.zip</a>                  <i>( 38 MB)</i>
 <a href="">w_dpcpp-cpp-compiler_p_2022.0.3.118_offline.exe</a>  <i>(  1 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                            <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                        <i>( 86 MB)</i>
@@ -135,7 +135,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -143,7 +143,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.0
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.1
 [bazel_relnotes]: https://blog.bazel.build/2022/08/23/bazel-5.3.html
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
