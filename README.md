@@ -16,10 +16,10 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.24][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.37][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [LLVM 14][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
-- [oneAPI DPC++ 2022.0.3][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
+- [oneAPI DPC++ 2022.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
@@ -32,7 +32,7 @@ For instance our development environment looks as follows (*October 2022*) <sup 
 <pre style="font-size:80%;">
 C:\opt\bazel-5.3.1\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.24.2-windows-x86_64\      <i>( 92 MB)</i>
-C:\opt\Git-2.37.3\                       <i>(282 MB)</i>
+C:\opt\Git-2.38.0\                       <i>(317 MB)</i>
 C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
@@ -87,7 +87,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    bazel 5.3.1, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
    cmake 3.24.2, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
-   diff 3.8, git 2.37.3.windows.1
+   diff 3.8, git 2.38.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
 C:\opt\LLVM-14.0.6\bin\clang.exe
@@ -123,13 +123,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.1">bazel-5.3.1-windows-x86_64.zip</a>                   <i>( 43 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.24.2-windows-x86_64.zip</a>                  <i>( 38 MB)</i>
-<a href="">w_dpcpp-cpp-compiler_p_2022.0.3.118_offline.exe</a>  <i>(  1 GB)</i>
-<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                            <i>(263 MB)</i>
-<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                        <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.37.3-64-bit.7z.exe</a>                 <i>( 41 MB)</i>
-<a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                  <i>(1.3 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.1">bazel-5.3.1-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.24.2-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2022.2.0.39569_offline.exe</a>  <i>(  1 GB)</i>
+<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                              <i>(263 MB)</i>
+<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.38.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
 
@@ -155,7 +155,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
