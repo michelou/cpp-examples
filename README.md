@@ -85,7 +85,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.3.1, clang 14.0.6, gcc 11.3.0, icx 2022.0.0
+   bazel 5.3.1, clang 14.0.6, gcc 11.3.0, icx 2022.2.0
    cmake 3.24.2, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
    diff 3.8, git 2.38.0.windows.1
 
@@ -107,12 +107,12 @@ The installed development tools for Windows give us access to the following C++ 
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>14.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
 <tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>11.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
-<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a><br/><code><b>icx.exe</b></code> <sup><b>c)</b></sup></td><td>2021.5.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
+<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a> <sup><b>c)</b></sup><br/><code><b>icx.exe</b></code></td><td>2022.2.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
 </table>
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Standard specified with compiler option, e.g. <code><b>-std=c++17</b></code>.<br/>
 <sup><b>b)</b></sup> ISO standard 23 <i>partially</i> supported.<br/>
-<sup><b>c)</b></sup> <code><b>icl.exe</b></code> is the classic Intel C/C++ compiler and <code><b>icx.exe</b></code> is Intel nextgen compiler based on Clang/LLVM technology plus Intel proprietary optimizations and code generation.
+<sup><b>c)</b></sup> <code><b>icl.exe</b></code> is deprecated and will be removed from product release in the second half of 2023. <code><b>icx.exe</b></code> is based on Clang/LLVM technology and is the recommanded compiler moving forward.
 </div>
 </dd></dl>
 
