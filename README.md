@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples coming from various websites and books.<br/>
-  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://en.wikipedia.org/wiki/Make_(software)#Makefile" rel="external">Makefiles</a>) for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [CMake 3.24][cmake_downloads] ([*release notes*][cmake_relnotes])
+- [CMake 3.25][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [LLVM 14][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
@@ -27,12 +27,12 @@ Optionally one may also install the following software:
 
 - [Bazel 5.3][bazel_downloads] ([*release notes*][bazel_relnotes])
 
-For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*November 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-5.3.1\                      <i>( 46 MB)</i>
+C:\opt\bazel-5.3.2\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.24.2-windows-x86_64\      <i>( 92 MB)</i>
-C:\opt\Git-2.38.0\                       <i>(317 MB)</i>
+C:\opt\Git-2.38.1\                       <i>(317 MB)</i>
 C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
@@ -85,9 +85,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.3.1, clang 14.0.6, gcc 11.3.0, icx 2022.2.0
+   bazel 5.3.2, clang 14.0.6, gcc 11.3.0, icx 2022.2.0
    cmake 3.24.2, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
-   diff 3.8, git 2.38.0.windows.1
+   diff 3.8, git 2.38.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
 C:\opt\LLVM-14.0.6\bin\clang.exe
@@ -123,19 +123,19 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.1">bazel-5.3.1-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.24.2-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.2">bazel-5.3.2-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.25.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2022.2.0.39569_offline.exe</a>  <i>(  1 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.38.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -143,19 +143,19 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.1
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.2
 [bazel_relnotes]: https://blog.bazel.build/2022/08/23/bazel-5.3.html
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.24/release/3.24.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.25/release/3.25.html
 [cpp_lang]: https://isocpp.org/
 [deno_examples]: https://github.com/michelou/deno-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

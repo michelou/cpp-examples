@@ -1,0 +1,1 @@
+Source: https://www.researchgate.net/publication/221540978_Functional_Programming_with_C_Template_Metaprograms
