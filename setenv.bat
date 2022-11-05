@@ -557,7 +557,8 @@ endlocal & (
     if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
     if not defined ONEAPI_HOME set "ONEAPI_HOME=%_ONEAPI_HOME%"
     if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
-    set "PATH=%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
+    @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
+    set "PATH=%_GIT_HOME%\bin;%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
     call :print_env %_VERBOSE%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

@@ -1,4 +1,4 @@
-# <span id="top">ISO C++ on Microsoft Windows</span>
+# <span id="top">Playing with ISO C++ on Windows</span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -16,7 +16,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.25][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.38][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 14][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [oneAPI DPC++ 2022.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
@@ -31,7 +31,7 @@ For instance our development environment looks as follows (*November 2022*) <sup
 
 <pre style="font-size:80%;">
 C:\opt\bazel-5.3.2\                      <i>( 46 MB)</i>
-C:\opt\cmake-3.24.2-windows-x86_64\      <i>( 92 MB)</i>
+C:\opt\cmake-3.25.0-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\Git-2.38.1\                       <i>(317 MB)</i>
 C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
@@ -40,7 +40,7 @@ C:\Program Files (x86)\Intel\oneAPI\     <i>(3.3 GB)</i>
 C:\Program Files (x86)\Windows Kits\10\  <i>(6.7 GB)</i>
 </pre>
 
-> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
+> **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## <span id="structure">Directory structure</span>
 
@@ -80,7 +80,7 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 
 ### **`setenv.bat`**
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`clang.exe`**][clang_cli], [**`cmake.exe`**][cmake_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`clang.exe`**][clang_cli], [**`cmake.exe`**][cmake_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
@@ -154,7 +154,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
-[git_downloads]: https://git-scm.com/download/win
+[git_releases]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
