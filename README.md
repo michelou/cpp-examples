@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -17,7 +17,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [CMake 3.25][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.38][git_releases] ([*release notes*][git_relnotes])
-- [LLVM 14][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
+- [LLVM 15][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [oneAPI DPC++ 2022.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
@@ -33,7 +33,7 @@ For instance our development environment looks as follows (*November 2022*) <sup
 C:\opt\bazel-5.3.2\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.25.0-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\Git-2.38.1\                       <i>(317 MB)</i>
-C:\opt\LLVM-14.0.6\                      <i>(3.1 GB)</i>
+C:\opt\LLVM-15.0.4\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
 C:\Program Files (x86)\Intel\oneAPI\     <i>(3.3 GB)</i>
@@ -85,12 +85,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.3.2, clang 14.0.6, gcc 11.3.0, icx 2022.2.0
+   bazel 5.3.2, clang 15.0.4, gcc 11.3.0, icx 2022.2.0
    cmake 3.24.2, cl pour x64, doxygen 1.9.4, msbuild 16.11.2.50704
    diff 3.8, git 2.38.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
-C:\opt\LLVM-14.0.6\bin\clang.exe
+C:\opt\LLVM-15.0.4\bin\clang.exe
 C:\opt\msys64\mingw64\bin\gcc.exe
 </pre>
 
@@ -104,9 +104,9 @@ The installed development tools for Windows give us access to the following C++ 
 <dd>
 <table>
 <tr><th>Devtool</th><th>C++&nbsp;Compiler</th><th>Version</th><th>ISO Standards <sup><b>a)</b></sup></th></tr>
-<tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>14.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
+<tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>15.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
-<tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>11.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
+<tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>12.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a> <sup><b>c)</b></sup><br/><code><b>icx.exe</b></code></td><td>2022.2.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
 </table>
 <div style="margin:0 0 0 10px;font-size:80%;">
@@ -126,7 +126,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.2">bazel-5.3.2-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.25.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2022.2.0.39569_offline.exe</a>  <i>(  1 GB)</i>
-<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6">LLVM-14.0.6-win64.exe</a>                              <i>(263 MB)</i>
+<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.4">LLVM-15.0.4-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
@@ -163,9 +163,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [intel_dpc]: https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp
 [intel_dpc_relnotes]: https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-14.0.6
+[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.4
 [llvm_examples]: https://github.com/michelou/llvm-examples
-[llvm_relnotes]: https://releases.llvm.org/14.0.0/docs/ReleaseNotes.html
+[llvm_relnotes]: https://releases.llvm.org/15.0.0/docs/ReleaseNotes.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html
