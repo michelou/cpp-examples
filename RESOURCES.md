@@ -62,7 +62,7 @@
 
 - [C++ Standards Committee Papers](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/): [2019](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/), [2020](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/), [2021](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/), [2022](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/).
 
-## <span id="news">News</span>[**&#x25B4;**](#top)
+## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
@@ -89,7 +89,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
