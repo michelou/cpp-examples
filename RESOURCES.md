@@ -24,6 +24,8 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Conan Blog](https://blog.conan.io/) :
+  - [Understanding the different flavors of Clang C and C++ compilers in Windows](https://blog.conan.io/2022/10/13/Different-flavors-Clang-compiler-Windows.html) by X, October 2022.
 - [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
   - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
   - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
@@ -65,6 +67,7 @@
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 12.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000174.html), August 2022.
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
   - [GCC 11.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000170.html), April 2022.
   - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021.
@@ -80,6 +83,7 @@
 
 ## <span id="tutorials">Tutorials</span>
 
+- [Beginner's Guide to Linkers](https://www.lurklurk.org/linkers/linkers.html) by David Drysdale, 2010.
 - [C++ Core Guidelines][tutorial_stroustrup] by Bjarne Stroustrup and Herb Sutter, April 2022.
 - [C++ Reference](https://en.cppreference.com/w/): [C++11](https://en.cppreference.com/w/cpp/11), [C++14](https://en.cppreference.com/w/cpp/14), [C++17](https://en.cppreference.com/w/cpp/17), [C++20](https://en.cppreference.com/w/cpp/20), [C++23](https://en.cppreference.com/w/cpp/23).
 

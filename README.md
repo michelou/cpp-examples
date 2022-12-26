@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples coming from various websites and books.<br/>
-  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">ISO C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -16,26 +16,26 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.25][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.38][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.39][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 15][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
-- [oneAPI DPC++ 2022.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
+- [oneAPI DPC++ 2023.0][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
 Optionally one may also install the following software:
 
-- [Bazel 5.3][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 6.0 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Cppcheck 2.9][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 
 For instance our development environment looks as follows (*December 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-5.3.2\                      <i>( 46 MB)</i>
+C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.25.1-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\doxygen-1.9.5\                    <i>(120 MB)</i>
-C:\opt\Git-2.38.1\                       <i>(317 MB)</i>
+C:\opt\Git-2.39.0\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
@@ -88,9 +88,9 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 5.3.2, clang 15.0.6, gcc 11.3.0, icx 2022.2.1
+   bazel 6.0.0, clang 15.0.6, gcc 12.2.0, icx 2023.0.0
    cmake 3.25.1, cl pour x64, doxygen 1.9.5, msbuild 16.11.2.50704
-   diff 3.8, git 2.38.1.windows.1
+   diff 3.8, git 2.39.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
 C:\opt\LLVM-15.0.6\bin\clang.exe
@@ -110,10 +110,10 @@ The installed development tools for Windows give us access to the following C++ 
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>15.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
 <tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>12.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
-<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a> <sup><b>c)</b></sup><br/><code><b>icx.exe</b></code></td><td>2022.2.1</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, 17, 20</a></td></tr>
+<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a> <sup><b>c)</b></sup><br/><code><b>icx.exe</b></code></td><td>2023.0.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td></tr>
 </table>
 <div style="margin:0 0 0 10px;font-size:80%;">
-<sup><b>a)</b></sup> Standard specified with compiler option, e.g. <code><b>-std=c++17</b></code>.<br/>
+<sup><b>a)</b></sup> Standard specified with compiler option, e.g. <code><b>-std=c++17</b></code>; starting with version 2023.0 oneAPI uses C++17 as the default C++ language.<br/>
 <sup><b>b)</b></sup> ISO standard 23 <i>partially</i> supported.<br/>
 <sup><b>c)</b></sup> <code><b>icl.exe</b></code> is deprecated and will be removed from product release in the second half of 2023. <code><b>icx.exe</b></code> is based on Clang/LLVM technology and is the recommanded compiler moving forward.
 </div>
@@ -126,12 +126,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/5.3.2">bazel-5.3.2-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.0.0">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.25.1-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2022.2.1.19748_offline.exe</a>  <i>(1.2 GB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.6">LLVM-15.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
@@ -146,8 +146,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/5.3.2
-[bazel_relnotes]: https://blog.bazel.build/2022/08/23/bazel-5.3.html
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.0.0
+[bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
@@ -162,7 +162,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
