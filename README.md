@@ -34,7 +34,7 @@ For instance our development environment looks as follows (*December 2022*) <sup
 <pre style="font-size:80%;">
 C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.25.1-windows-x86_64\      <i>( 92 MB)</i>
-C:\opt\doxygen-1.9.5\                    <i>(120 MB)</i>
+C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
 C:\opt\Git-2.39.0\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
@@ -89,7 +89,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 6.0.0, clang 15.0.6, gcc 12.2.0, icx 2023.0.0
-   cmake 3.25.1, cl pour x64, doxygen 1.9.5, msbuild 16.11.2.50704
+   cmake 3.25.1, cl pour x64, doxygen 1.9.6, msbuild 16.11.2.50704
    diff 3.8, git 2.39.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
@@ -138,7 +138,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

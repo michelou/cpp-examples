@@ -38,7 +38,7 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
-"C:/opt/LLVM-14.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
+"C:/opt/LLVM-15.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
 </pre>
 
 ## <span id="call-by-copy">Example `call-by-copy`</span> [**&#x25B4;**](#top)
@@ -101,7 +101,7 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
-"C:/opt/LLVM-14.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/move-constructor.exe src/main/cpp/Main.cpp
+"C:/opt/LLVM-15.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/move-constructor.exe src/main/cpp/Main.cpp
 </pre>
 
 ## <span id="tuple-iterators">Example `tuple-iterators`</span>
@@ -128,7 +128,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

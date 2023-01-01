@@ -26,11 +26,11 @@ The code examples presented below can be built/run with the following tools:
 >
 > Concretely, we impose ourselves the delicate exercise of managing all the compiler options by hand.<br/>**NB.** This exercise is of course only realistic for small projects (in our case "demo" projects).
 
-## <span id="fib">`fib`</span>
+## <span id="fib">Example `fib`</span>
 
 This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
 
-Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*) or `-msvc` to specify the C++ compiler :
+Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="fib/build.bat">build</a> -verbose clean compile</b>
@@ -58,11 +58,11 @@ Copy file "pthreadVC2.dll" to directory "target"
 > pthreadVC2.dll
 > </pre>
 
-## <span id="myTurn">`myTurn`</span> [**&#x25B4;**](#top)
+## <span id="myTurn">Example `myTurn`</span> [**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
 
-We run [`make.exe`][make_cli] which reads the build configuration from file [`Makefile`](./myTurn/Makefile). We give to variable `TOOLSET` one of the values `clang`, `gcc` or `msvc` to specify the C++ compiler :
+We run [`make.exe`][make_cli] which reads the build configuration from file [`Makefile`](./myTurn/Makefile). We give to variable `TOOLSET` one of the values `clang`, `gcc`, `icx` or `msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_86.html">make</a> TOOLSET=gcc clean run</b>
@@ -130,11 +130,11 @@ My Turn! 8/8
 </pre>
 
 
-## <span id="pThreadDemo">`pThreadDemo`</span> [**&#x25B4;**](#top)
+## <span id="pThreadDemo">Example `pThreadDemo`</span> [**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
 
-Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*) or `-msvc` to specify the C++ compiler :
+Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./pThreadDemo/build.bat">build</a> -verbose -gcc clean run</b>
@@ -185,7 +185,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

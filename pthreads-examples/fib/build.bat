@@ -65,6 +65,13 @@ if not exist "%MSYS_HOME%\mingw64\bin\g++.exe" (
     goto :eof
 )
 set "_CXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
+
+if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    echo %_ERROR_LABEL% oneAPI installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 goto :eof
 
 @rem input parameter: %*
@@ -90,6 +97,7 @@ if "%__ARG:~0,1%"=="-" (
     )else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -127,6 +135,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
 goto :eof
 
@@ -137,6 +146,7 @@ echo   Options:
 echo     -clang      use Clang toolset instead of GCC
 echo     -debug      show commands executed by this script
 echo     -gcc        use GCC toolset ^(default^)
+echo     -icx        use oneAPI toolset instead of GCC
 echo     -msvc       use MSVC toolset instead of GCC
 echo     -verbose    display progress messages
 echo.
@@ -174,6 +184,7 @@ if %_ACTION_REQUIRED%==0 goto :eof
 
 if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC
+) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=oneAPI
 ) else ( set __TOOLSET_NAME=MSVC
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME% 1>&2
@@ -248,9 +259,47 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CXX_CMD%" %__CXX_FLAGS% %__SOURCE_FILES%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:compile_icx
+set __PTHREADS_INCPATH=..\pthreads-win32\include
+set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%__ARCH%
+set __PTHREADS_LIBNAME=pthreadVC2
+
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\windows\compiler\lib\intel64"
+
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -D_TIMESPEC_DEFINED
+set __ICX_FLAGS=%__ICX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable
+set __ICX_FLAGS=%__ICX_FLAGS% -I"%__PTHREADS_INCPATH%" -o "%_TARGET%"
+
+set __LINK_FLAGS=-link -libpath:"%__ONEAPI_LIBPATH%"
+@rem set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%"
+@rem "%__PTHREADS_LIBNAME%.lib"
+
+set __SOURCE_FILES=
+set __N=0
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\main\cpp\*.cpp"') do (
+    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No C++ source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
+) else ( set __N_FILES=%__N% C++ source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

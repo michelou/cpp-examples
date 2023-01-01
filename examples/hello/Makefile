@@ -22,6 +22,10 @@ else ifeq ($(TOOLSET),clang)
 CXX = $(CLANG)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
+else ifeq ($(TOOLSET),icx)
+CXX = $(ICX)
+CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable
+CXXLINK = -link -libpath:"$(ICX_LIBPATH)/intel64"
 endif
 CXXDEBUG =
 CXXVARS =

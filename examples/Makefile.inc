@@ -8,6 +8,9 @@ endif
 ifndef MSYS_HOME
 $(error Variable MSYS_HOME is not set)
 endif
+ifndef ONEAPI_ROOT
+$(error Variable ONEAPI_ROOT is not set)
+endif
 ifndef WINSDK_HOME
 $(error Variable WINSDK_HOME is not set)
 endif
@@ -26,6 +29,7 @@ CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
 CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
 ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
 FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
+ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/bin/icx.exe
 LLC         = $(subst \,/,$(LLVM_HOME))/bin/llc.exe
 LLVM_CONFIG = $(subst \,/,$(LLVM_HOME))/bin/llvm-config.exe
 MKDIR       = $(subst \,/,$(MSYS_HOME))/usr/bin/mkdir.exe
@@ -42,6 +46,7 @@ WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d [0-9]
 MINGW_XXX      = $(subst \,/,$(MSYS_HOME))/mingw64/include
 MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
+ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
 else
 EXE_EXT     =
 PSEP        = :
@@ -51,6 +56,7 @@ CLANG       = clang
 CP          = cp
 ECHO        = echo
 FIND        = find
+ICX         = icx
 LLC         = llc
 LLVM_CONFIG = llvm-config
 MKDIR       = mkdir

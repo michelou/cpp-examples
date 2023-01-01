@@ -15,15 +15,18 @@
   - [New C++ features in GCC 12][article_placek] by Marek Polacek, April 2022.
   - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
   - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
+  - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
   - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
 - [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
-- [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
 - [Internals of Compiling - Journey from C/C++ program to an Executable][article_gautham] by Adwaith Gautham, June 2018.
 - [Mixing C and C++ Code in the Same Program][article_clamage] by Stephen Clamage, February 2011.
+- [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
 
 ## <span id="blogs">Blogs</span>
 
+- [Sutter's Blog]()
+  - [Autumn ISO C++ standards meeting (Kona)](https://herbsutter.com/2022/11/) by Herb Sutter, November 2022.
 - [Conan Blog](https://blog.conan.io/) :
   - [Understanding the different flavors of Clang C and C++ compilers in Windows](https://blog.conan.io/2022/10/13/Different-flavors-Clang-compiler-Windows.html) by X, October 2022.
 - [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
@@ -49,7 +52,7 @@
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
 - [Variadic templates in C++][blog_benderksy_2014] by Eli Bendersky, October 2014.
 
-## <span id="books">Books</span>[**&#x25B4;**](#top)
+## <span id="books">Books</span> [**&#x25B4;**](#top)
 
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
@@ -74,7 +77,7 @@
   - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
   - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
 
-## <span id="tools">Tools</span>
+## <span id="tools">Tools</span> [**&#x25B4;**](#top)
 
 - [Astrée](https://www.absint.com/astree/) &ndash; a fast and sound static analyzer for C/C++.
 - [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.
@@ -93,7 +96,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
