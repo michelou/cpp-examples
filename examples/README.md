@@ -3,13 +3,13 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="hhttps://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from various websites - mostly from the <a href="hhttps://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
-  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="hhttps://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="https://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from various websites - mostly from the <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
+  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
 
-The code examples presented below can be built/run with the following tools:
+The code examples presented below can be built/run with the following command line tools:
 
 | Build&nbsp;tool | Configuration file | Parent file | Environment(s) |
 |:----------------|:-------------------|:------------|:---------------|
@@ -84,7 +84,7 @@ Base Derived2foo 20
 
 ## <span id="move-constructor">Example `move-constructor`</span> [**&#x25B4;**](#top)
 
-This example comes from [INVIVOO] post [*A la redécouverte du C++ : &amp;&amp; et std::mov*](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/) and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
+This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
 
 Command [`build.bat`](./move-constructor/build.bat) invokes one of three C++ compilers to generate executable `move-constructor.exe` using the options `-clang`, `-gcc` or `-msvc` :
 

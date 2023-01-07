@@ -29,7 +29,7 @@ Optionally one may also install the following software:
 - [Cppcheck 2.9][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 
-For instance our development environment looks as follows (*December 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*January 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
@@ -45,7 +45,7 @@ C:\Program Files (x86)\Windows Kits\10\  <i>(6.7 GB)</i>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
-## <span id="structure">Directory structure</span>
+## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
 
 This project is organized as follows:
 <pre style="font-size:80%;">
@@ -53,6 +53,7 @@ bin\
 dmc3-examples\{<a href="dmc3-examples/README.md">README.md</a>, <a href="dmc3-examples/cpp20_algebraic_concepts">cpp20_algebraic_concepts</a>, etc.}
 docs\
 examples\{<a href="examples/README.md">README.md</a>, <a href="examples/call-by-copy/">call-by-copy</a>, <a href="examples/class-dispatching/">class-dispatching</a>, etc.}
+grimm-examples\{<a href="grimm-examples/README.md">README.md</a>, <a href="grimm-examples/templateMethod/">templateMethod</a>, <a href="grimm-examples/visitor/">visitor</a>, etc.}
 pthreads-examples\{<a href="pthreads-examples/README.md">README.md</a>, <a href="pthreads-examples/fib/">fib</a>, <a href="pthreads-examples/myTurn/">myTurn</a>, etc.}
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
@@ -64,6 +65,7 @@ where
 - directory [**`bin\`**](bin/) contains utility tools.
 - directory [**`docs\`**](docs/) contains [C++][cpp_lang] related papers/articles.
 - directory [**`examples\`**](mastering-rust/) contains [C++][cpp_lang] code examples (see [`README.md`](examples/README.md) file).
+- directory [**`grimm-examples`**](grimm-examples/) contains [C++][cpp_lang] code examples from Grimm's website (see [`README.md`](grimm-examples/README.md) file).
 - directory [**`pthreads-examples\`**](pthreads-examples/) contains [C++][cpp_lang] code examples (see [`README.md`](pthreads-examples/README.md) file).
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
@@ -79,7 +81,7 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 > </pre>
 -->
 
-## <span id="commands">Batch commands</span> [**&#x25B4;**](#top)
+## <span id="commands">Batch commands</span>
 
 ### **`setenv.bat`**
 
@@ -97,7 +99,7 @@ C:\opt\LLVM-15.0.6\bin\clang.exe
 C:\opt\msys64\mingw64\bin\gcc.exe
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***C++ Compilers*** [↩](#anchor_01)
 
