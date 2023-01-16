@@ -68,9 +68,9 @@ for /f "tokens=1,2,* delims=( " %%f in ('findstr /b project "%__CMAKE_LIST_FILE%
 set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
 
+set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
-set "_TARGET_EXE_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 
 if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
     echo %_ERROR_LABEL% Microsoft CMake installation directory not found 1>&2
@@ -92,6 +92,13 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     goto :eof
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
+
+if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 
 if not exist "%MSVS_MSBUILD_HOME%\bin\msbuild.exe" (
    echo %_ERROR_LABEL% MSBuild installation directory not found 1>&2
@@ -154,6 +161,7 @@ goto :eof
 :args
 set _CLEAN=0
 set _COMPILE=0
+set _CXX_STD=c++20
 set _DOC=0
 set _DOC_OPEN=0
 set _DUMP=0
@@ -176,6 +184,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -206,7 +215,7 @@ set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
 
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
@@ -235,6 +244,7 @@ echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset (default)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
+echo     %__BEG_O%-icx%__END%        use OneAPI ICX toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
 echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
 echo     %__BEG_O%-verbose%__END%    display progress messages
@@ -284,7 +294,6 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_bcc
-
 set "CC=%BCC_HOME%\bin\bcc32x.exe"
 set "CXX=%BCC_HOME%\bin\bcc32x.exe"
 set "MAKE=%MSYS_HOME%\usr\bin\make.exe"
@@ -389,6 +398,54 @@ if not %ERRORLEVEL%==0 (
 popd
 goto :eof
 
+:compile_icx
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
+)
+set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set __LIB_VERSION=
+for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+if not defined __LIB_VERSION (
+    echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
+
+set "__TARGET=%_TARGET_DIR%\%_PROJ_NAME%.exe"
+set __ICX_FLAGS=-Qstd=%_CXX_STD% -O2 -Fe"%__TARGET%"
+if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
+
+set __SOURCE_FILES=
+set __N=0
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.cpp"') do (
+    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No C++ source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
+) else ( set __N_FILES=%__N% C++ source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+set "__LIB=%LIB%"
+set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
+
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    set "LIB=%__LIB%"
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "LIB=%__LIB%"
+goto :eof
+
 :compile_msvc
 set __MS_CMAKE_OPTS=-Thost=%_PROJ_PLATFORM% -A %_PROJ_PLATFORM% -Wdeprecated
 
@@ -480,6 +537,7 @@ goto :eof
 
 :run
 if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
+) else if %_TOOLSET%==icx ( set "__TARGET_DIR=%_TARGET_DIR%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"

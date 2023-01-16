@@ -41,7 +41,7 @@ all: build run
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	@$(TEST) -d "$(TARGET_EXE_DIR)" || $(MKDIR) -p "$(TARGET_EXE_DIR)"
+	@$(TEST) -d "$(TARGET_EXE_DIR)" || "$(MKDIR)" -p "$(TARGET_EXE_DIR)"
 ifeq ($(TOOLSET),msvc)
 	@## https://docs.microsoft.com/en-us/cpp/build/reference/output-file-f-options
 	"$(CXX)" $(CXXDEBUG) $(CXXFLAGS) $(CXXVARS) -Fe"$@" $^ $(CXXLINK)
@@ -50,7 +50,7 @@ else
 endif
 
 clean:
-	$(RM) -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
 	$(TARGET)

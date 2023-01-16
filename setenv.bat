@@ -347,6 +347,10 @@ if not exist "%_MSVS_HOME%\" (
     set _EXITCODE=1
     goto :eof
 )
+call :subst_path "%_MSVS_HOME%"
+if not %_EXITCODE%==0 goto :eof
+set "_MSVS_HOME=%_SUBST_PATH%"
+
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set __MSVC_ARCH=\Hostx64\x64
     set __MSBUILD_ARCH=\amd64
@@ -379,6 +383,30 @@ if not exist "%_MSVS_CMAKE_HOME%\bin\cmake.exe" (
     goto :eof
 )
 set "_MSVS_PATH=;%_MSVC_HOME%\bin%__MSVC_ARCH%;%_MSVS_MSBUILD_HOME%\bin%__MSBUILD_ARCH%"
+goto :eof
+
+@rem input parameter: %1=directory path
+@rem output parameter: _SUBST_PATH
+:subst_path
+set "_SUBST_PATH=%~1"
+set __DRIVE_NAME=X:
+set __ASSIGNED_PATH=
+for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
+    if not "%%h"=="%_SUBST_PATH%" (
+        echo %_WARNING_LABEL% Drive %__DRIVE_NAME% already assigned to %%h 1>&2
+        goto :eof
+    )
+    set "__ASSIGNED_PATH=%%h"
+)
+if not defined __ASSIGNED_PATH (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% subst "%__DRIVE_NAME%" "%_SUBST_PATH%" 1>&2
+    subst "%__DRIVE_NAME%" "%_SUBST_PATH%"
+    if not !ERRORLEVEL!==0 (
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+set _SUBST_PATH=%__DRIVE_NAME%
 goto :eof
 
 @rem output parameters: _ONEAPI_ROOT
