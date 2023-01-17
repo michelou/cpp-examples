@@ -54,8 +54,8 @@ set "_ROOT_DIR=%~dp0"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
-set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%
-set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "__CMAKE_LIST_FILE=%_ROOT_DIR%CMakeLists.txt"
 if not exist "%__CMAKE_LIST_FILE%" (
@@ -68,6 +68,7 @@ for /f "tokens=1,2,* delims=( " %%f in ('findstr /b project "%__CMAKE_LIST_FILE%
 set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
 
+set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_EXE_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 
@@ -91,6 +92,13 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     goto :eof
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
+
+if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 
 if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     echo %_ERROR_LABEL% MS Visual Studio installation not found 1>&2
@@ -173,10 +181,11 @@ if "%__ARG:~0,1%"=="-" (
     if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-clang" ( set _TOOLSET=clang
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
+    ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -214,33 +223,33 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __P_BEG=%_STRONG_FG_CYAN%%_UNDERSCORE%
-    set __P_END=%_RESET%
-    set __O_BEG=%_STRONG_FG_GREEN%
-    set __O_END=%_RESET%
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __END_P=%_RESET%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __END_O=%_RESET%
 ) else (
-    set __P_BEG=
-    set __P_END=
-    set __O_BEG=
-    set __O_END=
+    set __BEG_P=
+    set __END_P=
+    set __BEG_O=
+    set __END_O=
 )
 echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
-echo   %__P_BEG%Options:%__P_END%
-echo     %__O_BEG%-cl%__O_END%         use MSVC/MSBuild toolset ^(default^)
-echo     %__O_BEG%-clang%__O_END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__O_BEG%-debug%__O_END%      show commands executed by this script
-echo     %__O_BEG%-gcc%__O_END%        use GCC/GNU Make toolset instead of CL/MSBuild
-echo     %__O_BEG%-msvc%__O_END%       use CL/MSBuild toolset ^(alias for option -cl^)
-echo     %__O_BEG%-verbose%__O_END%    display progress messages
+echo   %__BEG_P%Options:%__END_P%
+echo     %__BEG_O%-cl%__END_O%         use MSVC/MSBuild toolset ^(default^)
+echo     %__BEG_O%-clang%__END_O%      use Clang/GNU Make toolset instead of MSVC/MSBuild
+echo     %__BEG_O%-debug%__END_O%      show commands executed by this script
+echo     %__BEG_O%-gcc%__END_O%        use GCC/GNU Make toolset instead of CL/MSBuild
+echo     %__BEG_O%-msvc%__END_O%       use CL/MSBuild toolset ^(alias for option -cl^)
+echo     %__BEG_O%-verbose%__END_O%    display progress messages
 echo.
-echo   %__P_BEG%Subcommands:%__P_END%
-echo     %__O_BEG%clean%__O_END%       delete generated files
-echo     %__O_BEG%compile%__O_END%     generate executable
-echo     %__O_BEG%doc%__O_END%         generate HTML documentation with Doxygen
-echo     %__O_BEG%dump%__O_END%        dump PE/COFF infos for generated executable
-echo     %__O_BEG%help%__O_END%        display this help message
-echo     %__O_BEG%run%__O_END%         run the generated executable
+echo   %__BEG_P%Subcommands:%__END_P%
+echo     %__BEG_O%clean%__END_O%       delete generated files
+echo     %__BEG_O%compile%__END_O%     generate executable
+echo     %__BEG_O%doc%__END_O%         generate HTML documentation with Doxygen
+echo     %__BEG_O%dump%__END_O%        dump PE/COFF infos for generated executable
+echo     %__BEG_O%help%__END_O%        display this help message
+echo     %__BEG_O%run%__END_O%         run the generated executable
 goto :eof
 
 :clean
@@ -267,6 +276,7 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
 if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
+) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=oneAPI ICX
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
@@ -278,7 +288,7 @@ goto :eof
 :compile_clang
 set "CC=%LLVM_HOME%\bin\clang.exe"
 set "CXX=%LLVM_HOME%\bin\clang++.exe"
-set "MAKE=%MSYS_HOME%\usr\bin\make.exe
+set "MAKE=%MSYS_HOME%\usr\bin\make.exe"
 set "RC=%MSYS_HOME%\mingw64\bin\windres.exe"
 
 set "__CMAKE_CMD=%CMAKE_HOME%\bin\cmake.exe"
@@ -349,6 +359,53 @@ if not %ERRORLEVEL%==0 (
 popd
 goto :eof
 
+:compile_icx
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
+)
+set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set __LIB_VERSION=
+for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+if not defined __LIB_VERSION (
+    echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
+
+set __ICX_FLAGS=-Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
+
+set __SOURCE_FILES=
+set __N=0
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.cpp"') do (
+    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No C++ source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
+) else ( set __N_FILES=%__N% C++ source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+set "__LIB=%LIB%"
+set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
+
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    set "LIB=%__LIB%"
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "LIB=%__LIB%"
+goto :eof
+
 :compile_msvc
 set __MS_CMAKE_OPTS=-Thost=%_PROJ_PLATFORM% -A %_PROJ_PLATFORM% -Wdeprecated
 
@@ -399,7 +456,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYF
 )
 call "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -422,11 +479,13 @@ if not exist "%__EXE_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_PELOOK_CMD%" %_PELOOK_OPTS% !__EXE_FILE:%_ROOT_DIR%=! 1>&2
+set __PELOOK_OPTS=
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_PELOOK_CMD%" %__PELOOK_OPTS% !__EXE_FILE:%_ROOT_DIR%=! 1>&2
 ) else if %_VERBOSE%==1 ( echo Dump PE/COFF infos for executable "!__EXE_FILE:%_ROOT_DIR%=!" 1>&2
 )
 echo executable:           !__EXE_FILE:%_ROOT_DIR%=!
-call "%_PELOOK_CMD%" %_PELOOK_OPTS% "%__EXE_FILE%" | findstr "signature machine linkver modules"
+call "%_PELOOK_CMD%" %__PELOOK_OPTS% "%__EXE_FILE%" | findstr "signature machine linkver modules"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to dump executable "!__EXE_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
