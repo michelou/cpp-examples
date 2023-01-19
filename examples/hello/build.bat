@@ -85,10 +85,14 @@ if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_MS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
+set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
 
+set _CPPCHECK_CMD=
+if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
+    set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
+)
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_WARNING_LABEL% MSYS2 installation directory not found 1>&2
+    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -226,6 +230,10 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=2^>CON
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
 
+if %_LINT%==1 if not defined _CPPCHECK_CMD (
+    echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
+    set _LINT=0
+)
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
@@ -236,7 +244,9 @@ if %_DEBUG%==1 (
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
 goto :eof

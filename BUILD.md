@@ -1,4 +1,4 @@
-# <span id="top">Build configurations</span> <span style="size:20%;"><a href="README.md">↩</a></span>
+# <span id="top">Build Tools</span> <span style="size:20%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -16,13 +16,23 @@
 ## <span id="gnu_books">GNU Make Books</span>
 
 - [GNU Make Book][gnu_book_cumming] by John Graham-Cumming, April 2015.<br/><span>(No Starch Press, ISBN 978-1-59327-649-2, 256 pages)</span>
-- [Managing Projects with GNU Make][gnu_book_mecklenburg] (3<sup>rd</sup> Ed.) by Robert Mecklenburg, November 2004.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-0-5960-0610-5,xxx pages)</span>
+- [Managing Projects with GNU Make][gnu_book_mecklenburg] (3<sup>rd</sup> Ed.) by Robert Mecklenburg, November 2004.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-0-5960-0610-5, xxx pages)</span>
 
 ## <span id="gnu_tutorials">GNU Make Tutorials</span>
 
 - [Learn Makefiles](https://makefiletutorial.com/).
 - [Getting started with makefile][gnu_riptutorial].
 - [Tutorial on writing makefiles][gnu_zhou] by Yongcheng Zhou (Colorado University).
+
+## <span id="msbuild_articles">MSBuild Articles</span>
+
+- [MSBuild - Best Practices For Creating Reliable Builds, Part 2][msbuild_hashimi_2] by [Sayed Ibrahim Hashimi][hashimi], March 2009.
+- [MSBuild - Best Practices For Creating Reliable Builds, Part 1][msbuild_hashimi_1] by [Sayed Ibrahim Hashimi][hashimi], February 2009.
+
+## <span id="msbuild_books">MSBuild Books</span>
+
+- [MSBuild Trickery: 99 Ways to Bend the Build Engine to Your Will][msbuild_kretzler] by Brian Kretzler, August 2011<br/><span>(Seven Ranch, 978-0-6155-0907-5, 426 pages)</span>
+- [Inside the Microsoft Build Engine: Using MSBuild and Team Foundation Build][msbuild_hashimi] (2<sup>nd</sup> Ed.) by Sayed Ibrahim Hashimi, December 2010.<br/><span>(Microsoft, ISBN 978-0-7356-4524-0, 616 pages)</span>
 
 ## <span id="nmake_makefile">NMAKE</span>
 
@@ -41,4 +51,9 @@
 [gnu_book_mecklenburg]: https://www.oreilly.com/library/view/managing-projects-with/0596006101/
 [gnu_riptutorial]: https://riptutorial.com/makefile
 [gnu_zhou]: https://www.math.colostate.edu/~yzhou/computer/writemakefile.html
+[hashimi]: https://stackoverflow.com/users/105999/sayed-ibrahim-hashimi
+[msbuild_kretzler]: https://www.amazon.com/MSBuild-Trickery-Ways-Build-Engine/dp/061550907X
+[msbuild_hashimi_2]: https://learn.microsoft.com/en-us/archive/msdn-magazine/2009/march/msbuild-best-practices-for-creating-reliable-builds-part-2
+[msbuild_hashimi_1]: https://learn.microsoft.com/en-us/archive/msdn-magazine/2009/february/msbuild-best-practices-for-creating-reliable-builds-part-1
+[msbuild_hashimi]: https://www.amazon.com/gp/product/0735645248
 [nmake_microsoft]: https://docs.microsoft.com/en-us/cpp/build/reference/contents-of-a-makefile

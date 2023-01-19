@@ -520,6 +520,11 @@ if %ERRORLEVEL%==0 (
    for /f "tokens=1-6,*" %%i in ('"%MSVC_HOME%\%__CL_BIN_DIR%\cl.exe" 2^>^&1 ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cl %%o,
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVC_HOME%\%__CL_BIN_DIR%:cl.exe"
 )
+where /q "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
+if %ERRORLEVEL%==0 (
+   for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
+)
 where /q "%DOXYGEN_HOME%\bin:doxygen.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%DOXYGEN_HOME%\bin\doxygen.exe" -v 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% doxygen %%i,"

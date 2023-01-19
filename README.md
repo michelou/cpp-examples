@@ -35,9 +35,10 @@ For instance our development environment looks as follows (*January 2023*) <sup 
 C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
 C:\opt\cmake-3.25.1-windows-x86_64\      <i>( 92 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
-C:\opt\Git-2.39.0\                       <i>(317 MB)</i>
+C:\opt\Git-2.39.1\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
+c:\Program Files\Cppcheck\               <i>( 35 MB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
 C:\Program Files (x86)\Intel\oneAPI\     <i>(3.3 GB)</i>
 C:\Program Files (x86)\Windows Kits\10\  <i>(6.7 GB)</i>
@@ -92,7 +93,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 Tool versions:
    bazel 6.0.0, clang 15.0.6, gcc 12.2.0, icx 2023.0.0
    cmake 3.25.1, cl pour x64, doxygen 1.9.6, msbuild 16.11.2.50704
-   diff 3.8, git 2.39.0.windows.1
+   diff 3.8, git 2.39.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
 C:\opt\LLVM-15.0.6\bin\clang.exe
@@ -133,7 +134,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.6">LLVM-15.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
@@ -165,7 +166,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

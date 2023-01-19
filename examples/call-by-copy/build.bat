@@ -87,8 +87,8 @@ if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
 set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
 
 set _CPPCHECK_CMD=
-if exist "%CPPCHECK_HOME%\cppcheck.exe" (
-    set "_CPPCHECK_CMD=%CPPCHECK_HOME%\cppcheck.exe"
+if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
+    set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
 if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
@@ -247,15 +247,13 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
-if %_TOOLSET%==clang ( set _TOOLSET_NAME=LLVM/Clang
-) else if %_TOOLSET%==gcc ( set _TOOLSET_NAME=MSYS/GCC
-) else if %_TOOLSET%==icx ( set _TOOLSET_NAME=Intel OpenAPI C++
-) else ( set _TOOLSET_NAME=MSBuild/MSVC
-)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
     if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
@@ -267,7 +265,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -342,7 +340,8 @@ goto :eof
 setlocal
 if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 
-if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
+if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
+) else if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
 ) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=Intel oneAPI C++
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild

@@ -281,8 +281,7 @@ set __ICX_FLAGS=%__ICX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-var
 set __ICX_FLAGS=%__ICX_FLAGS% -I"%__PTHREADS_INCPATH%" -o "%_TARGET%"
 
 set __LINK_FLAGS=-link -libpath:"%__ONEAPI_LIBPATH%"
-@rem set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%"
-@rem "%__PTHREADS_LIBNAME%.lib"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%" "%__PTHREADS_LIBNAME%.lib"
 
 set __SOURCE_FILES=
 set __N=0

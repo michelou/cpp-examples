@@ -39,6 +39,10 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/LLVM-15.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
+&nbsp;
+<b>&gt; <a href="">make</a> TOOLSET=icx clean build</b>
+"C:/opt/msys64/usr/bin/rm.exe" -rf "build"
+"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
 </pre>
 
 ## <span id="call-by-copy">Example `call-by-copy`</span> [**&#x25B4;**](#top)
