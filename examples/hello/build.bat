@@ -78,7 +78,6 @@ set _PROJ_PLATFORM=x64
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
-set "_TARGET_EXE_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 
 if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
     echo %_ERROR_LABEL% Microsoft CMake installation directory not found 1>&2
@@ -105,6 +104,23 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
+if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
+    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
+set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
+
+if not exist "%LLVM_HOME%\bin\clang.exe" (
+    echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
+set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
+
 if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
     echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
     set _EXITCODE=1
@@ -112,6 +128,10 @@ if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
 )
 set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 
+set _BCC32C_CMD=
+if exist "%BCC_HOME%\bin\bcc32c.exe" (
+    set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
+)
 if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     echo %_ERROR_LABEL% MS Visual Studio installation directory not found 1>&2
     set _EXITCODE=1
@@ -234,18 +254,25 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
+if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
+    echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
+    set _TOOLSET=msvc
+)
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
+    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
@@ -253,7 +280,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -309,7 +336,8 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++14
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++17
+) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--std=c++17
 ) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=c++17
 ) else ( set __CPPCHECK_OPTS=--std=c++14
 )
@@ -343,8 +371,8 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_bcc
-set "CC=%_CLANG_CMD%"
-set "CXX=%_CLANGXX_CMD%"
+set "CC=%_BCC32C_CMD%"
+set "CXX=%_BCC32C_CMD%"
 set "MAKE=%_MAKE_CMD%"
 set "RC=%_WINDRES_CMD%"
 
@@ -375,13 +403,22 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 popd
+if %_DEBUG%==1 ( echo copy "%BCC_HOME%\bin\cc32*mt.dll" "%_TARGET_DIR%\" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy DLL file to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+copy "%BCC_HOME%\bin\cc32*mt.dll" "%_TARGET_DIR%\" %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy DLL file to directory "%_TARGET_DIR%" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :compile_clang
-set "CC=%LLVM_HOME%\bin\clang.exe"
-set "CXX=%LLVM_HOME%\bin\clang++.exe"
-set "MAKE=%MSYS_HOME%\usr\bin\make.exe"
-set "RC=%MSYS_HOME%\mingw64\bin\windres.exe"
+set "CC=%_CLANG_CMD%"
+set "CXX=%_CLANGXX_CMD%"
+set "MAKE=%_MAKE_CMD%"
+set "RC=%_WINDRES_CMD%"
 
 set "__CMAKE_CMD=%CMAKE_HOME%\bin\cmake.exe"
 set __CMAKE_OPTS=-G "Unix Makefiles"
@@ -589,7 +626,8 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
+if not %_TOOLSET%==bcc ( set "__TARGET_DIR=%_TARGET_DIR%"
+) else if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"

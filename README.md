@@ -33,7 +33,7 @@ For instance our development environment looks as follows (*January 2023*) <sup 
 
 <pre style="font-size:80%;">
 C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
-C:\opt\cmake-3.25.1-windows-x86_64\      <i>( 92 MB)</i>
+C:\opt\cmake-3.25.2-windows-x86_64\      <i>( 98 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
 C:\opt\Git-2.39.1\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.6\                      <i>(3.1 GB)</i>
@@ -92,7 +92,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 6.0.0, clang 15.0.6, gcc 12.2.0, icx 2023.0.0
-   cmake 3.25.1, cl pour x64, doxygen 1.9.6, msbuild 16.11.2.50704
+   cmake 3.25.2, cl pour x64, doxygen 1.9.6, msbuild 16.11.2.50704
    diff 3.8, git 2.39.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
@@ -130,7 +130,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/6.0.0">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.25.1-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.25.2-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.6">LLVM-15.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
