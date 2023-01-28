@@ -19,7 +19,7 @@ The code examples presented below can be built/run with the following command li
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
 </div>
 
-## <span id="templateMethod">Example `templateMethod`</span>
+## <span id="templateMethod">`templateMethod` Example</span>
 
 Source file [`templateMethod.cpp`](./templateMethod/src/main/cpp/templateMethod.cpp).
 
@@ -49,7 +49,7 @@ readData
 [.. <i>(same output)</i> ..]
 </pre>
 
-## <span id="visitor">Example `visitor`</span>
+## <span id="visitor">`visitor` Example</span> [**&#x25B4;**](#top)
 
 Source file [`visitor.cpp`](./visitor/src/main/cpp/visitor.cpp).
 
@@ -92,7 +92,7 @@ Visiting engine
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -26,7 +26,7 @@ The code examples presented below can be built/run with the following tools:
 >
 > Concretely, we impose ourselves the delicate exercise of managing all the compiler options by hand.<br/>**NB.** This exercise is of course only realistic for small projects (in our case "demo" projects).
 
-## <span id="fib">Example `fib`</span>
+## <span id="fib">`fib` Example</span>
 
 This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
 
@@ -58,7 +58,7 @@ Copy file "pthreadVC2.dll" to directory "target"
 > pthreadVC2.dll
 > </pre>
 
-## <span id="myTurn">Example `myTurn`</span> [**&#x25B4;**](#top)
+## <span id="myTurn">`myTurn` Example</span> [**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
 
@@ -130,7 +130,7 @@ My Turn! 8/8
 </pre>
 
 
-## <span id="pThreadDemo">Example `pThreadDemo`</span> [**&#x25B4;**](#top)
+## <span id="pThreadDemo">`pThreadDemo` Example</span> [**&#x25B4;**](#top)
 
 This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
 
@@ -185,7 +185,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

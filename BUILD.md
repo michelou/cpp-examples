@@ -8,10 +8,27 @@
   </tr>
 </table>
 
+## <span id="cmake_blogs">CMake Blogs</span>
+
+- [CMake vs. Make: What’s the Difference?](https://earthly.dev/blog/cmake-vs-make-diff/) by Ndafara Tsamba, December 2022.
+- [How to Use CMake Without the Agonizing Pain - Part 2](https://alexreinking.com/blog/how-to-use-cmake-without-the-agonizing-pain-part-2.html) by Alex Reinking, May 2021.
+- [How to Use CMake Without the Agonizing Pain - Part 1](https://alexreinking.com/blog/how-to-use-cmake-without-the-agonizing-pain-part-1.html) by Alex Reinking, May 2021.
+- [CMake customization points, how to configure your project?](https://www.siliceum.com/en/blog/post/cmake_02_customization-points) by Clément Grégoire, April 2020.
+- [CMake basics, how does one write a good CMake project?](https://www.siliceum.com/en/blog/post/cmake_01_cmake-basics/) by Clément Grégoire, March 2020.
+- [CMake Tutorial](https://medium.com/@onur.dundar1/cmake-tutorial-585dd180109b) by Onur Dündar, February 2018.
+
 ## <span id="cmake_books">CMake Books</span>
 
 - [CMake Best Practices][cmake_berner] by Dominik Berner, May 2022.<br/><span>(Packt, ISBN 978-1-8032-3972-9, 343 pages)<br/><span>GitHub: <a href="https://github.com/PacktPublishing/CMake-Best-Practices"><code>PacktPublishing/CMake-Best-Practices</code></a>.</span>
 - [CMake Cookbook][cmake_bast] by Radovan Bast and Roberto Di Remigio, September 2018.<br/><span>(Packt, ISBN 978-1-7884-7071-1, 606 pages)</span>
+
+## <span id="cmake_resources">CMake Resources</span>
+
+- [`awesome-cmake`](https://github.com/onqtam/awesome-cmake) &ndash; A curated list of awesome CMake resources, scripts, modules and examples.
+- [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/) by [Henry Schreiner](https://iscinumpy.gitlab.io/).
+- [Build with CMake](https://doc.qt.io/qt-6/cmake-manual.html) by the [Qt Company](https://www.qt.io/), 2023.
+
+---
 
 ## <span id="gnu_books">GNU Make Books</span>
 
@@ -23,6 +40,8 @@
 - [Learn Makefiles](https://makefiletutorial.com/).
 - [Getting started with makefile][gnu_riptutorial].
 - [Tutorial on writing makefiles][gnu_zhou] by Yongcheng Zhou (Colorado University).
+
+---
 
 ## <span id="msbuild_articles">MSBuild Articles</span>
 
@@ -40,7 +59,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

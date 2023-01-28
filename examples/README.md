@@ -16,10 +16,10 @@ The code examples presented below can be built/run with the following command li
 | [`build.bat`](./hello/build.bat) | *none* | &nbsp; | Windows only |
 | [`make.exe`][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
-<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".
+<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
 </div>
 
-## <span id="hello">`hello`</span>
+## <span id="hello">`hello` Example</span>
 
 This example consists of one source file [`src\main.cpp`](./hello/src/main.cpp).
 
@@ -45,7 +45,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
 </pre>
 
-## <span id="call-by-copy">Example `call-by-copy`</span> [**&#x25B4;**](#top)
+## <span id="call-by-copy">`call-by-copy` Example</span> [**&#x25B4;**](#top)
 
 This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing) and consists of one source file [`src\main\cpp\Main.cpp`](./call-by-copy/src/main/cpp/Main.cpp).
 
@@ -68,7 +68,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "%MSVC_HOME%/bin\Hostx64/x64/cl.exe"  -nologo -std:c++17 -EHsc -I"%MSVC_HOME%/include" -I"%WINSDK_HOME%/include/10.0.22000.0/ucrt" -I"%WINSDK_HOME%/include/10.0.22000.0/um"  -Fe"build/Release/call-by-copy.exe" src/main/cpp/Main.cpp -link -libpath:"%MSVC_HOME%/lib/x64" -libpath:"%WINSDK_HOME%/lib/10.0.22000.0/ucrt/x64" -libpath:"%WINSDK_HOME%/lib/10.0.22000.0/um/x64" Main.cpp
 </pre>
 
-## <span id="class-dispatching">Example `class-dispatching`</span>
+## <span id="class-dispatching">`class-dispatching` Example</span>
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./class-dispatching/src/main/cpp/Main.cpp).
 
@@ -86,7 +86,7 @@ Base Dervied1foo 10
 Base Derived2foo 20
 </pre>
 
-## <span id="move-constructor">Example `move-constructor`</span> [**&#x25B4;**](#top)
+## <span id="move-constructor">`move-constructor` Example</span> [**&#x25B4;**](#top)
 
 This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
 
@@ -108,7 +108,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/LLVM-15.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/move-constructor.exe src/main/cpp/Main.cpp
 </pre>
 
-## <span id="tuple-iterators">Example `tuple-iterators`</span>
+## <span id="tuple-iterators">`tuple-iterators` Example</span>
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./tuple-iterators/src/main/cpp/Main.cpp).
 
@@ -132,7 +132,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
