@@ -1,6 +1,6 @@
 # <span id="top">C++ Examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="https://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from various websites - mostly from the <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
@@ -125,7 +125,7 @@ Generate executable "tuple-iterators.exe"
 In the same way command [`make.exe`][make_cli] invokes one of four C++ compilers to generate executable `tuple-iterators.exe` using variable `TOOLSET`, e.g. `TOOLSET=gcc` (or `clang`, `icx`, `msvc`) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="">make</a> TOOLSET=gcc clean build</b>
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=gcc clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/msys64/mingw64/bin/g++.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/tuple-iterators.exe src/main/cpp/Main.cpp
 </pre>

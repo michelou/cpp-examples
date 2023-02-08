@@ -30,7 +30,7 @@
 
 ---
 
-## <span id="gnu_books">GNU Make Books</span>
+## <span id="gnu_books">GNU Make Books</span> [**&#x25B4;**](#top)
 
 - [GNU Make Book][gnu_book_cumming] by John Graham-Cumming, April 2015.<br/><span>(No Starch Press, ISBN 978-1-59327-649-2, 256 pages)</span>
 - [Managing Projects with GNU Make][gnu_book_mecklenburg] (3<sup>rd</sup> Ed.) by Robert Mecklenburg, November 2004.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-0-5960-0610-5, xxx pages)</span>
