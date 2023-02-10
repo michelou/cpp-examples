@@ -1,6 +1,6 @@
 # <span id="top">C++ Examples with POSIX threads</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/"><img src="../docs/images/cpp_logo.png" width="100" alt="ISO C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>pthreads-examples\</code></strong></a> contains <a href="hhttps://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples from various websites which use POSIX threads on Windows.<br/>

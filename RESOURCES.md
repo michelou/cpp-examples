@@ -1,6 +1,6 @@
 # <span id="top">ISO C++ Resources</span> <span style="size:20%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:100px;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://isocpp.org/" rel="external">ISO C++</a> related resources that caught our attention.
@@ -46,6 +46,7 @@
   - [Compiler error message metaprogramming: Helping to find the conflicting macro definition](https://devblogs.microsoft.com/oldnewthing/20211206-00/?p=106002) by Raymond Chen, December 2021.
 - [The C++ Programming Language](https://www.stroustrup.com/C++.html) by Bjarne Stroustrup, October 2021.
 - [cstdlib in C++ – Explained](https://www.incredibuild.com/blog/cstdlib-in-c-explained) by Dori Exterman, September 2021.
+- [How to use type traits?](https://www.sandordargo.com/blog/2021/04/14/how-to-use-type-traits) by Sandor Dargo, May 2021.
 - [Structures and classes in C++](https://www.embedded.com/structures-and-classes-in-c/) by Colin Walls, September 2020.
 - [RedHat Developer Blog](https://developers.redhat.com/new) :
   - [The joys and perils of aliasing in C and C++, Part 2](https://developers.redhat.com/blog/2020/06/03/the-joys-and-perils-of-aliasing-in-c-and-c-part-2) by Martin Sebor, June 2020.
