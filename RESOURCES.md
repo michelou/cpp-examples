@@ -48,7 +48,13 @@
 - [cstdlib in C++ – Explained](https://www.incredibuild.com/blog/cstdlib-in-c-explained) by Dori Exterman, September 2021.
 - [How to use type traits?](https://www.sandordargo.com/blog/2021/04/14/how-to-use-type-traits) by Sandor Dargo, May 2021.
 - [Structures and classes in C++](https://www.embedded.com/structures-and-classes-in-c/) by Colin Walls, September 2020.
+- [C++ Lambda Under the Hood](https://medium.com/software-design/c-lambda-under-the-hood-9b5cd06e550a) by [EventHelix](https://www.eventhelix.com/), June 2019.
+- [OpenGenus C++ Blog](https://iq.opengenus.org/tag/cpp/):
+  - [Advanced C++ topics](https://iq.opengenus.org/advanced-cpp-topics/) by Reshma Patil.
+  - [Different ways to terminate a program in C++](https://iq.opengenus.org/different-ways-to-terminate-program-in-cpp/) by Subhrajit Dhar.
+  - [Struct inheritance in C++](https://iq.opengenus.org/struct-inheritance-in-cpp/) by Harshit Raj.
 - [RedHat Developer Blog](https://developers.redhat.com/new) :
+  - [2022 Fall C++ Standards Committee Meeting trip report](https://developers.redhat.com/blog/2023/02/09/2022-fall-c-standards-committee-meeting-trip-report), February 2023.
   - [The joys and perils of aliasing in C and C++, Part 2](https://developers.redhat.com/blog/2020/06/03/the-joys-and-perils-of-aliasing-in-c-and-c-part-2) by Martin Sebor, June 2020.
   - [The joys and perils of C and C++ aliasing, Part 1](https://developers.redhat.com/blog/2020/06/02/the-joys-and-perils-of-c-and-c-aliasing-part-1) by Martin Sebor, June 2020.
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.

@@ -1,6 +1,6 @@
 # <span id="top">Build Tools</span> <span style="size:20%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:100px;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This document gathers resources about build configurations on the Windows platform.
