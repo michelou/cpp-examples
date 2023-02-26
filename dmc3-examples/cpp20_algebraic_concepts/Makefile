@@ -30,7 +30,7 @@ CXXVARS =
 ## main rules
 
 SOURCES = $(wildcard $(SOURCE_DIR)/*.cpp)
-TARGET  = $(TARGET_EXE_DIR)/$(PROJECT_NAME)$(EXE_EXT)
+TARGET  = $(TARGET_EXE_DIR)/$(PROJECT_NAME)$(TARGET_EXT)
 
 all: build run
 

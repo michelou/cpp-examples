@@ -28,11 +28,13 @@ Optionally one may also install the following software:
 - [Bazel 6.0 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Cppcheck 2.10][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
+- [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 
 For instance our development environment looks as follows (*February 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
+C:\opt\BCC-10.2\                         <i>(194 MB)</i>
 C:\opt\cmake-3.26.0-windows-x86_64\      <i>( 98 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
 C:\opt\Git-2.39.2\                       <i>(317 MB)</i>
@@ -86,18 +88,19 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 
 ### **`setenv.bat`**
 
-Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`clang.exe`**][clang_cli], [**`cmake.exe`**][cmake_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.0.0, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
-   cmake 3.26.0, cl pour x64, doxygen 1.9.6, msbuild 16.11.2.50704
+   bazel 6.0.0, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
+   cmake 3.26.0, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.6, msbuild 16.11.2.50704
    diff 3.8, git 2.39.2.windows.1
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> clang gcc</b>
-C:\opt\LLVM-15.0.7\bin\clang.exe
-C:\opt\msys64\mingw64\bin\gcc.exe
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
+C:\opt\bazel-6.0.0\bazel.exe
+C:\opt\Git-2.39.2\bin\git.exe
+C:\opt\Git-2.39.2\mingw64\bin\git.exe
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -110,6 +113,7 @@ The installed development tools for Windows give us access to the following C++ 
 <dd>
 <table>
 <tr><th>Devtool</th><th>C++&nbsp;Compiler</th><th>Version</th><th>ISO Standards <sup><b>a)</b></sup></th></tr>
+<tr><td><a href="https://www.embarcadero.com">Embarcadero</a></td><td><a href="https://www.embarcadero.com/free-tools/ccompiler"><code><b>bcc32c.exe</b></code></a></td><td>7.30</td><td>11</td></tr>
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>15.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
 <tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>12.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
@@ -130,6 +134,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/6.0.0">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="" rel="external">BCC102.zip</a>                                         <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.26.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7">LLVM-15.0.7-win64.exe</a>                              <i>(263 MB)</i>
@@ -151,6 +156,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.0.0
 [bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
+[bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/

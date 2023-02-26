@@ -127,6 +127,10 @@ if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
 )
 set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 
+set _BCC32C_CMD=
+if exist "%BCC_HOME%\bin\bcc32c.exe" (
+    set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
+)
 if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     echo %_ERROR_LABEL% MS Visual Studio installation directory not found 1>&2
     set _EXITCODE=1
@@ -206,7 +210,8 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
+    if "%__ARG%"=="-bcc" ( set _TOOLSET=bcc
+    ) else if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-clang" ( set _TOOLSET=clang
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
@@ -246,11 +251,19 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
+if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
+    echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
+    set _TOOLSET=msvc
+)
+for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
+set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
-    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
+    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
@@ -279,7 +292,7 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
@@ -349,6 +362,50 @@ if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
 
 call :compile_%_TOOLSET%
 endlocal
+goto :eof
+
+:compile_bcc
+set "CC=%_BCC32C_CMD%"
+set "CXX=%_BCC32C_CMD%"
+set "MAKE=%_MAKE_CMD%"
+set "RC=%_WINDRES_CMD%"
+
+set "__CMAKE_CMD=%CMAKE_HOME%\bin\cmake.exe"
+set __CMAKE_OPTS=-G "Unix Makefiles"
+
+pushd "%_TARGET_DIR%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
+) else if %_VERBOSE%==1 ( echo Generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%__CMAKE_CMD%" %__CMAKE_OPTS% .. %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+)
+call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
+if %_DEBUG%==1 ( echo copy "%BCC_HOME%\bin\cc32*mt.dll" "%_TARGET_DIR%\" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy DLL file to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+copy "%BCC_HOME%\bin\cc32*mt.dll" "%_TARGET_DIR%\" %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy DLL file to directory "%_TARGET_DIR%" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :compile_clang
@@ -538,9 +595,8 @@ if %_DOC_OPEN%==1 (
 goto :eof
 
 :dump
-if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else if %_TOOLSET%==icx ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
@@ -563,8 +619,8 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (

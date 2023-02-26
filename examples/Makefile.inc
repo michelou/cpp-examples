@@ -1,4 +1,7 @@
 ifeq ($(OS),Windows_NT)
+ifndef BCC_HOME
+$(error Variable BCC_HOME is not set)
+endif
 ifndef LLVM_HOME
 $(error Variable LLVM_HOME is not set)
 endif
@@ -21,8 +24,9 @@ else
 ARCH = x86
 endif
 
-EXE_EXT     = .exe
+TARGET_EXT  = .exe
 PSEP        = ;
+BCC         = $(subst \,/,$(BCC_HOME))/bin/bcc32c.exe
 CC          = $(subst \,/,$(MSYS_HOME))/mingw64/bin/g++.exe
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
 CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
@@ -48,8 +52,9 @@ MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
 ONEAPI_LIBPATH = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
 else
-EXE_EXT     =
+TARGET_EXT  =
 PSEP        = :
+BCC         = 
 CC          = g++
 CL          = cl
 CLANG       = clang

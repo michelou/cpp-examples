@@ -23,7 +23,7 @@ The code examples presented below can be built/run with the following command li
 
 This example consists of one source file [`src\main.cpp`](./hello/src/main.cpp).
 
-Command [**`build.bat`**](./hello/build.bat) invokes one of four C++ compilers to generate executable `hello.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc` :
+Command [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./hello/build.bat">build</a> -clang -verbose clean compile</b>
@@ -33,23 +33,28 @@ Generate configuration files into directory "build"
 Generate executable "hello.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and invokes one of four C++ compilers to generate executable `hello.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`bcc`][bcc_cmd], [`gcc`][gcc_cmd], `icx`, `msvc`) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/LLVM-15.0.7//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
 &nbsp;
-<b>&gt; <a href="">make</a> TOOLSET=icx clean build</b>
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=icx clean build</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
 "C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
+&nbsp;
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=bcc clean build</b>
+"C:/opt/msys64/usr/bin/rm.exe" -rf "build"
+"c:/opt/BCC-7.30-32bit/bin/bcc32c.exe"  -I "src" -q -w  -o build/hello.exe src/main.cpp -lq
+src/main.cpp:
 </pre>
 
 ## <span id="call-by-copy">`call-by-copy` Example</span> [**&#x25B4;**](#top)
 
 This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing) and consists of one source file [`src\main\cpp\Main.cpp`](./call-by-copy/src/main/cpp/Main.cpp).
 
-Command [**`build.bat`**](./call-by-copy/build.bat) invokes one of four C++ compilers to generate executable `call-by-copy.exe` using the options `-clang`, `-gcc`, `icx` or `-msvc` :
+Command [**`build.bat`**](./call-by-copy/build.bat) generates the `call-by-copy.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, `icx` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./call-by-copy/build.bat">build</a> -msvc -verbose clean compile</b>
@@ -60,7 +65,7 @@ Generate configuration files into directory "build"
 Generate executable "call-by-copy.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] invokes one of four C++ compilers to generate executable `call-by-copy.exe` using variable `TOOLSET`, e.g. `TOOLSET=msvc` (or `clang`, `gcc`, `icx`) :
+In the same way command [`make.exe`][make_cli] generates the `call-by-copy.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=msvc` (or `bcc`, `clang`, `gcc`, `icx`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=msvc clean build</b>
@@ -72,7 +77,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./class-dispatching/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./class-dispatching/build.bat) invokes one of four C++ compilers to generate executable `class-dispatching.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc`.
+Command [`build.bat`](./class-dispatching/build.bat) generates the `class-dispatching.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./class-dispatching/build.bat">build</a> -msvc -verbose clean run</b>
@@ -90,7 +95,7 @@ Base Derived2foo 20
 
 This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./move-constructor/build.bat) invokes one of four C++ compilers to generate executable `move-constructor.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc` :
+Command [`build.bat`](./move-constructor/build.bat) invokes one of five C++ compilers to generate executable `move-constructor.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./move-constructor/build.bat">build</a> -clang -verbose clean compile</b>
@@ -100,7 +105,7 @@ Generate configuration files into directory "build"
 Generate executable "move-constructor.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of four C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of five C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `icx`, `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
@@ -112,7 +117,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./tuple-iterators/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./tuple-iterators/build.bat) invokes one of four C++ compilers to generate executable `tuple-iterators.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc` :
+Command [`build.bat`](./tuple-iterators/build.bat) generates the `tuple-iterators.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./tuple-iterators/build.bat">build</a> -gcc -verbose clean compile</b>
@@ -122,7 +127,7 @@ Generate configuration files into directory "build"
 Generate executable "tuple-iterators.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] invokes one of four C++ compilers to generate executable `tuple-iterators.exe` using variable `TOOLSET`, e.g. `TOOLSET=gcc` (or `clang`, `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] generates the `tuple-iterators.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=gcc` (or `bcc`, `clang`, `icx`, `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=gcc clean build</b>
@@ -138,6 +143,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 <!-- link refs -->
 
 [bazel_cli]: https://bazel.build/reference/command-line-reference
+[bcc_cmd]: https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
 [gcc_cmd]: https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html
 [invivoo]: https://www.invivoo.com/
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Running.html

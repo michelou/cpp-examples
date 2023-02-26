@@ -128,9 +128,9 @@ if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
 )
 set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 
-set _BCC32C_CMD=
+set _BCC_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
-    set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
+    set "_BCC_CMD=%BCC_HOME%\bin\bcc32c.exe"
 )
 if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     echo %_ERROR_LABEL% MS Visual Studio installation directory not found 1>&2
@@ -254,17 +254,16 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
-if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
+if %_TOOLSET%==bcc if not defined _BCC_CMD (
     echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
     set _TOOLSET=msvc
 )
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
-
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
-    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
+    if defined _BCC_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
     if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
@@ -296,7 +295,7 @@ echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
@@ -346,7 +345,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOUR
 )
 call "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Checking files failed 1>&2
+    echo %_ERROR_LABEL% Failed to analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -371,8 +370,8 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_bcc
-set "CC=%_BCC32C_CMD%"
-set "CXX=%_BCC32C_CMD%"
+set "CC=%_BCC_CMD%"
+set "CXX=%_BCC_CMD%"
 set "MAKE=%_MAKE_CMD%"
 set "RC=%_WINDRES_CMD%"
 
@@ -601,9 +600,8 @@ if %_DOC_OPEN%==1 (
 goto :eof
 
 :dump
-if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else if %_TOOLSET%==icx ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
@@ -626,9 +624,8 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if not %_TOOLSET%==bcc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (

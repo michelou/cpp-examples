@@ -22,6 +22,12 @@ else ifeq ($(TOOLSET),clang)
 CXX = $(CLANG)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
+else
+CXX = $(BCC)
+## see https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
+CXXFLAGS = -I "$(SOURCE_DIR)" -q -w
+## suppress linker identification banner
+CXXLINK = -lq
 endif
 CXXVARS =
 
@@ -29,14 +35,14 @@ CXXVARS =
 ## main rules
 
 SOURCES = $(wildcard $(SOURCE_DIR)/main/cpp/*.cpp)
-TARGET  = $(TARGET_EXE_DIR)/$(PROJECT_NAME)$(EXE_EXT)
+TARGET  = $(TARGET_EXE_DIR)/$(PROJECT_NAME)$(TARGET_EXT)
 
 all: build run
 
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	@$(TEST) -d "$(TARGET_EXE_DIR)" || $(MKDIR) -p "$(TARGET_EXE_DIR)"
+	@$(TEST) -d "$(TARGET_EXE_DIR)" || "$(MKDIR)" -p "$(TARGET_EXE_DIR)"
 ifeq ($(TOOLSET),msvc)
 	@## https://docs.microsoft.com/en-us/cpp/build/reference/output-file-f-options
 	"$(CXX)" $(CXXDEBUG) $(CXXFLAGS) $(CXXVARS) -Fe"$@" $^ $(CXXLINK)
@@ -45,7 +51,7 @@ else
 endif
 
 clean:
-	$(RM) -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
 	$(TARGET)

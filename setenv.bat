@@ -32,6 +32,9 @@ set _ONEAPI_PATH=
 call :bazel
 if not %_EXITCODE%==0 goto end
 
+call :bcc
+if not %_EXITCODE%==0 goto end
+
 call :doxygen
 if not %_EXITCODE%==0 goto end
 
@@ -200,6 +203,34 @@ if not exist "%_BAZEL_HOME%\bazel.exe" (
     goto :eof
 )
 set "_BAZEL_PATH=;%_BAZEL_HOME%"
+goto :eof
+
+@rem output parameter: _BCC_HOME
+:bcc
+set _BCC_HOME=
+
+set __BCC_CMD=
+for /f %%f in ('where bcc32c.exe 2^>NUL') do set __BCC_CMD=%%f
+if defined __BCC_CMD (
+    for /f "delims=" %%i in ("%__BCC_CMD%") do set "__BCC_BIN_DIR=%%~dpi"
+    for %%f in ("!__BCC_BIN_DIR!.") do set "_BCC_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of BCC executable found in PATH 1>&2
+) else if defined BCC_HOME (
+    set "_BCC_HOME=%BCC_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BCC_HOME 1>&2
+) else (
+    set "__PATH=%ProgramFiles%"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+    if not defined _DOXYGEN_HOME (
+        set __PATH=C:\opt
+        for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+    )
+)
+if not exist "%_BCC_HOME%\bin\bcc32c.exe" (
+    echo %_ERROR_LABEL% BCC executable not found ^(%_BCC_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 @rem output parameter: _DOXYGEN_HOME
@@ -492,6 +523,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%BAZEL_HOME%\bazel.exe" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% bazel %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%BAZEL_HOME%:bazel.exe"
 )
+where /q "%BCC_HOME%\bin:bcc32c.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('"%BCC_HOME%\bin\bcc32c.exe" --version 2^>^&1 ^| findstr C++') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% bcc32c %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%BCC_HOME%\bin:bcc32c.exe"
+)
 where /q "%LLVM_HOME%\bin:clang.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%LLVM_HOME%\bin\clang.exe" --version 2^>^&1 ^| findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% clang %%k,"
@@ -517,12 +553,12 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __CL_BIN_DIR=Bin\Hostx64\x64
 )
 where /q "%MSVC_HOME%\%__CL_BIN_DIR%:cl.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-6,*" %%i in ('"%MSVC_HOME%\%__CL_BIN_DIR%\cl.exe" 2^>^&1 ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cl %%o,
+    for /f "tokens=1-6,7,*" %%i in ('"%MSVC_HOME%\%__CL_BIN_DIR%\cl.exe" 2^>^&1 ^| findstr /i version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cl %%o,
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVC_HOME%\%__CL_BIN_DIR%:cl.exe"
 )
 where /q "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,
+    for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
 )
 where /q "%DOXYGEN_HOME%\bin:doxygen.exe"
@@ -558,6 +594,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
     if defined BAZEL_HOME echo    "BAZEL_HOME=%BAZEL_HOME%" 1>&2
+    if defined BCC_HOME echo    "BCC_HOME=%BCC_HOME%" 1>&2
     if defined CMAKE_HOME echo    "CMAKE_HOME=%CMAKE_HOME%" 1>&2
     if defined DOXYGEN_HOME echo    "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
@@ -579,6 +616,7 @@ goto :eof
 :end
 endlocal & (
     if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
+    if not defined BCC_HOME set "BCC_HOME=%_BCC_HOME%"
     if not defined CMAKE_HOME set "CMAKE_HOME=%_CMAKE_HOME%"
     if not defined DOXYGEN_HOME set "DOXYGEN_HOME=%_DOXYGEN_HOME%"
     if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
