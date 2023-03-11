@@ -30,7 +30,7 @@ The code examples presented below can be built/run with the following tools:
 
 This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
 
-Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
+Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to display the execution details). We give one of the options `-bcc`, `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="fib/build.bat">build</a> -verbose clean compile</b>
@@ -62,7 +62,7 @@ Copy file "pthreadVC2.dll" to directory "target"
 
 This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
 
-We run [`make.exe`][make_cli] which reads the build configuration from file [`Makefile`](./myTurn/Makefile). We give to variable `TOOLSET` one of the values `clang`, `gcc`, `icx` or `msvc` to specify the C++ compiler :
+Command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./myTurn/Makefile) and generates the `myTurn.exe` executable using variable `TOOLSET` with one of the values `clang`, `gcc`, `icx` or `msvc` to specify the C++ compiler :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_86.html">make</a> TOOLSET=gcc clean run</b>
@@ -185,7 +185,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

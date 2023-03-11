@@ -33,7 +33,7 @@ Generate configuration files into directory "build"
 Generate executable "hello.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`bcc`][bcc_cmd], [`gcc`][gcc_cmd], `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`bcc`][bcc_cmd], [`gcc`][gcc_cmd], `icx`, `msvc`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=clang clean build</b>
@@ -65,7 +65,7 @@ Generate configuration files into directory "build"
 Generate executable "call-by-copy.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] generates the `call-by-copy.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=msvc` (or `bcc`, `clang`, `gcc`, `icx`) :
+In the same way command [`make.exe`][make_cli] reads its configuration from file [`Makefile`¨](./call-by-copy/Makefile) and generates the `call-by-copy.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=msvc` (or `bcc`, `clang`, `gcc`, `icx`) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=msvc clean build</b>
@@ -95,7 +95,7 @@ Base Derived2foo 20
 
 This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./move-constructor/build.bat) invokes one of five C++ compilers to generate executable `move-constructor.exe` using the options `-clang`, `-gcc`, `-icx` or `-msvc` :
+Command [`build.bat`](./move-constructor/build.bat) generates the `move-constructor.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./move-constructor/build.bat">build</a> -clang -verbose clean compile</b>
@@ -137,7 +137,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

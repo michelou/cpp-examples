@@ -1,6 +1,6 @@
 # <span id="top">Playing with C++ on Windows</span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples coming from various websites and books.<br/>
@@ -30,12 +30,12 @@ Optionally one may also install the following software:
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 
-For instance our development environment looks as follows (*February 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*March 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-6.0.0\                      <i>( 46 MB)</i>
+C:\opt\bazel-6.1.0\                      <i>( 46 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.26.0-windows-x86_64\      <i>( 98 MB)</i>
+C:\opt\cmake-3.26.0-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
 C:\opt\Git-2.39.2\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.7\                      <i>(3.1 GB)</i>
@@ -57,6 +57,7 @@ dmc3-examples\{<a href="dmc3-examples/README.md">README.md</a>, <a href="dmc3-ex
 docs\
 examples\{<a href="examples/README.md">README.md</a>, <a href="examples/call-by-copy/">call-by-copy</a>, <a href="examples/class-dispatching/">class-dispatching</a>, etc.}
 grimm-examples\{<a href="grimm-examples/README.md">README.md</a>, <a href="grimm-examples/templateMethod/">templateMethod</a>, <a href="grimm-examples/visitor/">visitor</a>, etc.}
+gui-examples\{<a href="gui-examples/README.md">README.md</a>, <a href="gui-examples/simple-window/">simple-window</a>, etc.}
 pthreads-examples\{<a href="pthreads-examples/README.md">README.md</a>, <a href="pthreads-examples/fib/">fib</a>, <a href="pthreads-examples/myTurn/">myTurn</a>, etc.}
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
@@ -69,6 +70,7 @@ where
 - directory [**`docs\`**](docs/) contains [C++][cpp_lang] related papers/articles.
 - directory [**`examples\`**](mastering-rust/) contains [C++][cpp_lang] code examples (see [`README.md`](examples/README.md) file).
 - directory [**`grimm-examples`**](grimm-examples/) contains [C++][cpp_lang] code examples from Grimm's website (see [`README.md`](grimm-examples/README.md) file).
+- directory [**`gui-examples`**](gui-examples/) contains [C++][cpp_lang] code examples depending on the [Win32 API][win32_api].
 - directory [**`pthreads-examples\`**](pthreads-examples/) contains [C++][cpp_lang] code examples (see [`README.md`](pthreads-examples/README.md) file).
 - file **`README.md`** is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
@@ -93,12 +95,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.0.0, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
+   bazel 6.1.0, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
    cmake 3.26.0, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.6, msbuild 16.11.2.50704
    diff 3.8, git 2.39.2.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
-C:\opt\bazel-6.0.0\bazel.exe
+C:\opt\bazel-6.1.0\bazel.exe
 C:\opt\Git-2.39.2\bin\git.exe
 C:\opt\Git-2.39.2\mingw64\bin\git.exe
 </pre>
@@ -117,12 +119,11 @@ The installed development tools for Windows give us access to the following C++ 
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td>15.0.x</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
 <tr><td><a href="https://visualstudio.microsoft.com/free-developer-offers/">MSVS</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.29.30141</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
 <tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>12.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
-<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options.html" rel="external"><code><b>icl.exe</b></code></a> <sup><b>c)</b></sup><br/><code><b>icx.exe</b></code></td><td>2023.0.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td></tr>
+<tr><td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/invoke-the-compiler.html"><code><b>icx.exe</b></code></td><td>2023.0.0</td><td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td></tr>
 </table>
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Standard specified with compiler option, e.g. <code><b>-std=c++17</b></code>; starting with version 2023.0 oneAPI uses C++17 as the default C++ language.<br/>
 <sup><b>b)</b></sup> ISO standard 23 <i>partially</i> supported.<br/>
-<sup><b>c)</b></sup> <code><b>icl.exe</b></code> is deprecated and will be removed from product release in the second half of 2023. <code><b>icx.exe</b></code> is based on Clang/LLVM technology and is the recommanded compiler moving forward.
 </div>
 </dd></dl>
 
@@ -133,7 +134,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.0.0">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.1.0">bazel-6.1.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                         <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.26.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
@@ -146,7 +147,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -154,7 +155,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.0.0
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.1.0
 [bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
@@ -202,6 +203,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [vs2019_downloads]: https://visualstudio.microsoft.com/en/downloads/
 [vs2019_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes
+[win32_api]: https://learn.microsoft.com/en-us/windows/win32/api/
 [winsdk_downloads]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
 [winsdk_relnotes]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/#relnote
 [wix_examples]: https://github.com/michelou/wix-examples

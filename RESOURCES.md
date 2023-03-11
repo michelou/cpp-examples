@@ -25,10 +25,25 @@
 
 ## <span id="blogs">Blogs</span>
 
-- [Sutter's Blog]()
+- [Sutter's Blog](https://herbsutter.com/) :
+  - [C++23 “Pandemic Edition” is complete](https://herbsutter.com/2023/02/13/c23-pandemic-edition-is-complete-trip-report-winter-iso-c-standards-meeting-issaquah-wa-usa/), February 2023.
   - [Autumn ISO C++ standards meeting (Kona)](https://herbsutter.com/2022/11/) by Herb Sutter, November 2022.
 - [Conan Blog](https://blog.conan.io/) :
   - [Understanding the different flavors of Clang C and C++ compilers in Windows](https://blog.conan.io/2022/10/13/Different-flavors-Clang-compiler-Windows.html) by X, October 2022.
+- [David Mazières's blog](https://www.scs.stanford.edu/~dm/blog/) :
+  - [C++20 idioms for parameter packs](https://www.scs.stanford.edu/~dm/blog/param-pack.html), June 2022.
+  - [C++ value categories and decltype demystified](https://www.scs.stanford.edu/~dm/blog/decltype.html), June 2021.
+  - [Recursive macros with C++20 ](https://www.scs.stanford.edu/~dm/blog/va-opt.html), June 2021.
+  - [My tutorial and take on C++20 coroutines](https://www.scs.stanford.edu/~dm/blog/c++-coroutines.html), February 2021.
+- [Fekir's Blog](https://fekir.info/) :
+  - [When you cannot call hidden friends in C++](https://fekir.info/post/when-you-cannot-call-hidden-friends-in-cpp/), October 2022.
+  - [Type erased view types in C++](https://fekir.info/post/type-erased-view-types-in-cpp/), September 2022.
+  - [Macros usages in C++](https://fekir.info/post/macro-usages-in-cpp/), October 2021.
+  - [C++ performance guidelines](https://fekir.info/post/cpp-perf-guidelines/), January 2021.
+  - [Detect member variables since C++11](https://fekir.info/post/detect-member-variables/), June 2019.
+- [Microsoft C++ Team Blog](https://devblogs.microsoft.com/cppblog/category/cplusplus/):
+  - [Code Analysis Improvements in Visual Studio 17.6](https://devblogs.microsoft.com/cppblog/code-analysis-improvements-in-visual-studio-17-6/) by Gabor Horvath, March 2023.
+  - [Convert Macros to Constexpr](https://devblogs.microsoft.com/cppblog/convert-macros-to-constexpr/) by Augustin Popa, June 2018.
 - [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
   - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
   - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
@@ -104,7 +119,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

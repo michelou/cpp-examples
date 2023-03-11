@@ -43,7 +43,7 @@
 
 ---
 
-## <span id="msbuild_articles">MSBuild Articles</span>
+## <span id="msbuild_articles">MSBuild Articles</span> [**&#x25B4;**](#top)
 
 - [MSBuild - Best Practices For Creating Reliable Builds, Part 2][msbuild_hashimi_2] by [Sayed Ibrahim Hashimi][hashimi], March 2009.
 - [MSBuild - Best Practices For Creating Reliable Builds, Part 1][msbuild_hashimi_1] by [Sayed Ibrahim Hashimi][hashimi], February 2009.
@@ -53,13 +53,15 @@
 - [MSBuild Trickery: 99 Ways to Bend the Build Engine to Your Will][msbuild_kretzler] by Brian Kretzler, August 2011<br/><span>(Seven Ranch, 978-0-6155-0907-5, 426 pages)</span>
 - [Inside the Microsoft Build Engine: Using MSBuild and Team Foundation Build][msbuild_hashimi] (2<sup>nd</sup> Ed.) by Sayed Ibrahim Hashimi, December 2010.<br/><span>(Microsoft, ISBN 978-0-7356-4524-0, 616 pages)</span>
 
+---
+
 ## <span id="nmake_makefile">NMAKE</span>
 
 - [NMAKE makefile contents and features][nmake_microsoft].
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -220,10 +220,10 @@ if defined __BCC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BCC_HOME 1>&2
 ) else (
     set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
-    if not defined _DOXYGEN_HOME (
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
+    if not defined _BCC_HOME (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_BCC_HOME%\bin\bcc32c.exe" (
