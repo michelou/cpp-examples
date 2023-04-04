@@ -77,9 +77,10 @@
 
 ## <span id="books">Books</span> [**&#x25B4;**](#top)
 
+- [The C++ Standard Library][book_grimm_2023] (4<sup>th</sup> Ed.) by Rainer Grimm, March 2023.<br/><span style="font-size:80%;">(Leanpub, 344 pages)</span> 
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
-- [C++20 - The Complete Guide][book_josuttis] by Nicolai M. Josuttis, December 2021.<br/><span style="">(Leanpub, 474 pages)</span>
+- [C++20 - The Complete Guide][book_josuttis] by Nicolai M. Josuttis, December 2021.<br/><span style="font-size:80%;">(Leanpub, 474 pages)</span>
 - [Demystified Object-Oriented Programming with C++ ][book_kirk] by Dorothy R. Kirk, March 2021.<br/><span style="font-size:80%;">(Packt Publishing, ISBN 978-1-8392-1883-5, 568 pages)</span>
 - [Professional C++][book_gregoire] (<sup>5th</sup> Ed) by Marc Gregoire, February 2021.<br/><span style="font-size:80%;">(Wiley, ISBN 978-1-1196-9540-0, 1312 pages)</span>
 - [Real-Time C++][book_kormanyos] (4<sup>th</sup> Ed.) by Christopher Kormanyos, 2021.<br/><span style="font-size:80%;">(Springer, ISBN 978-3-6626-2995-6, 510 pages)</span>
@@ -140,6 +141,7 @@
 [book_gaddis]: https://www.pearson.com/store/p/starting-out-with-c-early-objects/P100002716184/9780135213698
 [book_gregoire]: https://www.wiley.com/en-us/Professional+C%2B%2B%2C+5th+Edition-p-9781119695400
 [book_grimm]: https://leanpub.com/concurrencywithmodernc
+[book_grimm_2023]: https://leanpub.com/cpplibrary
 [book_josuttis]: https://cppstd20.com/
 [book_kirk]: https://www.packtpub.com/product/demystifying-object-oriented-programming-with-c/9781839218835
 [book_kormanyos]: https://www.springer.com/gp/book/9783662629956
