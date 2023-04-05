@@ -33,8 +33,10 @@ call :bazel
 if not %_EXITCODE%==0 goto end
 
 call :bcc
-if not %_EXITCODE%==0 goto end
-
+if not %_EXITCODE%==0 (
+    set _EXITCODE=0
+    @rem goto end
+)
 call :doxygen
 if not %_EXITCODE%==0 goto end
 
@@ -167,7 +169,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -227,7 +229,7 @@ if defined __BCC_CMD (
     )
 )
 if not exist "%_BCC_HOME%\bin\bcc32c.exe" (
-    echo %_ERROR_LABEL% BCC executable not found ^(%_BCC_HOME%^) 1>&2
+    echo %_WARNING_LABEL% BCC executable not found ^(%_BCC_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -571,7 +573,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __BIN_DIR=Bin\amd64
 )
 where /q "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 if %ERRORLEVEL%==0 (
-    for /f %%i in ('msbuild.exe -version ^| findstr /b "[0-9]"') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msbuild %%i"
+    for /f %%i in ('"%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%\msbuild.exe" -version ^| findstr /b "[0-9]"') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msbuild %%i"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"

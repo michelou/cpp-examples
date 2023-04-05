@@ -29,14 +29,14 @@ Optionally one may also install the following software:
 - [Cppcheck 2.10][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
-- [Visual Studio Code 1.76][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.77][vscode_downloads] ([*release notes*][vscode_relnotes])
 
-For instance our development environment looks as follows (*March 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*April 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-6.1.0\                      <i>( 46 MB)</i>
+C:\opt\bazel-6.1.1\                      <i>( 46 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.26.0-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.26.3-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
 C:\opt\Git-2.40.0\                       <i>(317 MB)</i>
 C:\opt\LLVM-15.0.7\                      <i>(3.1 GB)</i>
@@ -90,19 +90,19 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 
 ## <span id="commands">Batch commands</span>
 
-### **`setenv.bat`**
+### **`setenv.bat`** <sup id="anchor_03">[3](#footnote_03)</sup>
 
 Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.1.0, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
-   cmake 3.26.0, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.6, msbuild 16.11.2.50704
+   bazel 6.1.1, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.0.0
+   cmake 3.26.3, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.6, msbuild 16.11.2.50704
    diff 3.9, git 2.40.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
-C:\opt\bazel-6.1.0\bazel.exe
+C:\opt\bazel-6.1.1\bazel.exe
 C:\opt\Git-2.40.0\bin\git.exe
 C:\opt\Git-2.40.0\mingw64\bin\git.exe
 </pre>
@@ -136,9 +136,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.1.0">bazel-6.1.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.1.1">bazel-6.1.1-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                         <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.26.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.26.3-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.0.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7">LLVM-15.0.7-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
@@ -147,9 +147,30 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </pre>
 </dd></dl>
 
+<span id="footnote_03">[3]</span> **`setenv.bat` *usage*** [↩](#anchor_03)
+
+<dl><dd>
+<a href=./setenv.bat><code><b>setenv.bat</b></code></a> has specific environment variables set that enable us to use command-line developer tools more easily.
+</dd>
+<dd>It is similar to the setup scripts described on the page <a href="https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell" rel="external">"Visual Studio Developer Command Prompt and Developer PowerShell"</a> of the <a href="https://learn.microsoft.com/en-us/visualstudio/windows" rel="external">Visual Studio</a> online documentation.
+</dd>
+<dd>
+For instance we can quickly check that the two scripts <code>Launch-VsDevShell.ps1</code> and <code>VsDevCmd.bat</code> are indeed available in our Visual Studio 2019 installation :
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /r "C:\Program Files (x86)\Microsoft Visual Studio" *vsdev*</b>
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\Launch-VsDevShell.ps1
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsdevcmd\core\vsdevcmd_end.bat
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsdevcmd\core\vsdevcmd_start.bat
+</pre>
+</dd>
+<dd>
+Concretely, <code>setenv.bat</code> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code>VsDevCmd.bat</code> (resp. <code>vcvarall.bat</code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+</dd></dl>
+
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -157,7 +178,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.1.0
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.1.1
 [bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html

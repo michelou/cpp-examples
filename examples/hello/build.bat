@@ -79,13 +79,10 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
-if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
-    echo %_ERROR_LABEL% Microsoft CMake installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _MSVS_CMAKE_CMD=
+if exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
+    set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
 )
-set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
-
 set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
@@ -104,14 +101,15 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
-if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
-    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
+if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
+    echo %_ERROR_LABEL% GCC package not installed 1>&2
+    echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
-set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
-set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
+set "_GCC_CMD=%MSYS_HOME%\usr\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
+set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
@@ -121,24 +119,18 @@ if not exist "%LLVM_HOME%\bin\clang.exe" (
 set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
-if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _ICX_CMD=
+if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 )
-set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
-
 set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
     set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
 )
-if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
-    echo %_ERROR_LABEL% MS Visual Studio installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _MSBUILD_CMD=
+if exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
+    set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
 )
-set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
-
 set _PELOOK_CMD=pelook.exe
 goto :eof
 
@@ -257,6 +249,22 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
 if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
     echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
     set _TOOLSET=msvc
+)
+if %_TOOLSET%==icx if not defined _ICX_CMD (
+    echo %_WARNING_LABEL% OpenAPI installation not found ^(use MSVC instead^) 1>&2
+    set _TOOLSET=msvc
+)
+if %_TOOLSET%==msvc (
+    if not defined _MSVS_CMAKE_CMD (
+        echo %_ERROR_LABEL% MSVS installation not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    if not defined _MSBUILD_CMD (
+        echo %_ERROR_LABEL% MSVS installation not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
