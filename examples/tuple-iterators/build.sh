@@ -83,6 +83,7 @@ args() {
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : LLVM_HOME=$LLVM_HOME"
     debug "Variables  : MSVS_HOME=$MSVS_HOME"
+    debug "Variables  : MSYS_HOME=$MSYS_HOME"
     debug "Variables  : ONEAPI_ROOT=$ONEAPI_ROOT"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
@@ -94,7 +95,12 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -bcc         use BCC/GNU Make toolset instead of MSVC/MSBuild
+    -cl          use MSVC/MSBuild toolset (default)
+    -clang       use Clang/GNU Make toolset instead of MSVC/MSBuild
     -debug       display commands executed by this script
+    -gcc         use GCC/GNU Make toolset instead of MSVC/MSBuild
+    -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
+    -msvc        use MSVC/MSBuild toolset (alias for option -cl)
     -timer       display total execution time
     -verbose     display progress messages
 
@@ -172,11 +178,11 @@ compile_bcc() {
     $DEBUG && debug "Current directory is: $PWD" 1>&2
 
     if $DEBUG; then
-        debug "$CMAKE_CMD $cmake_opts"
+        debug "$CMAKE_CMD $cmake_opts .."
     elif $VERBOSE; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$CMAKE_CMD $cmake_opts"
+    eval "$CMAKE_CMD $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
         error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
@@ -224,7 +230,7 @@ compile_clang() {
     elif $VERBOSE; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$CMAKE_CMD $cmake_opts .."
+    eval "\"$CMAKE_CMD\" $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
         error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
@@ -235,12 +241,12 @@ compile_clang() {
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
     elif $VERBOSE; then
-        echo "Generate executable \"$PROJECT_NAME\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME.exe\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME\""
+        error "Failed to geenerate executable \"$PROJECT_NAME.exe\""
         cleanup 1
     fi
     popd
@@ -285,7 +291,33 @@ compile_gcc() {
 }
 
 compile_icx() {
-    echo "icx"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+
+    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
+    $DEBUG && icx_flags="-debug:all $icx_flags"
+
+    local source_files=
+    local n=0
+    for f in $(find "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+        source_files="$source_files \"$f\""
+        n=$((n + 1))
+    done
+    if [[ $n -eq 0 ]]; then
+        warning "No C++ source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n C++ source file$s"
+    if $DEBUG; then
+        debug "$ICX_CMD $icx_flags $source_files"
+    elif $VERBOSE; then
+        echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+    fi
+    eval "$ICX_CMD $icx_flags $source_files"
+    if [[ $? -ne 0 ]]; then
+        error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+        cleanup 1
+    fi
 }
 
 compile_msvc() {
@@ -408,6 +440,7 @@ if $cygwin || $mingw || $msys; then
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
     GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
+    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"

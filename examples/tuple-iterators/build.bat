@@ -79,13 +79,10 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
-if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
-    echo %_ERROR_LABEL% Microsoft CMake installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _MSVS_CMAKE_CMD=
+if exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
+    set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
 )
-set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
-
 set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
@@ -104,13 +101,6 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
-if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
-
 if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
     echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
     set _EXITCODE=1
@@ -128,24 +118,18 @@ if not exist "%LLVM_HOME%\bin\clang.exe" (
 set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
-if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _ICX_CMD=
+if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
 )
-set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
-
-set _BCC_CMD=
+set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
-    set "_BCC_CMD=%BCC_HOME%\bin\bcc32c.exe"
+    set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
 )
-if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
-    echo %_ERROR_LABEL% MS Visual Studio installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set _MSBUILD_CMD=
+if exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
+    set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
 )
-set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
-
 set _PELOOK_CMD=pelook.exe
 goto :eof
 
@@ -259,9 +243,25 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
-if %_TOOLSET%==bcc if not defined _BCC_CMD (
+if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
     echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
     set _TOOLSET=msvc
+)
+if %_TOOLSET%==icx if not defined _ICX_CMD (
+    echo %_WARNING_LABEL% OpenAPI installation not found ^(use MSVC instead^) 1>&2
+    set _TOOLSET=msvc
+)
+if %_TOOLSET%==msvc (
+    if not defined _MSVS_CMAKE_CMD (
+        echo %_ERROR_LABEL% MSVS installation not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    if not defined _MSBUILD_CMD (
+        echo %_ERROR_LABEL% MSVS installation not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
 set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
@@ -269,13 +269,15 @@ set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
-    if defined _BCC_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
+    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
@@ -340,7 +342,8 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++14
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++17
+) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--std=c++17
 ) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=c++17
 ) else ( set __CPPCHECK_OPTS=--std=c++14
 )
@@ -349,7 +352,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOUR
 )
 call "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Checking files failed 1>&2
+    echo %_ERROR_LABEL% Found errors while analyzing C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -374,8 +377,8 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_bcc
-set "CC=%_BCC_CMD%"
-set "CXX=%_BCC_CMD%"
+set "CC=%_BCC32C_CMD%"
+set "CXX=%_BCC32C_CMD%"
 set "MAKE=%_MAKE_CMD%"
 set "RC=%_WINDRES_CMD%"
 
@@ -420,10 +423,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_clang
-set "CC=%LLVM_HOME%\bin\clang.exe"
-set "CXX=%LLVM_HOME%\bin\clang++.exe"
-set "MAKE=%MSYS_HOME%\usr\bin\make.exe"
-set "RC=%MSYS_HOME%\mingw64\bin\windres.exe"
+set "CC=%_CLANG_CMD%"
+set "CXX=%_CLANGXX_CMD%"
+set "MAKE=%_MAKE_CMD%"
+set "RC=%_WINDRES_CMD%"
 
 set "__CMAKE_CMD=%CMAKE_HOME%\bin\cmake.exe"
 set __CMAKE_OPTS=-G "Unix Makefiles"
@@ -630,8 +633,8 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
