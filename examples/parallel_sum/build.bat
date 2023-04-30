@@ -185,7 +185,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameters: _CLEAN, _COMPILE, _RUN, _DEBUG, _TOOLSET, _VERBOSE
+@rem output parameter(s): _CLEAN, _COMPILE, _RUN, _DEBUG, _TOOLSET, _VERBOSE
 :args
 set _CLEAN=0
 set _COMPILE=0
@@ -279,7 +279,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo %__BEG_P%Options:%__END%
-echo   %__BEG_O%-debug%__END%      display commands executed by this script
+echo   %__BEG_O%-debug%__END%      show commands executed by this script
 echo   %__BEG_O%-cl%__END%         use CL/MSBuild toolset (default)
 echo   %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of CL/MSBuild
 echo   %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of CL/MSBuild
@@ -303,13 +303,12 @@ goto :eof
 @rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
-if not exist "%__DIR%\" goto :eof
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+if not exist "!__DIR!\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "!__DIR!" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
-rmdir /s /q "%__DIR%"
+rmdir /s /q "!__DIR!"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -370,12 +369,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable %_PROJ_NAME%.exe 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Generation of executable %_PROJ_NAME%.exe failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -399,19 +398,19 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
 call "%_CMAKE_CMD%" %__CMAKE_OPTS% .. %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate configuration into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Generation of build configuration failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable %_PROJ_NAME%.exe 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Generation of executable %_PROJ_NAME%.exe failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -430,19 +429,19 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSVS_CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
 call "%_MSVS_CMAKE_CMD%" %__CMAKE_OPTS% .. %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Generation of build configuration failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable %_PROJ_NAME%.exe 1>&2
 )
 call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Generation of executable %_PROJ_NAME%.exe failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -466,7 +465,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYF
 )
 call "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -485,7 +484,7 @@ if not %_TOOLSET%==msvc ( set __TARGET_DIR=%_TARGET_DIR%
 )
 set __EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
+    echo %_ERROR_LABEL% Executable %_PROJ_NAME%.exe not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -497,7 +496,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_PELOOK_CMD%" %__PELOOK_OPTS% !__EXE_FILE
 echo executable:           !__EXE_FILE:%_ROOT_DIR%=!
 call "%_PELOOK_CMD%" %__PELOOK_OPTS% "%__EXE_FILE%" | findstr "signature machine linkver modules"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to dump executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Dump of executable %_PROJ_NAME%.exe failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -509,7 +508,7 @@ if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
+    echo %_ERROR_LABEL% Executable %_PROJ_NAME%.exe not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -518,8 +517,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__EXE_FILE%" 1>&2
 )
 call "%__EXE_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute "!__EXE_FILE:%_ROOT_DIR%=!" 1>&2
-    set _EXITCODE=1
+    echo %_ERROR_LABEL% Execution status is %ERRORLEVEL% 1>&2
 )
 goto :eof
 

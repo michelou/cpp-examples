@@ -1,13 +1,13 @@
-# Doxyfile 1.9.2
+# Doxyfile 1.9.6
 
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = hello
+PROJECT_NAME           = visitor-pattern
 PROJECT_NUMBER         = 1.0.0
 PROJECT_BRIEF          =
-PROJECT_LOGO           = src/main/resources/hello.png
+PROJECT_LOGO           = 
 OUTPUT_DIRECTORY       = build/docs
 CREATE_SUBDIRS         = NO
 ALLOW_UNICODE_NAMES    = NO

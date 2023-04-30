@@ -38,7 +38,7 @@ C:\opt\bazel-6.1.2\                      <i>( 46 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
 C:\opt\cmake-3.26.3-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.6\                    <i>(120 MB)</i>
-C:\opt\Git-2.40.0\                       <i>(317 MB)</i>
+C:\opt\Git-2.40.1\                       <i>(315 MB)</i>
 C:\opt\LLVM-15.0.7\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\VSCode\                           <i>(341 MB)</i>
@@ -101,12 +101,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 Tool versions:
    bazel 6.1.2, bcc32c 7.30, clang 15.0.7, gcc 12.2.0, icx 2023.1.0
    cmake 3.26.3, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.6, msbuild 16.11.2.50704
-   diff 3.9, git 2.40.0.windows.1
+   diff 3.9, git 2.40.1.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
 C:\opt\bazel-6.1.2\bazel.exe
-C:\opt\Git-2.40.0\bin\git.exe
-C:\opt\Git-2.40.0\mingw64\bin\git.exe
+C:\opt\Git-2.40.1\bin\git.exe
+C:\opt\Git-2.40.1\mingw64\bin\git.exe
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -144,7 +144,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.1.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-15.0.7">LLVM-15.0.7-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.40.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.40.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
 </pre>
 </dd></dl>
@@ -172,7 +172,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -198,7 +198,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

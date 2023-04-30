@@ -342,10 +342,10 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++17
-) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--std=c++17
-) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=c++17
-) else ( set __CPPCHECK_OPTS=--std=c++14
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--platform=win64 --template=gcc --std=c++17
+) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--platform=win64 --std=c++17
+) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--platform=win64 --template=vs --std=c++17
+) else ( set __CPPCHECK_OPTS=--platform=win64 --std=c++14
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2

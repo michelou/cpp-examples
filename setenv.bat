@@ -25,8 +25,8 @@ if %_HELP%==1 (
 
 set _BAZEL_PATH=
 set _GIT_PATH=
-set _MSYS_PATH=
 set _MSVS_PATH=
+set _MSYS_PATH=
 set _ONEAPI_PATH=
 
 call :bazel
@@ -573,7 +573,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __BIN_DIR=Bin\amd64
 )
 where /q "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 if %ERRORLEVEL%==0 (
-    for /f %%i in ('"%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%\msbuild.exe" -version ^| findstr /b "[0-9]"') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msbuild %%i"
+    for /f %%i in ('"%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%\msbuild.exe" -version ^| findstr /b [0-9]') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msbuild %%i"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"

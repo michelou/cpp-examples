@@ -42,6 +42,7 @@
   - [C++ performance guidelines](https://fekir.info/post/cpp-perf-guidelines/), January 2021.
   - [Detect member variables since C++11](https://fekir.info/post/detect-member-variables/), June 2019.
 - [Microsoft C++ Team Blog](https://devblogs.microsoft.com/cppblog/category/cplusplus/):
+  - [Documentation for C++20 Ranges](https://devblogs.microsoft.com/cppblog/documentation-for-cpp20-ranges/) by Sy Brand and Tyler Whitney, April 2023.
   - [Code Analysis Improvements in Visual Studio 17.6](https://devblogs.microsoft.com/cppblog/code-analysis-improvements-in-visual-studio-17-6/) by Gabor Horvath, March 2023.
   - [Convert Macros to Constexpr](https://devblogs.microsoft.com/cppblog/convert-macros-to-constexpr/) by Augustin Popa, June 2018.
 - [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
@@ -94,6 +95,7 @@
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023.
   - [GCC 12.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000174.html), August 2022.
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
   - [GCC 11.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000170.html), April 2022.
@@ -101,7 +103,7 @@
   - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
   - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
 
-## <span id="tools">Tools</span> [**&#x25B4;**](#top)
+## <span id="tools">Tools</span>
 
 - [Astrée](https://www.absint.com/astree/) &ndash; a fast and sound static analyzer for C/C++.
 - [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.
@@ -120,7 +122,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
