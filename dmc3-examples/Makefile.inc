@@ -1,4 +1,7 @@
 ifeq ($(OS),Windows_NT)
+ifndef BCC_HOME
+$(error Variable BCC_HOME is not set)
+endif
 ifndef LLVM_HOME
 $(error Variable LLVM_HOME is not set)
 endif
@@ -23,10 +26,13 @@ endif
 
 TARGET_EXT  = .exe
 PSEP        = ;
+BCC         = $(subst \,/,$(BCC_HOME))/bin/bcc32c.exe
 CC          = $(subst \,/,$(MSYS_HOME))/mingw64/bin/g++.exe
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
 CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
 CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
+CPPCHECK    = $(subst \,/,$(MSYS_HOME))/mingw64/bin/cppcheck.exe
+DOXYGEN     = $(subst \,/,$(DOXYGEN_HOME))/bin\doxygen.exe
 ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
 FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
 ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/bin/icx.exe
@@ -50,10 +56,13 @@ ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/li
 else
 TARGET_EXT  =
 PSEP        = :
+BCC         = 
 CC          = g++
 CL          = cl
 CLANG       = clang
 CP          = cp
+CPPCHECK    = cppcheck
+DOXYGEN     = doxygen
 ECHO        = echo
 FIND        = find
 ICX         = icx

@@ -59,10 +59,11 @@ if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
 
-call :env_colors
-set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
-set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
-set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
 
 set "__CMAKE_LIST_FILE=%_ROOT_DIR%CMakeLists.txt"
 if not exist "%__CMAKE_LIST_FILE%" (
@@ -79,21 +80,17 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
-set _MSVS_CMAKE_CMD=
-if exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
-    set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
+if not exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
+    echo %_ERROR_LABEL% Microsoft CMake installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
+set "_MSVS_CMAKE_CMD=%MSVS_CMAKE_HOME%\bin\cmake.exe"
+
 set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
-if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
-
 if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
     set _EXITCODE=1
@@ -101,9 +98,15 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
+if not exist "%MSYS_HOME%\usr\bin\make.exe" (
+    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
+
 if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
-    echo %_ERROR_LABEL% GCC package not installed 1>&2
-    echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
+    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -119,65 +122,21 @@ if not exist "%LLVM_HOME%\bin\clang.exe" (
 set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
-set _ICX_CMD=
-if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+    echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
-set _BCC32C_CMD=
-if exist "%BCC_HOME%\bin\bcc32c.exe" (
-    set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+
+if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
+    echo %_ERROR_LABEL% MSBuild installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
-set _MSBUILD_CMD=
-if exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
-    set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
-)
+set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
+
 set _PELOOK_CMD=pelook.exe
-goto :eof
-
-:env_colors
-@rem ANSI colors in standard Windows 10 shell
-@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
-
-@rem normal foreground colors
-set _NORMAL_FG_BLACK=[30m
-set _NORMAL_FG_RED=[31m
-set _NORMAL_FG_GREEN=[32m
-set _NORMAL_FG_YELLOW=[33m
-set _NORMAL_FG_BLUE=[34m
-set _NORMAL_FG_MAGENTA=[35m
-set _NORMAL_FG_CYAN=[36m
-set _NORMAL_FG_WHITE=[37m
-
-@rem normal background colors
-set _NORMAL_BG_BLACK=[40m
-set _NORMAL_BG_RED=[41m
-set _NORMAL_BG_GREEN=[42m
-set _NORMAL_BG_YELLOW=[43m
-set _NORMAL_BG_BLUE=[44m
-set _NORMAL_BG_MAGENTA=[45m
-set _NORMAL_BG_CYAN=[46m
-set _NORMAL_BG_WHITE=[47m
-
-@rem strong foreground colors
-set _STRONG_FG_BLACK=[90m
-set _STRONG_FG_RED=[91m
-set _STRONG_FG_GREEN=[92m
-set _STRONG_FG_YELLOW=[93m
-set _STRONG_FG_BLUE=[94m
-set _STRONG_FG_MAGENTA=[95m
-set _STRONG_FG_CYAN=[96m
-set _STRONG_FG_WHITE=[97m
-
-@rem strong background colors
-set _STRONG_BG_BLACK=[100m
-set _STRONG_BG_RED=[101m
-set _STRONG_BG_GREEN=[102m
-set _STRONG_BG_YELLOW=[103m
-set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
@@ -192,6 +151,7 @@ set _DUMP=0
 set _HELP=0
 set _LINT=0
 set _RUN=0
+set _TIMER=0
 set _TOOLSET=msvc
 set _VERBOSE=0
 set __N=0
@@ -203,8 +163,7 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-bcc" ( set _TOOLSET=bcc
-    ) else if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
+    if "%__ARG%"=="-cl" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-clang" ( set _TOOLSET=clang
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
@@ -212,6 +171,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -244,44 +204,22 @@ if %_LINT%==1 if not defined _CPPCHECK_CMD (
     echo %_WARNING_LABEL% Cppcheck installation not found 1>&2
     set _LINT=0
 )
-if %_TOOLSET%==bcc if not defined _BCC32C_CMD (
-    echo %_WARNING_LABEL% BCC installation not found ^(use MSVC instead^) 1>&2
-    set _TOOLSET=msvc
+if %_TOOLSET%==clang ( set _TOOLSET_NAME=LLVM/Clang
+) else if %_TOOLSET%==gcc ( set _TOOLSET_NAME=MSYS/GCC
+) else if %_TOOLSET%==icx ( set _TOOLSET_NAME=OpenAPI ICX
+) else ( set _TOOLSET_NAME=MSBuild/MSVC
 )
-if %_TOOLSET%==icx if not defined _ICX_CMD (
-    echo %_WARNING_LABEL% OpenAPI installation not found ^(use MSVC instead^) 1>&2
-    set _TOOLSET=msvc
-)
-if %_TOOLSET%==msvc (
-    if not defined _MSVS_CMAKE_CMD (
-        echo %_ERROR_LABEL% MSVS installation not found 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
-    if not defined _MSBUILD_CMD (
-        echo %_ERROR_LABEL% MSVS installation not found 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
-)
-for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
-set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
-
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
-    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
-    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
-    if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TIMER=%_TIMER% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSVC_HOME=%MSVC_HOME%" ^(cl^) 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
 )
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -299,14 +237,12 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
+echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset (default)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
+echo     %__BEG_O%-icx%__END%        use oneAPI ICX toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
-echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -343,11 +279,12 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=%_CXX_STD%
-) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--std=%_CXX_STD%
-) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=%_CXX_STD%
-) else ( set __CPPCHECK_OPTS=--std=%_CXX_STD%
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=c++14
+) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=c++17
+) else ( set __CPPCHECK_OPTS=--std=c++14
 )
+set __CPPCHECK_OPTS=--platform=win64 %__CPPCHECK_OPTS%
+
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
 )
@@ -366,15 +303,13 @@ if not exist "%_TARGET_DIR%" mkdir "%_TARGET_DIR%"
 if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
 ) else if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
-) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=Intel oneAPI C++
+) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=oneAPI ICX
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
 
 call :compile_%_TOOLSET%
-
-@rem save _EXITCODE value into parent environment
-endlocal & set _EXITCODE=%_EXITCODE%
+endlocal
 goto :eof
 
 :compile_bcc
@@ -496,20 +431,6 @@ popd
 goto :eof
 
 :compile_icx
-if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
-) else ( set __ARCH=x86
-)
-set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
-set __LIB_VERSION=
-for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
-if not defined __LIB_VERSION (
-    echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
-
 set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
 if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
@@ -525,21 +446,33 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
 ) else ( set __N_FILES=%__N% C++ source files
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% 1>&2
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
+) else ( set __ARCH=x86
+)
+set __LIB_VERSION=
+for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+if not defined __LIB_VERSION (
+    echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+@rem alternative: define environment variable "LIB" with the 5 library paths listed below.
+set __LINK_FLAGS=-link
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%MSVC_HOME%lib\%__ARCH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\windows\compiler\lib"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
-set "__LIB=%LIB%"
-set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
-
-call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    set "LIB=%__LIB%"
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "LIB=%__LIB%"
 goto :eof
 
 :compile_msvc
@@ -608,12 +541,13 @@ if %_DOC_OPEN%==1 (
 goto :eof
 
 :dump
-if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
+) else if %_TOOLSET%==icx ( set "__TARGET_DIR=%_TARGET_DIR%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found ^(%_TOOLSET%^) 1>&2
+    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -637,7 +571,7 @@ if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found ^(%_TOOLSET%^) 1>&2
+    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -652,10 +586,23 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+@rem output parameter: _DURATION
+:duration
+set __START=%~1
+set __END=%~2
+
+for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+goto :eof
+
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Total execution time: !_DURATION! 1>&2
+)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

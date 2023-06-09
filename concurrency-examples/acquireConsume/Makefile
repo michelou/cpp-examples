@@ -5,7 +5,7 @@
 ##
 ##############################################################################
 
-TOOLSET ?= msvc
+TOOLSET ?= gcc
 CXXSTD ?= c++17
 
 include ../Makefile.inc
@@ -37,7 +37,7 @@ CPPCHECK_OPTS = --platform=win64 --template=gcc --std=$(CXXSTD)
 else ifeq ($(TOOLSET),icx)
 CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
-CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)/intel64"
+CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)" -libpath:"$(ICX_LIBPATH)" -libpath:"$(ICX_LIBPATH)/intel64"
 else ifeq ($(TOOLSET),msvc)
 TARGET_EXE_DIR = $(TARGET_DIR)/$(PROJECT_CONFIG)
 CXX = $(CL)
@@ -86,7 +86,7 @@ help:
 	@$(ECHO) "     clean  delete generated files"
 	@$(ECHO) "     help   display this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
-	@$(ECHO) "     run    execute main program \"$(TARGET)\""
+	@$(ECHO) "     run    execute main program \"$(PROJECT_NAME)$(TARGET_EXT)\""
 
 ##############################################################################
 ## lint rules
@@ -100,4 +100,4 @@ lint:
 .PHONY: all build clean help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .c .cpp .o .obj .exe
