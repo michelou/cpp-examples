@@ -70,8 +70,7 @@ if not exist "%__CMAKE_LIST_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-set _PROJ_NAME=main
-for /f "tokens=1,2,* delims=( " %%f in ('findstr /b project "%__CMAKE_LIST_FILE%" 2^>NUL') do set "_PROJ_NAME=%%g"
+set _PROJ_NAME=lambda-simple
 set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
 
@@ -237,6 +236,8 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+set _STDERR_REDIRECT=2^>NUL
+if %_DEBUG%==1 set _STDERR_REDIRECT=2^>CON
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
 
@@ -343,9 +344,10 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-set __CPPCHECK_OPTS=--platform=win64 --std=%_CXX_STD%
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=%__CPPCHECK_OPTS% --template=gcc
-) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=%__CPPCHECK_OPTS% --template=vs
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=%_CXX_STD%
+) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--std=%_CXX_STD%
+) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--template=vs --std=%_CXX_STD%
+) else ( set __CPPCHECK_OPTS=--std=%_CXX_STD%
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
@@ -398,11 +400,10 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set __MAKE_OPTS=
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
 )
-call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
+call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2

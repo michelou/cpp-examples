@@ -49,8 +49,11 @@
   - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
   - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
   - [Mixins](http://www.modernescpp.com/index.php/mixins), March 2022.
-- [Modern C++ In-Depth — Move Semantics, Part 2][blog_kootker_2] by Ralph Kootker, March 2022.
-- [Modern C++ In-Depth — Move Semantics, Part 1][blog_kootker_1] by Ralph Kootker, March 2022.
+- [Modern C++ In-Depth]() by Ralph Kootker :
+  - [Lambdas, Part 1](https://medium.com/factset/modern-c-in-depth-lambdas-part-1-d03fe8153ee1), November 2022.
+  - [Perfect Forwarding](https://medium.com/factset/modern-c-in-depth-perfect-forwarding-570f242261f8), May 2022.
+  - [Move Semantics, Part 2][blog_kootker_2], March 2022.
+  - [Move Semantics, Part 1][blog_kootker_1], March 2022.
 - [Fluent **{**C**++}**](https://www.fluentcpp.com/):
   - [The Evolutions of Lambdas in C++14, C++17 and C++20](https://www.fluentcpp.com/2021/12/13/the-evolutions-of-lambdas-in-c14-c17-and-c20/), December 2021.
   - [Strong Types for Safe Indexing in Collections – Part 2](https://www.fluentcpp.com/2021/11/04/strong-types-for-safe-indexing-in-collections-part-2/), November 2021.
@@ -123,7 +126,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

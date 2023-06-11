@@ -233,7 +233,7 @@ compile_clang() {
     eval "\"$CMAKE_CMD\" $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
+        error "Failed to generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     local make_opts=
@@ -268,13 +268,13 @@ compile_gcc() {
     elif $VERBOSE; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$CMAKE_CMD $cmake_opts .."
+    eval "\"$CMAKE_CMD\" $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
         error "Failed to generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
-    local make_opts=
+    local make_opts=--silent
 
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
@@ -284,7 +284,7 @@ compile_gcc() {
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME\""
+        error "Failed to generate executable \"$PROJECT_NAME\""
         cleanup 1
     fi
     popd
@@ -298,7 +298,7 @@ compile_icx() {
 
     local source_files=
     local n=0
-    for f in $(find "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -309,11 +309,11 @@ compile_icx() {
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n C++ source file$s"
     if $DEBUG; then
-        debug "$ICX_CMD $icx_flags $source_files"
+        debug "\"$ICX_CMD\" $icx_flags $source_files"
     elif $VERBOSE; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$ICX_CMD $icx_flags $source_files"
+    eval "\"$ICX_CMD\" $icx_flags $source_files"
     if [[ $? -ne 0 ]]; then
         error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
@@ -402,7 +402,6 @@ EXITCODE=0
 ROOT_DIR="$(getHome)"
 
 SOURCE_DIR="$ROOT_DIR/src"
-CPP_SOURCE_DIR="$SOURCE_DIR/main/cpp"
 TARGET_DIR="$ROOT_DIR/build"
 
 CLEAN=false
@@ -457,6 +456,8 @@ fi
 PROJECT_CONFIG="Release"
 PROJECT_PLATFORM="x64"
 PROJECT_NAME="$(basename $ROOT_DIR)"
+
+CXX_STD="c++17"
 
 args "$@"
 [[ $EXITCODE -eq 0 ]] || cleanup 1

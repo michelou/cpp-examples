@@ -6,7 +6,7 @@
     <a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="120" alt="C++ project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <a href="."><strong><code>concurrency-examples\</code></strong></a> contains <a href="https://isocpp.org/" alt="C++">C++</a> code examples from the book <a href="https://leanpub.com/concurrencywithmodernc" rel="external">Concurrency with Modern C++</a> by Rainer Grimm (Leanpub, 2023).<br/>
+    Directory <a href="."><b><code>concurrency-examples\</code></b></a> contains <a href="https://isocpp.org/" alt="C++">C++</a> code examples from the book <a href="https://leanpub.com/concurrencywithmodernc" rel="external">Concurrency with Modern C++</a> by Rainer Grimm (Leanpub, 2023).<br/>
   It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for running the example on a Windows machine.
   </td>
   </tr>
@@ -60,7 +60,7 @@ build/Release/fetch_mult.exe
 25
 </pre>
 
-## <span id="transitivity">`transitiity` Example</span>
+## <span id="transitivity">`transitivity` Example</span>
 
 This example consists of source file [`transitivity.cpp`](./transitivity/src/transitivity.cpp) and build script [`build.bat`](./transitivity/build.bat) (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc`).
 
@@ -78,7 +78,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

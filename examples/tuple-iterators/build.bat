@@ -102,7 +102,8 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
 if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
-    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
+    echo %_ERROR_LABEL% GCC package not installed 1>&2
+    echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -315,7 +316,7 @@ echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%D
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
-echo     %__BEG_O%run%__END%         run the generated executable
+echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_PROJ_NAME%.exe%__END%"
 goto :eof
 
 :clean
@@ -342,10 +343,9 @@ goto :eof
 @rem https://gcc.gnu.org/projects/cxx-status.html
 @rem https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version
 @rem https://clang.llvm.org/cxx_status.html
-if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--platform=win64 --template=gcc --std=c++17
-) else if %_TOOLSET%==icx ( set set __CPPCHECK_OPTS=--platform=win64 --std=c++17
-) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=--platform=win64 --template=vs --std=c++17
-) else ( set __CPPCHECK_OPTS=--platform=win64 --std=c++14
+set __CPPCHECK_OPTS=--platform=win64 --std=%_CXX_STD%
+if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=%__CPPCHECK_OPTS% --template=gcc
+) else if %_TOOLSET%==msvc ( set __CPPCHECK_OPTS=%__CPPCHECK_OPTS% --template=vs
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
@@ -399,7 +399,6 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __MAKE_OPTS=
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
 )
@@ -511,7 +510,7 @@ if not defined __LIB_VERSION (
 )
 set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
 
-set __ICX_FLAGS=-Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
 if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
 set __SOURCE_FILES=
@@ -614,7 +613,7 @@ if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
+    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -638,7 +637,7 @@ if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found 1>&2
+    echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

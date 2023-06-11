@@ -14,6 +14,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 #include_directory(include)
 
-file(GLOB SOURCES src/*.cpp src/*.h)
+file(GLOB SOURCES src/main/cpp/*.cpp src/main/cpp/*.h)
 
 add_executable(hello ${SOURCES})
