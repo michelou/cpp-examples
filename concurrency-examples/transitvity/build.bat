@@ -76,6 +76,7 @@ set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\cpp"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
@@ -364,12 +365,12 @@ if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=%_CXX_STD%
 )
 set __CPPCHECK_OPTS=--platform=win64 %__CPPCHECK_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_MAIN_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_MAIN_DIR=%_ROOT_DIR%=!" 1>&2
 )
-call "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_DIR%"
+call "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_MAIN_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Found errors while analyzing C++ source files in directory "!_SOURCE_DIR=%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Found errors while analyzing C++ source files in directory "!_SOURCE_MAIN_DIR=%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -528,7 +529,7 @@ if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.cpp"') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.cpp"') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
