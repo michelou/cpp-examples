@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [CMake 3.26][cmake_downloads] ([*release notes*][cmake_relnotes])
+- [CMake 3.27][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.41][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
@@ -26,21 +26,21 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [Bazel 6.2 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
-- [Cppcheck 2.10][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
+- [Cppcheck 2.11][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 - [Visual Studio Code 1.78][vscode_downloads] ([*release notes*][vscode_relnotes])
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*July 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel-6.2.1\                      <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.26.4-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.27.0-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.7\                    <i>(120 MB)</i>
 C:\opt\Git-2.41.0\                       <i>(358 MB)</i>
-C:\opt\LLVM-16.0.5\                      <i>(3.1 GB)</i>
+C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\VSCode\                           <i>(341 MB)</i>
 c:\Program Files\Cppcheck\               <i>( 35 MB)</i>
@@ -101,8 +101,8 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.2.1, bcc32c 7.30, clang 16.0.5, gcc 12.2.0, icx 2023.1.0
-   cmake 3.26.4, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.7, msbuild 16.11.2.50704
+   bazel 6.2.1, bcc32c 7.30, clang 16.0.6, gcc 12.2.0, icx 2023.1.0
+   cmake 3.27.0, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.7, msbuild 16.11.2.50704
    diff 3.9, git 2.41.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
@@ -142,9 +142,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/6.2.1">bazel-6.2.1-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                         <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.26.4-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.27.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.1.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
-<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.5">LLVM-16.0.5-win64.exe</a>                              <i>(263 MB)</i>
+<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                    <i>(1.3 MB)</i>
@@ -174,7 +174,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -188,7 +188,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.26/release/3.26.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.27/release/3.27.html
 [cpp_lang]: https://isocpp.org/
 [cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download
@@ -209,7 +209,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 [intel_dpc_relnotes]: https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html
 [kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.5
+[llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [llvm_relnotes]: https://releases.llvm.org/16.0.0/docs/ReleaseNotes.html
 [man1_awk]: https://www.linux.org/docs/man1/awk.html

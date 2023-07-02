@@ -12,7 +12,8 @@
 
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw), January 2022.
 - [Red Hat Developer](https://developers.redhat.com/) articles :
-  - [New C++ features in GCC 12][article_placek] by Marek Polacek, April 2022.
+  - [New C++ features in GCC 13][article_polacek_gcc13] by Marek Polacek, June 2023.
+  - [New C++ features in GCC 12][article_polacek_gcc12] by Marek Polacek, April 2022.
   - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
   - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
   - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
@@ -126,7 +127,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
@@ -138,7 +139,8 @@
 [article_guelton_format]: https://developers.redhat.com/articles/2022/02/25/enforce-code-consistency-clang-format
 [article_guelton_mapping]: https://developers.redhat.com/blog/2021/05/04/optimizing-the-clang-compilers-line-to-offset-mapping
 [article_malcolm]: https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler
-[article_placek]: https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12
+[article_polacek_gcc12]: https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12
+[article_polacek_gcc13]: https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13
 [article_ritchie]: http://www.gotw.ca/publications/c_family_interview.htm
 [blog_benderksy_2014]: https://eli.thegreenplace.net/2014/variadic-templates-in-c/
 [blog_bendersky_2016]: https://eli.thegreenplace.net/2016/c11-threads-affinity-and-hyperthreading/

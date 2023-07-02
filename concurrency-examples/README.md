@@ -54,7 +54,7 @@ Execute "build\Release\fetch_mult.exe"
 &nbsp;
 <b>&gt; <a href="https://linux.die.net/man/1/make">make</a> TOOLSET=icx clean run</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
-"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -Qstd=c++17 -O2 -Fe"build/Release/fetch_mult.exe"  -o build/Release/fetch_mult.exe src/main/cpp/fetch_mult.cpp -link -libpath:"X:/VC/Tools/MSVC/14.29.30133//lib/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/ucrt/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/um/x64" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
+"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -Qstd=c++17 -O2 -Fe"build/Release/fetch_mult.exe"  -o build/Release/fetch_mult.exe src/main/cpp/fetch_mult.cpp -link -libpath:"X:/VC/Tools/MSVC/14.36.32532//lib/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/ucrt/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/um/x64" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
 build/Release/fetch_mult.exe
 5
 25
@@ -78,7 +78,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
