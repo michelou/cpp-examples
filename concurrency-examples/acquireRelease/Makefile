@@ -22,7 +22,7 @@ CPPCHECK_OPTS = --platform=win64 --std=$(CXXSTD)
 ifeq ($(TOOLSET),bcc)
 CXX = $(BCC)
 ## see https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
-CXXFLAGS = -I "$(SOURCE_DIR)" -q -w -L "$(subst \,/,$(MSYS_HOME))/mingw64/bin"
+CXXFLAGS = -I "$(SOURCE_DIR)" -q -w
 ## suppress linker identification banner
 CXXLINK = -lq
 else ifeq ($(TOOLSET),clang)

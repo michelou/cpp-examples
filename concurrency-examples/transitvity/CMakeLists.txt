@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(transitivity VERSION 1.0.0 LANGUAGES CXX)
 
@@ -14,6 +14,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 #include_directory(include)
 
-file(GLOB SOURCES src/*.cpp src/*.h)
+file(GLOB SOURCES src/main/cpp/*.cpp src/main/cpp/*.h)
 
 add_executable(transitivity ${SOURCES})
