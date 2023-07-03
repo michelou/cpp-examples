@@ -50,7 +50,11 @@
   - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
   - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
   - [Mixins](http://www.modernescpp.com/index.php/mixins), March 2022.
-- [Modern C++ In-Depth]() by Ralph Kootker :
+- [Modern C++ In-Depth](https://medium.com/@mkristofik) by Ralph Kootker :
+  - [Transparent Comparisons](https://medium.com/factset/modern-c-in-depth-transparent-comparisons-afef5900535b), June 2023.
+  - [Literal Operators and User-Defined Literals](https://medium.com/factset/modern-c-in-depth-literal-operators-and-user-defined-literals-c24fab27f77a), March 2023.
+  - [Lambdas, Part 3](https://medium.com/factset/modern-c-in-depth-lambdas-part-3-561823a990e6), February 2023.
+  - [Lambdas, Part 2](https://medium.com/factset/modern-c-in-depth-lambdas-part-2-a2d54c7b51), January 2023.
   - [Lambdas, Part 1](https://medium.com/factset/modern-c-in-depth-lambdas-part-1-d03fe8153ee1), November 2022.
   - [Perfect Forwarding](https://medium.com/factset/modern-c-in-depth-perfect-forwarding-570f242261f8), May 2022.
   - [Move Semantics, Part 2][blog_kootker_2], March 2022.
