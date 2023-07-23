@@ -218,11 +218,11 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem input parameter: %1=User drive name
+@rem input parameter: %1=Used drive name
 @rem output parameter: __DRIVE_NAMES
 :drive_names
-set "__USED=%~1"
-set "__DRIVE_NAMES=!__DRIVE_NAMES:%__USED%=!"
+set "__USED_NAME=%~1"
+set "__DRIVE_NAMES=!__DRIVE_NAMES:%__USED_NAME%=!"
 goto :eof
 
 :help
