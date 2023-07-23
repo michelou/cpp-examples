@@ -125,6 +125,7 @@ goto :eof
 
 @rem input parameter: %*
 :args
+set _BASH=0
 set _HELP=0
 set _VERBOSE=0
 :args_loop
@@ -133,7 +134,9 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-help" ( set _HELP=1
+    if "%__ARG%"=="-bash" ( set _BASH=1
+    ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
     )else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -152,6 +155,74 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
+call :drive_name "%_ROOT_DIR%"
+if not %_EXITCODE%==0 goto :eof
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _BASH=%_BASH% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% 1>&2
+    echo %_DEBUG_LABEL% Variables  : _DRIVE_NAME=%_DRIVE_NAME% 1>&2
+)
+goto :eof
+
+@rem input parameter: %1: path to be substituted
+@rem output parameter: _DRIVE_NAME
+:drive_name
+set "__GIVEN_PATH=%~1"
+
+@rem https://serverfault.com/questions/62578/how-to-get-a-list-of-drive-letters-on-a-system-through-a-windows-shell-bat-cmd
+set __DRIVE_NAMES=F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z:
+for /f %%i in ('wmic logicaldisk get deviceid ^| findstr :') do (
+    set "__DRIVE_NAMES=!__DRIVE_NAMES:%%i=!"
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __DRIVE_NAMES=%__DRIVE_NAMES% ^(WMIC^) 1>&2
+if not defined __DRIVE_NAMES (
+    echo %_ERROR_LABEL% No more free drive name 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "tokens=1,2,*" %%f in ('subst') do (
+    set "__SUBST_DRIVE=%%f"
+    set "__SUBST_DRIVE=!__SUBST_DRIVE:~0,2!"
+    set "__SUBST_PATH=%%h"
+    if "!__SUBST_DRiVE!"=="!__GIVEN_PATH:~0,2!" (
+        set _DRIVE_NAME=!__SUBST_DRIVE:~0,2!
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
+        ) else if %_VERBOSE%==1 ( echo Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
+        )
+        goto :eof
+    ) else if "!__SUBST_PATH!"=="!__GIVEN_PATH!" (
+        set "_DRIVE_NAME=!__SUBST_DRIVE!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
+        ) else if %_VERBOSE%==1 ( echo Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
+        )
+        goto :eof
+    )
+)
+for /f "tokens=1,2,*" %%i in ('subst') do (
+    set __USED=%%i
+    call :drive_names "!__USED:~0,2!"
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __DRIVE_NAMES=%__DRIVE_NAMES% ^(SUBST^) 1>&2
+
+set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
+if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign path "%__GIVEN_PATH%" to drive %_DRIVE_NAME% 1>&2
+)
+subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to assigned drive %_DRIVE_NAME% to path 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+@rem input parameter: %1=User drive name
+@rem output parameter: __DRIVE_NAMES
+:drive_names
+set "__USED=%~1"
+set "__DRIVE_NAMES=!__DRIVE_NAMES:%__USED%=!"
 goto :eof
 
 :help
@@ -182,7 +253,7 @@ set _BAZEL_HOME=
 set _BAZEL_PATH=
 
 set __BAZEL_CMD=
-for /f %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
+for /f "delims=" %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
 if defined __BAZEL_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "_BAZEL_HOME=%%~dpi"
@@ -212,7 +283,7 @@ goto :eof
 set _BCC_HOME=
 
 set __BCC_CMD=
-for /f %%f in ('where bcc32c.exe 2^>NUL') do set __BCC_CMD=%%f
+for /f "delims=" %%f in ('where bcc32c.exe 2^>NUL') do set __BCC_CMD=%%f
 if defined __BCC_CMD (
     for /f "delims=" %%i in ("%__BCC_CMD%") do set "__BCC_BIN_DIR=%%~dpi"
     for %%f in ("!__BCC_BIN_DIR!.") do set "_BCC_HOME=%%~dpf"
@@ -617,22 +688,32 @@ goto :eof
 
 :end
 endlocal & (
-    if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
-    if not defined BCC_HOME set "BCC_HOME=%_BCC_HOME%"
-    if not defined CMAKE_HOME set "CMAKE_HOME=%_CMAKE_HOME%"
-    if not defined DOXYGEN_HOME set "DOXYGEN_HOME=%_DOXYGEN_HOME%"
-    if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
-    if not defined LLVM_HOME set "LLVM_HOME=%_LLVM_HOME%"
-    if not defined MSVS_CMAKE_HOME set "MSVS_CMAKE_HOME=%_MSVS_CMAKE_HOME%"
-    if not defined MSVS_MSBUILD_HOME set "MSVS_MSBUILD_HOME=%_MSVS_MSBUILD_HOME%"
-    if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
-    if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
-    if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
-    if not defined ONEAPI_ROOT set "ONEAPI_ROOT=%_ONEAPI_ROOT%"
-    if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
-    @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-    set "PATH=%_GIT_HOME%\bin;%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
-    call :print_env %_VERBOSE%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
-    for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
+    if %_EXITCODE%==0 (
+        if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
+        if not defined BCC_HOME set "BCC_HOME=%_BCC_HOME%"
+        if not defined CMAKE_HOME set "CMAKE_HOME=%_CMAKE_HOME%"
+        if not defined DOXYGEN_HOME set "DOXYGEN_HOME=%_DOXYGEN_HOME%"
+        if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
+        if not defined LLVM_HOME set "LLVM_HOME=%_LLVM_HOME%"
+        if not defined MSVS_CMAKE_HOME set "MSVS_CMAKE_HOME=%_MSVS_CMAKE_HOME%"
+        if not defined MSVS_MSBUILD_HOME set "MSVS_MSBUILD_HOME=%_MSVS_MSBUILD_HOME%"
+        if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
+        if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
+        if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
+        if not defined ONEAPI_ROOT set "ONEAPI_ROOT=%_ONEAPI_ROOT%"
+        if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
+        @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
+        call :print_env %_VERBOSE%
+        if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2
+            cd /d %_DRIVE_NAME%
+        )
+        if %_BASH%==1 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
+            cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
+        )
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
+        for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
+    )
 )
