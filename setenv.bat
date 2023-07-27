@@ -33,10 +33,8 @@ call :bazel
 if not %_EXITCODE%==0 goto end
 
 call :bcc
-if not %_EXITCODE%==0 (
-    set _EXITCODE=0
-    @rem goto end
-)
+if not %_EXITCODE%==0 goto end
+
 call :doxygen
 if not %_EXITCODE%==0 goto end
 
@@ -446,9 +444,9 @@ for /f "delims=" %%f in ('"%_ROOT_DIR%bin\vswhere.exe" -property installationPat
     set "_MSVS_HOME=%%f"
 )
 if not exist "%_MSVS_HOME%\" (
-    echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 2019 1>&2
+    echo %_WARNING_LABEL% Could not find installation directory for Microsoft Visual Studio 2019 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
-    set _EXITCODE=1
+    @rem set _EXITCODE=1
     goto :eof
 )
 call :subst_path "%_MSVS_HOME%"
@@ -467,9 +465,9 @@ for /f "delims=" %%f in ('where /r "%_MSVS_HOME%" cl.exe ^| findstr "%__MSVC_ARC
     set "_MSVC_HOME=!_MSVC_HOME:bin%__MSVC_ARCH%\=!"
 )
 if not exist "%_MSVC_HOME%\bin%__MSVC_ARCH%\" (
-    echo %_ERROR_LABEL% Could not find installation directory for MSVC compiler 1>&2
+    echo %_WARNING_LABEL% Could not find installation directory for MSVC compiler 1>&2
     echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
-    set _EXITCODE=1
+    @rem set _EXITCODE=1
     goto :eof
 )
 set "_MSVS_MSBUILD_HOME=%_MSVS_HOME%\MSBuild\Current"
@@ -530,9 +528,9 @@ if defined __ICX_CMD (
     set "_ONEAPI_ROOT=%ProgramFiles(x86)%\Intel\oneAPI"
 )
 if not exist "%_ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    echo %_ERROR_LABEL% Intel DPC++ compiler executable not found ^("%_ONEAPI_ROOT%"^) 1>&2
+    echo %_WARNING_LABEL% Intel DPC++ compiler executable not found ^("%_ONEAPI_ROOT%"^) 1>&2
     set _ONEAPI_ROOT=
-    set _EXITCODE=1
+    @rem set _EXITCODE=1
     goto :eof
 )
 @rem set "_ONEAPI_PATH=%_ONEAPI_ROOT%\compiler\latest\windows\bin"
@@ -544,8 +542,8 @@ goto :eof
 set "__VERSION=%~1"
 
 if not exist "%ProgramFiles(x86)%\Windows Kits\%__VERSION%" (
-    echo %_ERROR_LABEL% Windows SDK %__VERSION% installation not found 1>&2
-    set _EXITCODE=1
+    echo %_WARNING_LABEL% Windows SDK %__VERSION% installation not found 1>&2
+    @rem set _EXITCODE=1
     goto :eof
 )
 set "_WINSDK_HOME=%ProgramFiles(x86)%\Windows Kits\%__VERSION%"
@@ -587,9 +585,9 @@ goto :eof
 @rem input parameter: %1=verbose flag
 :print_env
 set __VERBOSE=%~1
-set "__VERSIONS_LINE1=  "
-set "__VERSIONS_LINE2=  "
-set "__VERSIONS_LINE3=  "
+set __VERSIONS_LINE1=
+set __VERSIONS_LINE2=
+set __VERSIONS_LINE3=
 set __WHERE_ARGS=
 where /q "%BAZEL_HOME%:bazel.exe"
 if %ERRORLEVEL%==0 (
@@ -657,10 +655,15 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
+where /q "%GIT_HOME%\bin:bash.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:bash.exe"
+)
 echo Tool versions:
-echo %__VERSIONS_LINE1%
-echo %__VERSIONS_LINE2%
-echo %__VERSIONS_LINE3%
+echo   %__VERSIONS_LINE1%
+echo   %__VERSIONS_LINE2%
+echo   %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2

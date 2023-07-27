@@ -101,15 +101,15 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
-if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
+if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
     echo %_ERROR_LABEL% GCC package not installed 1>&2
     echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
-set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
-set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
+set "_GCC_CMD=%MSYS_HOME%\usr\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
+set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
