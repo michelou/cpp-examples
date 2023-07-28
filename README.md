@@ -32,12 +32,12 @@ Optionally one may also install the following software:
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 - [Visual Studio Code 1.80][vscode_downloads] ([*release notes*][vscode_relnotes])
 
-For instance our development environment looks as follows (*July 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*August 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-6.2.1\                      <i>( 47 MB)</i>
+C:\opt\bazel-6.3.0\                      <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.27.0-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.27.1-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.7\                    <i>(120 MB)</i>
 C:\opt\Git-2.41.0\                       <i>(358 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
@@ -101,12 +101,12 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.2.1, bcc32c 7.30, clang 16.0.6, gcc 12.2.0, icx 2023.1.0
-   cmake 3.27.0, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.7, msbuild 16.11.2.50704
+   bazel 6.3.0, bcc32c 7.30, clang 16.0.6, gcc 12.2.0, icx 2023.1.0
+   cmake 3.27.1, cl 19.29.30137, cppcheck 2.10, doxygen 1.9.7, msbuild 16.11.2.50704
    diff 3.9, git 2.41.0.windows.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
-C:\opt\bazel-6.2.1\bazel.exe
+C:\opt\bazel-6.3.0\bazel.exe
 C:\opt\Git-2.41.0\bin\git.exe
 C:\opt\Git-2.41.0\mingw64\bin\git.exe
 </pre>
@@ -140,9 +140,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.2.1">bazel-6.2.1-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.3.0">bazel-6.3.0-windows-x86_64.zip</a>                     <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                         <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.27.0-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.27.1-windows-x86_64.zip</a>                    <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.1.0.25932_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                              <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                          <i>( 86 MB)</i>
@@ -174,7 +174,7 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -182,8 +182,13 @@ Concretely, <code><b>setenv.bat</b></code> in our GitHub projects which depend o
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.2.1
-[bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.3.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/6.3.0
+<!--
+6.3.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-630-2023-07-24
+6.2.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-621-2023-06-02
+6.2.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-620-2023-05-09
+-->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html

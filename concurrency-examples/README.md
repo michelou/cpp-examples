@@ -14,7 +14,7 @@
 
 ## <span id="acquireConsume">`acquireConsume` Example</span>
 
-This example consists of source file [`acquireConsume.cpp`](./acquireConsume/src/main/cpp/acquireConsume.cpp) and build script [`build.bat`](./acquireConsume/build.bat) (with options `-clang`, `-gcc`, `-icx` and `-msvc`).
+This example consists of source file [`acquireConsume.cpp`](./acquireConsume/src/main/cpp/acquireConsume.cpp) and build script [`build.bat`](./acquireConsume/build.bat) (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc`).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./acquireConsume/build.bat">build</a> -verbose -gcc run</b>
@@ -78,7 +78,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

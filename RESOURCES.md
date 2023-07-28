@@ -103,11 +103,15 @@
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 13.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000179.html), July 2023.
   - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023.
+  - [GCC 12.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000176.html), May 2023.
   - [GCC 12.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000174.html), August 2022.
   - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
+  - [GCC 11.4 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000177.html), May 2023.
   - [GCC 11.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000170.html), April 2022.
   - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021.
+  - [GCC 10.5 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000178.html), July 2023.
   - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
   - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
 
@@ -131,7 +135,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
