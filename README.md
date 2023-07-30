@@ -25,7 +25,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Bazel 6.2 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 6.3 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Cppcheck 2.11][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
