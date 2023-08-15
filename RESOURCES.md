@@ -18,13 +18,15 @@
   - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
   - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
   - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
+  - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10) by Marek Polacek, September 2020.
+  - [Static analysis in GCC 10](https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10) by David Malcolm, March 2020.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
 - [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
 - [Internals of Compiling - Journey from C/C++ program to an Executable][article_gautham] by Adwaith Gautham, June 2018.
 - [Mixing C and C++ Code in the Same Program][article_clamage] by Stephen Clamage, February 2011.
 - [The C Family of Languages: Interview with Dennis Ritchie, Bjarne Stroustrup, and James Gosling][article_ritchie], July 2000.
 
-## <span id="blogs">Blogs</span>
+## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
 - [Sutter's Blog](https://herbsutter.com/) :
   - [C++23 “Pandemic Edition” is complete](https://herbsutter.com/2023/02/13/c23-pandemic-edition-is-complete-trip-report-winter-iso-c-standards-meeting-issaquah-wa-usa/), February 2023.
@@ -70,7 +72,8 @@
   - [Compiler error message metaprogramming: Helping to find the conflicting macro definition](https://devblogs.microsoft.com/oldnewthing/20211206-00/?p=106002) by Raymond Chen, December 2021.
 - [The C++ Programming Language](https://www.stroustrup.com/C++.html) by Bjarne Stroustrup, October 2021.
 - [cstdlib in C++ – Explained](https://www.incredibuild.com/blog/cstdlib-in-c-explained) by Dori Exterman, September 2021.
-- [How to use type traits?](https://www.sandordargo.com/blog/2021/04/14/how-to-use-type-traits) by Sandor Dargo, May 2021.
+- [C++ Sets Explained](https://www.udacity.com/blog/2021/05/cpp-sets-explained.html) by Audacity Team, May 2021.
+- [How to use type traits?](https://www.sandordargo.com/blog/2021/04/14/how-to-use-type-traits) by Sandor Dargo, Apri 2021.
 - [Structures and classes in C++](https://www.embedded.com/structures-and-classes-in-c/) by Colin Walls, September 2020.
 - [C++ Lambda Under the Hood](https://medium.com/software-design/c-lambda-under-the-hood-9b5cd06e550a) by [EventHelix](https://www.eventhelix.com/), June 2019.
 - [OpenGenus C++ Blog](https://iq.opengenus.org/tag/cpp/):
@@ -78,7 +81,10 @@
   - [Different ways to terminate a program in C++](https://iq.opengenus.org/different-ways-to-terminate-program-in-cpp/) by Subhrajit Dhar.
   - [Struct inheritance in C++](https://iq.opengenus.org/struct-inheritance-in-cpp/) by Harshit Raj.
 - [RedHat Developer Blog](https://developers.redhat.com/new) :
+  - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
   - [2022 Fall C++ Standards Committee Meeting trip report](https://developers.redhat.com/blog/2023/02/09/2022-fall-c-standards-committee-meeting-trip-report), February 2023.
+  - [New C++ features in GCC 12](https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12) by Marek Polacek, April 2022.
+  - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10#) by Marek Polacek, September 2020.
   - [The joys and perils of aliasing in C and C++, Part 2](https://developers.redhat.com/blog/2020/06/03/the-joys-and-perils-of-aliasing-in-c-and-c-part-2) by Martin Sebor, June 2020.
   - [The joys and perils of C and C++ aliasing, Part 1](https://developers.redhat.com/blog/2020/06/02/the-joys-and-perils-of-c-and-c-aliasing-part-1) by Martin Sebor, June 2020.
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
@@ -115,7 +121,7 @@
   - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
   - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
 
-## <span id="tools">Tools</span>
+## <span id="tools">Tools</span> [**&#x25B4;**](#top)
 
 - [Astrée](https://www.absint.com/astree/) &ndash; a fast and sound static analyzer for C/C++.
 - [C++ Insights](https://cppinsights.io/about.html) &ndash; a Clang-based tool which does a source to source transformation.

@@ -186,7 +186,7 @@ compile_bcc() {
     eval "$CMAKE_CMD $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
+        error "Failed to generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     local make_opts=
@@ -247,7 +247,7 @@ compile_clang() {
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME.exe\""
+        error "Failed to generate executable \"$PROJECT_NAME.exe\""
         cleanup 1
     fi
     popd

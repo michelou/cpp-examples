@@ -88,7 +88,7 @@ if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
+    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -101,14 +101,14 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
 
-if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
+if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
     echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GCC_CMD=%MSYS_HOME%\usr\bin\gcc.exe"
-set "_GXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
-set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
+set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
+set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
@@ -271,10 +271,9 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _RUN=%_RUN% 1>&2
     if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
-    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2

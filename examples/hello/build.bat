@@ -279,7 +279,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
 goto :eof
@@ -532,7 +532,7 @@ set "__LIB=%LIB%"
 set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
 
-call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
     set "LIB=%__LIB%"
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2

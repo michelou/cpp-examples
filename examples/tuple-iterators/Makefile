@@ -6,7 +6,7 @@
 ##############################################################################
 
 TOOLSET ?= gcc
-CXXSTD ?= c++17
+CXXSTD ?= c++20
 
 include ../Makefile.inc
 
@@ -17,7 +17,7 @@ SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)
 
-CPPCHECK_OPTS = --platform=win64 --std=c++14
+CPPCHECK_OPTS = --platform=win64 --std=$(CXXSTD)
 
 ifeq ($(TOOLSET),bcc)
 CXX = $(BCC)
@@ -33,7 +33,7 @@ else ifeq ($(TOOLSET),gcc)
 CXX = $(CC)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
-CPPCHECK_OPTS = --platform=win64 --template=gcc --std=c++14
+CPPCHECK_OPTS = --platform=win64 --template=gcc --std=$(CXXSTD)
 else ifeq ($(TOOLSET),icx)
 CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
@@ -107,4 +107,4 @@ doc:
 .PHONY: all build clean help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .c .cpp .o .obj .exe

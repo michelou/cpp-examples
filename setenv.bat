@@ -166,6 +166,8 @@ goto :eof
 @rem output parameter: _DRIVE_NAME
 :drive_name
 set "__GIVEN_PATH=%~1"
+@rem remove trailing path separator if present
+if "%__GIVEN_PATH:~-1,1%"=="\" set "__GIVEN_PATH=%__GIVEN_PATH:~0,-1%"
 
 @rem https://serverfault.com/questions/62578/how-to-get-a-list-of-drive-letters-on-a-system-through-a-windows-shell-bat-cmd
 set __DRIVE_NAMES=F:G:H:I:J:K:L:M:N:O:P:Q:R:S:T:U:V:W:X:Y:Z:
@@ -210,7 +212,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assigned drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -309,7 +311,7 @@ goto :eof
 set _DOXYGEN_HOME=
 
 set __DOXYGEN_CMD=
-for /f %%f in ('where doxygen.exe 2^>NUL') do set __DOXYGEN_CMD=%%f
+for /f "delims=" %%f in ('where doxygen.exe 2^>NUL') do set __DOXYGEN_CMD=%%f
 if defined __DOXYGEN_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Doxygen executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__DOXYGEN_CMD%") do set "__DOXY_BIN_DIR=%%~dpi"
@@ -339,7 +341,7 @@ set _CMAKE_HOME=
 @rem set _CMAKE_PATH=
 
 set __CMAKE_CMD=
-for /f %%f in ('where cmake.exe 2^>NUL') do set "__CMAKE_CMD=%%f"
+for /f "delims=" %%f in ('where cmake.exe 2^>NUL') do set "__CMAKE_CMD=%%f"
 if defined __CMAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CMake executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__CMAKE_CMD%") do set "__CMAKE_BIN_DIR=%%~dpi"
@@ -372,7 +374,7 @@ set _MSYS_HOME=
 set _MSYS_PATH=
 
 set __MAKE_CMD=
-for /f %%f in ('where make.exe 2^>NUL') do set __MAKE_CMD=%%f
+for /f "delims=" %%f in ('where make.exe 2^>NUL') do set __MAKE_CMD=%%f
 if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__MAKE_CMD%") do set "__MAKE_BIN_DIR=%%~dpi"
@@ -407,7 +409,7 @@ set _LLVM_HOME=
 
 set __DISTRO=llvm-%~1
 set __CLANG_CMD=
-for /f %%f in ('where clang.exe 2^>NUL') do set "__CLANG_CMD=%%f"
+for /f "delims=" %%f in ('where clang.exe 2^>NUL') do set "__CLANG_CMD=%%f"
 if defined __CLANG_CMD (
     for /f "delims=" %%i in ("%__CLANG_CMD%") do set "__LLVM_BIN_DIR=%%~dpi"
     for %%f in ("!__LLVM_BIN_DIR!.") do set "_LLVM_HOME=%%~dpf"
@@ -516,7 +518,7 @@ goto :eof
 set _ONEAPI_ROOT=
 
 set __ICX_CMD=
-for /f %%f in ('where icx.exe 2^>NUL') do set "__ICX_CMD=%%f"
+for /f "delims=" %%f in ('where icx.exe 2^>NUL') do set "__ICX_CMD=%%f"
 if defined __ICX_CMD (
     for /f "delims=" %%i in ("%__ICX_CMD%") do set "__ICX_BIN_DIR=%%~dpi"
     for %%f in ("!__ICX_BIN_DIR!.") do set "_ONEAPI_ROOT=%%~dpf"
@@ -555,7 +557,7 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
+for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
@@ -570,7 +572,7 @@ if defined __GIT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
 )
@@ -624,12 +626,17 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __CL_BIN_DIR=Bin\Hostx64\x64
 )
 where /q "%MSVC_HOME%\%__CL_BIN_DIR%:cl.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-6,7,*" %%i in ('"%MSVC_HOME%\%__CL_BIN_DIR%\cl.exe" 2^>^&1 ^| findstr /i version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cl %%o,
+    for /f "tokens=1-6,7,*" %%i in ('"%MSVC_HOME%\%__CL_BIN_DIR%\cl.exe" 2^>^&1 ^| findstr /i version') do (
+        @rem Trick: version string contains the special character "&nbsp;" !
+        set "__VERSION_STR=%%n"
+        setlocal enabledelayedexpansion
+        set "__VERSIONS_LINE2=%__VERSIONS_LINE2% !__VERSION_STR:version=cl!,"
+    )
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVC_HOME%\%__CL_BIN_DIR%:cl.exe"
 )
 where /q "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,
+    for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
 )
 where /q "%DOXYGEN_HOME%\bin:doxygen.exe"
@@ -652,7 +659,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k"
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\bin:bash.exe"
