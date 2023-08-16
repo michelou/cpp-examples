@@ -15,6 +15,6 @@ endif()
     
 #include_directory(include)
 
-file(GLOB SOURCES src/*.cpp src/*.h)
+file(GLOB SOURCES "src/*.cpp" "src/*.h")
 
 add_executable(simple-window ${SOURCES})

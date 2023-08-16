@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 TOOLSET ?= gcc
 CXXSTD ?= c++17
 
@@ -56,4 +63,4 @@ run: build
 .PHONY: all build clean run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .c .cpp .o .obj .exe
