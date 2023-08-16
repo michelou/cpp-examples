@@ -74,6 +74,7 @@ set _PROJ_NAME=main
 for /f "tokens=1,2,* delims=( " %%f in ('findstr /b project "%__CMAKE_LIST_FILE%" 2^>NUL') do set "_PROJ_NAME=%%g"
 set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
+set "_EXE_NAME=%_PROJ_NAME%.exe"
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\cpp"
@@ -107,7 +108,8 @@ if not exist "%MSYS_HOME%\usr\bin\make.exe" (
 set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
 
 if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
-    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
+    echo %_ERROR_LABEL% GCC package not installed 1>&2
+    echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -282,21 +284,19 @@ if %_TOOLSET%==msvc (
         goto :eof
     )
 )
-for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
-set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
-
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
-    echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
+    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVC_HOME=%MSVC_HOME%" ^(cl^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
-    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" ^(icx^) 1>&2
 )
 goto :eof
 
@@ -331,7 +331,7 @@ echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%D
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
-echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_PROJ_NAME%.exe%__END%"
+echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_EXE_NAME%%__END%"
 goto :eof
 
 :clean
@@ -416,12 +416,12 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
 call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -461,12 +461,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -497,12 +497,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -524,7 +524,7 @@ if not defined __LIB_VERSION (
 )
 set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
 
-set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_EXE_NAME%"
 if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
 set __SOURCE_FILES=
@@ -588,12 +588,12 @@ if not %ERRORLEVEL%==0 (
 set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
 call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -636,9 +636,9 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
+set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found 1>&2
+    echo %_ERROR_LABEL% Executable "%_EXE_NAME%" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -660,7 +660,7 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
+set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
 if not exist "%__EXE_FILE%" (
     echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found 1>&2
     set _EXITCODE=1

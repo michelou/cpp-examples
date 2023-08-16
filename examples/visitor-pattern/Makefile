@@ -17,7 +17,12 @@ SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)
 
-CPPCHECK_OPTS = --platform=win64 --std=c++14
+ifeq ($(OS),Windows_NT)
+CPPCHECK_PLATFORM = win64
+else
+CPPCHECK_PLATFORM = native
+endif
+CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --std=$(CXXSTD)
 
 ifeq ($(TOOLSET),bcc)
 CXX = $(BCC)
@@ -33,7 +38,7 @@ else ifeq ($(TOOLSET),gcc)
 CXX = $(CC)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
-CPPCHECK_OPTS = --platform=win64 --template=gcc --std=c++14
+CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=gcc --std=c++14
 else ifeq ($(TOOLSET),icx)
 CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
@@ -44,7 +49,7 @@ CXX = $(CL)
 ## see https://learn.microsoft.com/en-us/cpp/build/reference/compiler-options-listed-alphabeticall
 CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)ucrt" -I"$(WINSDK_INCPATH)um" -Fo"$(TARGET_DIR)/"
 CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)"
-CPPCHECK_OPTS = --platform=win64 --template=vs --std=c++17
+CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=vs --std=c++17
 else
 $(error Variable TOOLSET is invalid)
 endif
@@ -100,4 +105,4 @@ lint:
 .PHONY: all build clean help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .c .cpp .o .obj .exe
