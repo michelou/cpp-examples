@@ -16,7 +16,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.27][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.41][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.42][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
 - [oneAPI DPC++ 2023.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
@@ -37,9 +37,9 @@ For instance our development environment looks as follows (*August 2023*) <sup i
 <pre style="font-size:80%;">
 C:\opt\bazel-6.3.2\                      <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.27.2-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.27.4-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.7\                    <i>(120 MB)</i>
-C:\opt\Git-2.41.0\                       <i>(358 MB)</i>
+C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\VSCode\                           <i>(341 MB)</i>
@@ -92,23 +92,23 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 > </pre>
 -->
 
-## <span id="commands">Batch commands</span>
+## <span id="commands">Batch commands</span> [**&#x25B4;**](#top)
 
 ### **`setenv.bat`** <sup id="anchor_04">[4](#footnote_04)</sup>
 
-Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+We execute command [**`setenv.bat`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 6.3.2, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2023.2.1
-   cmake 3.27.2, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.7, msbuild 17.6.3.22601
-   diff 3.9, git 2.41.0.windows.1, bash 5.2.15(1)-release
+   cmake 3.27.4, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.7, msbuild 17.6.3.22601
+   git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
 C:\opt\bazel-6.3.2\bazel.exe
-C:\opt\Git-2.41.0\bin\git.exe
-C:\opt\Git-2.41.0\mingw64\bin\git.exe
+C:\opt\Git\bin\git.exe
+C:\opt\Git\mingw64\bin\git.exe
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -142,7 +142,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/6.3.2">bazel-6.3.2-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                      <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.27.2-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.27.4-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.2.1.7_offline.exe</a>   <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                       <i>( 86 MB)</i>
@@ -207,7 +207,7 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\vsde
 </pre>
 </dd>
 <dd>
-Concretely, <a href=./setenv.bat><code><b>setenv.bat</b></code></a> in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>) do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
+Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="https://github.com/michelou/cpp-examples"><code>michelou/cpp-examples</code></a>), <a href=./setenv.bat><code><b>setenv.bat</b></code></a> do invoke <code><b>VsDevCmd.bat</b></code> (resp. <code><b>vcvarall.bat</b></code> for older Visual Studio versions) to setup the Visual Studio tools on the command prompt. 
 </dd></dl>
 
 ***

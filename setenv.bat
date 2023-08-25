@@ -209,7 +209,7 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign path "%__GIVEN_PATH%" to drive %_DRIVE_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
@@ -241,6 +241,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
