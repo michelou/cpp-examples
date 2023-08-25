@@ -94,11 +94,27 @@ if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
+    echo %_ERROR_LABEL% GNU Make executable not found ^(MSYS installation directory^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
+
+if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
+    echo %_ERROR_LABEL% GCC package not installed 1>&2
+    echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_GCC_CMD=%MSYS_HOME%\usr\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
+
+if not exist "%MSYS_HOME%\usr\bin\windres.exe" (
+    echo %_ERROR_LABEL% GNU windres executable not found ^(MSYS installation directory^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
 if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
@@ -106,15 +122,6 @@ if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
     goto :eof
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
-
-if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
-    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
-set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
-set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
@@ -260,6 +267,17 @@ if %_TOOLSET%==bcc (
         set _TOOLSET=msvc
     )
 )
+if %_TOOLSET%==gcc (
+    if not defined _CMAKE_CMD (
+        echo %_ERROR_LABEL% CMake installation not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    if not defined _GCC_CMD (
+        echo %_WARNING_LABEL% GCC installation not found ^(use MSVC instead^) 1>&2
+        set _TOOLSET=msvc
+    )
+)
 if %_TOOLSET%==icx (
     if not defined _CMAKE_CMD (
         echo %_ERROR_LABEL% CMake installation not found 1>&2
@@ -288,6 +306,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
     if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
+    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
@@ -415,10 +434,11 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
+set __MAKE_OPTS=
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
-call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
+call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
@@ -627,7 +647,7 @@ if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_EXE_NAME%" not found 1>&2
+    echo %_ERROR_LABEL% Executable "%_EXE_NAME%" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -651,7 +671,7 @@ if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
 set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found 1>&2
+    echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
