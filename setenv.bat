@@ -28,6 +28,7 @@ set _GIT_PATH=
 set _MSVS_PATH=
 set _MSYS_PATH=
 set _ONEAPI_PATH=
+set _VSCODE_PATH=
 
 call :bazel
 if not %_EXITCODE%==0 goto end
@@ -59,6 +60,11 @@ if not %_EXITCODE%==0 goto end
 call :git
 if not %_EXITCODE%==0 goto end
 
+call :vscode
+if not %_EXITCODE%==0 (
+    @rem optional
+    set _EXITCODE=0
+)
 goto end
 
 @rem #########################################################################
@@ -124,7 +130,7 @@ goto :eof
 @rem input parameter: %*
 @rem output parameters: _BASH, _HELP, _VERBOSE
 :args
-set _BASH=0
+set _BASH=0
 set _HELP=0
 set _VERBOSE=0
 :args_loop
@@ -138,7 +144,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -146,7 +152,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="help" ( set _HELP=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -213,7 +219,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -302,7 +308,7 @@ if defined __BCC_CMD (
     )
 )
 if not exist "%_BCC_HOME%\bin\bcc32c.exe" (
-    echo %_WARNING_LABEL% BCC executable not found ^(%_BCC_HOME%^) 1>&2
+    echo %_WARNING_LABEL% BCC executable not found ^("%_BCC_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -315,10 +321,8 @@ set _DOXYGEN_HOME=
 set __DOXYGEN_CMD=
 for /f "delims=" %%f in ('where doxygen.exe 2^>NUL') do set __DOXYGEN_CMD=%%f
 if defined __DOXYGEN_CMD (
+    for /f "delims=" %%i in ("%__DOXYGEN_CMD%") do set "_DOXYGEN_HOME=%%~dpi"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Doxygen executable found in PATH 1>&2
-    for /f "delims=" %%i in ("%__DOXYGEN_CMD%") do set "__DOXY_BIN_DIR=%%~dpi"
-    for %%f in ("!__DOXY_BIN_DIR!.") do set "_DOXYGEN_HOME=%%~dpf"
-    goto :eof
 ) else if defined DOXY_HOME (
     set "_DOXYGEN_HOME=%DOXY_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOXY_HOME 1>&2
@@ -327,11 +331,14 @@ if defined __DOXYGEN_CMD (
     for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
     if not defined _DOXYGEN_HOME (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+        if exist "!__PATH!\doxygen\" ( set "_DOXYGEN_HOME=!__PATH!\doxygen"
+        ) else (
+           for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+        )
     )
 )
-if not exist "%_DOXYGEN_HOME%\bin\doxygen.exe" (
-    echo %_ERROR_LABEL% Doxygen executable not found ^(%_DOXYGEN_HOME%^) 1>&2
+if not exist "%_DOXYGEN_HOME%\doxygen.exe" (
+    echo %_ERROR_LABEL% Doxygen executable not found ^("%_DOXYGEN_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -347,7 +354,7 @@ for /f "delims=" %%f in ('where cmake.exe 2^>NUL') do set "__CMAKE_CMD=%%f"
 if defined __CMAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CMake executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__CMAKE_CMD%") do set "__CMAKE_BIN_DIR=%%~dpi"
-    for %%f in ("!__CMAKE_BIN_DIR!") do set "_CMAKE_HOME=%%~dpf"
+    for %%f in ("!__CMAKE_BIN_DIR!.") do set "_CMAKE_HOME=%%~dpf"
     @rem keep _CMAKE_PATH undefined since executable already in path
     goto :eof
 ) else if defined CMAKE_HOME (
@@ -362,7 +369,7 @@ if defined __CMAKE_CMD (
     )
 )
 if not exist "%_CMAKE_HOME%\bin\cmake.exe" (
-    echo %_ERROR_LABEL% cmake executable not found ^(%_CMAKE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% cmake executable not found ^("%_CMAKE_HOME%"^) 1>&2
     set _CMAKE_HOME=
     set _EXITCODE=1
     goto :eof
@@ -380,7 +387,7 @@ for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__MAKE_CMD%") do set "__MAKE_BIN_DIR=%%~dpi"
-    for %%f in ("!__MAKE_BIN_DIR!") do set "_MSYS_HOME=%%~dpf"
+    for %%f in ("!__MAKE_BIN_DIR!.") do set "_MSYS_HOME=%%~dpf"
     @rem keep _MSYS_PATH undefined since executable already in path
     goto :eof
 ) else if defined MSYS_HOME (
@@ -395,7 +402,7 @@ if defined __MAKE_CMD (
     )
 )
 if not exist "%_MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% GNU Make executable not found ^(%_MSYS_HOME%^) 1>&2
+    echo %_ERROR_LABEL% GNU Make executable not found ^("%_MSYS_HOME%"^) 1>&2
     set _MSYS_HOME=
     set _EXITCODE=1
     goto :eof
@@ -523,7 +530,7 @@ set __ICX_CMD=
 for /f "delims=" %%f in ('where icx.exe 2^>NUL') do set "__ICX_CMD=%%f"
 if defined __ICX_CMD (
     for /f "delims=" %%i in ("%__ICX_CMD%") do set "__ICX_BIN_DIR=%%~dpi"
-    for %%f in ("!__ICX_BIN_DIR!.") do set "_ONEAPI_ROOT=%%~dpf"
+    for /f "delims=" %%f in ("!__ICX_BIN_DIR!.") do set "_ONEAPI_ROOT=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Intel DPC++ compiler executable found in PATH 1>&2
 ) else if defined ONEAPI_ROOT (
     set "_ONEAPI_ROOT=%ONEAPI_ROOT%"
@@ -562,12 +569,14 @@ set __GIT_CMD=
 for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
-    for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
+    @rem keep _GIT_PATH undefined since executable already in path
+    goto :eof
 ) else if defined GIT_HOME (
     set "_GIT_HOME=%GIT_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME 1>&2
@@ -581,13 +590,52 @@ if defined __GIT_CMD (
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
+    if defined _GIT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory "!_GIT_HOME!" 1>&2
+    )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Git executable not found ^("%_GIT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\usr\bin;%_GIT_HOME%\mingw64\bin"
+goto :eof
+
+@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
+:vscode
+set _VSCODE_HOME=
+set _VSCODE_PATH=
+
+set __CODE_CMD=
+for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+if defined __CODE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
+    @rem keep _VSCODE_PATH undefined since executable already in path
+    goto :eof
+) else if defined VSCODE_HOME (
+    set "_VSCODE_HOME=%VSCODE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        if not defined _VSCODE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%_VSCODE_HOME%\code.exe" (
+    echo %_WARNING_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
+    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
+        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
+    )
+    set _EXITCODE=1
+    goto :eof
+)
+set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
 @rem input parameter: %1=verbose flag
@@ -693,9 +741,14 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     if defined ONEAPI_ROOT echo    "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
+    if defined VSCODE_HOME echo    "VSCODE_HOME=%VSCODE_HOME%" 1>&2
     if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 
@@ -717,9 +770,10 @@ endlocal & (
         if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined ONEAPI_ROOT set "ONEAPI_ROOT=%_ONEAPI_ROOT%"
+        if not defined VSCODE_HOME set "VSCODE_HOME=%VSCODE_HOME%"
         if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%;%_ROOT_DIR%bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_BAZEL_PATH%%_MSYS_PATH%%_MSVS_PATH%%_GIT_PATH%%_VSCODE_PATH%;%_ROOT_DIR%bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2

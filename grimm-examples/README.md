@@ -11,9 +11,9 @@
 
 The code examples presented below can be built/run with the following command line tools:
 
-| Build&nbsp;tool | Configuration file | Parent file | Environment(s) |
-|:----------------|:-------------------|:------------|:---------------|
-| [`build.bat`](./templateMethod/build.bat) | *none* | &nbsp; | Windows only |
+| Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
+|:----------------|:----------------|:-----------------|:---------------|
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](./templateMethod/build.bat) | &nbsp; | Windows only |
 | [`make.exe`][make_cli] | [`Makefile`](./templateMethod/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
@@ -92,9 +92,10 @@ Visiting engine
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Running.html
