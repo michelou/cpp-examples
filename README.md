@@ -32,6 +32,9 @@ Optionally one may also install the following software:
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 - [Visual Studio Code 1.82][vscode_downloads] ([*release notes*][vscode_relnotes])
 
+> **&#9755;** ***Installation policy***<br/>
+> When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
+
 For instance our development environment looks as follows (*September 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
@@ -96,7 +99,7 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 
 ### **`setenv.bat`** <sup id="anchor_04">[4](#footnote_04)</sup>
 
-We execute command [**`setenv.bat`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+We execute command [**`setenv`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
@@ -109,6 +112,21 @@ Tool versions:
 C:\opt\bazel-6.3.2\bazel.exe
 C:\opt\Git\bin\git.exe
 C:\opt\Git\mingw64\bin\git.exe
+</pre>
+
+Command [**`setenv help`**](./setenv.bat) displays the help messsage :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./setenv.bat">setenv help</a></b>
+Usage: setenv { &lt;option> | &lt;subcommand> }
+&nbsp;
+  Options:
+    -bash       start Git bash shell instead of Windows command prompt
+    -debug      display commands executed by this script
+    -verbose    display progress messages
+&nbsp;
+  Subcommands:
+    help        display this help message
 </pre>
 
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
@@ -273,6 +291,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
+[unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [vs2019_downloads]: https://visualstudio.microsoft.com/en/downloads/
 [vs2019_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes
 [vs2022_downloads]: https://visualstudio.microsoft.com/en/downloads/
@@ -280,6 +299,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [vscode_downloads]: https://code.visualstudio.com/#alt-downloads
 [vscode_relnotes]: https://code.visualstudio.com/updates/
 [win32_api]: https://learn.microsoft.com/en-us/windows/win32/api/
+[windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [winsdk_downloads]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
 [winsdk_relnotes]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/#relnote
 [wix_examples]: https://github.com/michelou/wix-examples
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

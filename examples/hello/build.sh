@@ -241,12 +241,12 @@ compile_clang() {
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
     elif $VERBOSE; then
-        echo "Generate executable \"$PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME.exe\""
+        error "Failed to geenerate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -279,12 +279,12 @@ compile_gcc() {
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
     elif $VERBOSE; then
-        echo "Generate executable \"$PROJECT_NAME\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -345,12 +345,12 @@ compile_msvc() {
     if $DEBUG; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     elif $VERBOSE; then
-        echo "Generate executable \"PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME.exe\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -375,7 +375,7 @@ run() {
     if [[ $TOOLSET == "msvc" ]]; then target_dir="$TARGET_DIR/$PROJECT_CONFIG"
     else target_dir="$TARGET_DIR"
     fi
-    local exe_file="$target_dir/$PROJECT_NAME.exe"
+    local exe_file="$target_dir/$PROJECT_NAME$TARGET_EXT"
     if [[ ! -f "$exe_file" ]]; then
         error "Executable \"${exe_file/$ROOT_DIR\//}\" not found"
         cleanup 1
@@ -431,10 +431,12 @@ case "$(uname -s)" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
+TARGET_EXT=
 if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$GRAALVM_HOME" ]] && GRAALVM_HOME="$(mixed_path $GRAALVM_HOME)"
 	PSEP=";"
+    TARGET_EXT=".exe"
     BCC_CMD="$(mixed_path $BCC_HOME)/bin/bcc32c.exe"
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
