@@ -116,12 +116,12 @@ if not exist "%MSYS_HOME%\usr\bin\windres.exe" (
 )
 set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
-if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
+if not exist "%DOXYGEN_HOME%\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
+set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
