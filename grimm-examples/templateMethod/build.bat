@@ -179,7 +179,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -192,7 +192,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -229,17 +229,17 @@ echo.
 echo   %__P_BEG%Options:%__P_END%
 echo     %__O_BEG%-cl%__O_END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__O_BEG%-clang%__O_END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__O_BEG%-debug%__O_END%      show commands executed by this script
+echo     %__O_BEG%-debug%__O_END%      print commands executed by this script
 echo     %__O_BEG%-gcc%__O_END%        use GCC/GNU Make toolset instead of CL/MSBuild
 echo     %__O_BEG%-msvc%__O_END%       use CL/MSBuild toolset ^(alias for option -cl^)
-echo     %__O_BEG%-verbose%__O_END%    display progress messages
+echo     %__O_BEG%-verbose%__O_END%    print progress messages
 echo.
 echo   %__P_BEG%Subcommands:%__P_END%
 echo     %__O_BEG%clean%__O_END%       delete generated files
 echo     %__O_BEG%compile%__O_END%     generate executable
 echo     %__O_BEG%doc%__O_END%         generate HTML documentation with Doxygen
 echo     %__O_BEG%dump%__O_END%        dump PE/COFF infos for generated executable
-echo     %__O_BEG%help%__O_END%        display this help message
+echo     %__O_BEG%help%__O_END%        print this help message
 echo     %__O_BEG%run%__O_END%         run the generated executable
 goto :eof
 
@@ -256,6 +256,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -395,11 +396,11 @@ if not exist "%__DOXYFILE%" (
 set __DOXYGEN_OPTS=-s
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

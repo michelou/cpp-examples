@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>grimm-examples\</code></strong></a> contains <a href="https://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from Grimm's training website <a href="https://www.modernescpp.com/" rel="external">Modernes C++</a>.<br/>
-  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  It also includes build scripts (<a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -14,9 +14,10 @@ The code examples presented below can be built/run with the following command li
 | Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
 |:----------------|:----------------|:-----------------|:---------------|
 | [**`cmd.exe`**][cmd_cli] | [`build.bat`](./templateMethod/build.bat) | &nbsp; | Windows only |
-| [`make.exe`][make_cli] | [`Makefile`](./templateMethod/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+| [**`make.exe`**][make_cli] | [`Makefile`](./templateMethod/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+| [**`sh.exe`**][sh_cli] | [**`build.sh`**](./templateMethod/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
-<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
+<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<
 </div>
 
 ## <span id="templateMethod">`templateMethod` Example</span>
@@ -92,10 +93,11 @@ Visiting engine
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Running.html
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html

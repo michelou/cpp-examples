@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [CMake 3.27][cmake_downloads] ([*release notes*][cmake_relnotes])
+- [CMake 3.28][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.42][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
@@ -35,12 +35,12 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*October 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel-6.3.2\                      <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.27.4-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.28.0-windows-x86_64\      <i>(100 MB)</i>
 C:\opt\doxygen-1.9.8\                    <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
@@ -105,7 +105,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 6.3.2, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2023.2.1
-   cmake 3.27.4, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.8, msbuild 17.6.3.22601
+   cmake 3.28.0, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.8, msbuild 17.6.3.22601
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
@@ -160,7 +160,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/tag/6.3.2">bazel-6.3.2-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
 <a href="" rel="external">BCC102.zip</a>                                      <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.27.4-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.28.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.2.1.7_offline.exe</a>   <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                       <i>( 86 MB)</i>
@@ -177,15 +177,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 Since our project depends on <a href="https://www.msys2.org/" rel="external">MSYS2</a> we choose to install the MSYS2 package <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck"><code>mingw-w64-x86_64-cppcheck</code></a> :
 <pre style="font-size:80%;">
 <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://archlinux.org/pacman/" rel="external">pacman.exe</a> -Ss cppcheck</b>
-mingw32/mingw-w64-i686-cppcheck 2.11.1-1
+mingw32/mingw-w64-i686-cppcheck 2.12.1-1
     static analysis of C/C++ code (mingw-w64)
-mingw64/mingw-w64-x86_64-cppcheck 2.11.1-1
+mingw64/mingw-w64-x86_64-cppcheck 2.12.1-1
     static analysis of C/C++ code (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.11.1-1
+ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.12.1-1
     static analysis of C/C++ code (mingw-w64)
-clang32/mingw-w64-clang-i686-cppcheck 2.11.1-1
+clang32/mingw-w64-clang-i686-cppcheck 2.12.1-1
     static analysis of C/C++ code (mingw-w64)
-clang64/mingw-w64-clang-x86_64-cppcheck 2.11.1-1
+clang64/mingw-w64-clang-x86_64-cppcheck 2.12.1-1
     static analysis of C/C++ code (mingw-w64)
 &nbsp;
 <b>&gt; %MSYS_HOME%\usr\bin\pacman.exe -Syu <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">mingw-w64-x86_64-cppcheck</a></b>
@@ -193,7 +193,7 @@ clang64/mingw-w64-clang-x86_64-cppcheck 2.11.1-1
 [...]
 Packages (10) less-643-1  libgnutls-3.8.1-1  mingw-w64-x86_64-bzip2-1.0.8-2  mingw-w64-x86_64-gcc-13.2.0-2  mingw-w64-x86_64-gcc-ada-13.2.0-2
               mingw-w64-x86_64-gcc-libs-13.2.0-2  mingw-w64-x86_64-headers-git-11.0.0.r107.gd367cc9d7-2  mingw-w64-x86_64-pcre-8.45-1
-              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.11.1-1
+              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.12.1-1
 
 Total Installed Size:  388.66 MiB
 Net Upgrade Size:       20.34 MiB
@@ -230,7 +230,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

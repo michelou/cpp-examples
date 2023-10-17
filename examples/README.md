@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="https://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from various websites - mostly from the <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
-  It also includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="">shell scrips</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.
+  It also includes build scripts (<a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -14,8 +14,8 @@ The code examples presented below can be built/run with the following command li
 | Build&nbsp;tool | Build file | Parent file | Environment(s) |
 |:----------------|:-------------------|:------------|:---------------|
 | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](./hello/build.bat) | &nbsp; | Windows only |
-| [**`sh.exe`**][sh_cli] | [**`build.sh`**](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](./hello/Makefile) | [**`Makefile.inc`**](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+| [**`sh.exe`**][sh_cli] | [**`build.sh`**](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
 </div>
