@@ -54,6 +54,9 @@ if not %_EXITCODE%==0 goto end
 call :oneapi
 if not %_EXITCODE%==0 goto end
 
+call :orangec
+if not %_EXITCODE%==0 goto end
+
 call :winsdk 10
 if not %_EXITCODE%==0 goto end
 
@@ -248,11 +251,11 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 @rem output parameters: _BAZEL_HOME, _BAZEL_PATH
@@ -421,7 +424,7 @@ set __CLANG_CMD=
 for /f "delims=" %%f in ('where clang.exe 2^>NUL') do set "__CLANG_CMD=%%f"
 if defined __CLANG_CMD (
     for /f "delims=" %%i in ("%__CLANG_CMD%") do set "__LLVM_BIN_DIR=%%~dpi"
-    for %%f in ("!__LLVM_BIN_DIR!.") do set "_LLVM_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__LLVM_BIN_DIR!.") do set "_LLVM_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Clang executable found in PATH 1>&2
 ) else if defined LLVM_HOME (
     set "_LLVM_HOME=%LLVM_HOME%"
@@ -547,6 +550,41 @@ if not exist "%_ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
 @rem set "_ONEAPI_PATH=%_ONEAPI_ROOT%\compiler\latest\windows\bin"
 goto :eof
 
+@rem output parameters: _ORANGEC_HOME
+:orangec
+set _ORANGEC_HOME=
+
+set __OCC_CMD=
+for /f "delims=" %%f in ('where occ.exe 2^>NUL') do set "__OCC_CMD=%%f"
+if defined __OCC_CMD (
+    for /f "delims=" %%i in ("%__OCC_CMD%") do set "__OCC_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__OCC_BIN_DIR!.") do set "_ORANGEC_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of OrangeC compiler executable found in PATH 1>&2
+) else if defined ORANGEC_HOME (
+    set "_ORANGEC_HOME=%ORANGEC_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ORANGEC_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\orangec\" ( set "_ORANGEC_HOME=!__PATH!\orangec"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\orangec*" 2^>NUL') do set "_ORANGEC_HOME=!__PATH!\%%f"
+        if not defined _ORANGEC_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\orangec*" 2^>NUL') do set "_ORANGEC_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _ORANGEC_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default OrangeC installation directory "!_ORANGEC_HOME!" 1>&2
+    )
+)
+if not exist "%_ORANGEC_HOME%\bin\occ.exe" (
+    echo %_WARNING_LABEL% OrangeC compiler executable not found ^("%_ORANGEC_HOME%"^) 1>&2
+    set _ORANGEC_HOME=
+    @rem set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem input parameter: %1=Windows SDK version
 @rem output parameter: _WINSDK_HOME
 :winsdk
@@ -670,6 +708,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-11,12,*" %%a in ('"%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" /v 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% icx %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%ONEAPI_ROOT%\compiler\latest\windows\bin:icx.exe"
 )
+where /q "%ORANGEC_HOME%\bin:occ.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,*" %%i in ('"%ORANGEC_HOME%\bin\occ.exe" --version 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% occ %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%ORANGEC_HOME%\bin:occ.exe"
+)
 where /q "%CMAKE_HOME%\bin:cmake.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%CMAKE_HOME%\bin\cmake.exe" --version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cmake %%k,"
@@ -741,6 +784,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     if defined ONEAPI_ROOT echo    "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
+    if defined ORANGEC_HOME echo    "ORANGEC_HOME=%ORANGEC_HOME%" 1>&2
     if defined VSCODE_HOME echo    "VSCODE_HOME=%VSCODE_HOME%" 1>&2
     if defined WINSDK_HOME echo    "WINSDK_HOME=%WINSDK_HOME%" 1>&2
     echo Path associations: 1>&2
@@ -770,6 +814,7 @@ endlocal & (
         if not defined MSVC_HOME set "MSVC_HOME=%_MSVC_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined ONEAPI_ROOT set "ONEAPI_ROOT=%_ONEAPI_ROOT%"
+        if not defined ORANGEC_HOME set "ORANGEC_HOME=%_ORANGEC_HOME%"
         if not defined VSCODE_HOME set "VSCODE_HOME=%VSCODE_HOME%"
         if not defined WINSDK_HOME set "WINSDK_HOME=%_WINSDK_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
