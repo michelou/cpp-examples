@@ -31,7 +31,7 @@ Optionally one may also install the following software:
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
-- [Visual Studio Code 1.82][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.83][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).

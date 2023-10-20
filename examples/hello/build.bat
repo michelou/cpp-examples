@@ -242,6 +242,8 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+set _STDERR_REDIRECT=2^>NUL
+if %_DEBUG%==1 set _STDERR_REDIRECT=2^>CON
 set _STDOUT_REDIRECT=1^>NUL
 if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
 
@@ -312,20 +314,20 @@ echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-occ%__END%        use Orange C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
 echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate executable
 echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%Doxygen%__END%
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
 echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_PROJ_NAME%.exe%__END%"
 goto :eof
@@ -544,7 +546,7 @@ set "__LIB=%LIB%"
 set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
 
-call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES%
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     set "LIB=%__LIB%"
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
