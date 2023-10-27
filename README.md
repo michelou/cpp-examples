@@ -25,7 +25,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Bazel 6.3 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 6.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
@@ -39,9 +39,9 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*October 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel-6.3.2\                      <i>( 47 MB)</i>
+C:\opt\bazel\                            <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.28.0-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.28.0-windows-x86_64\      <i>(111 MB)</i>
 C:\opt\doxygen-1.9.8\                    <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
@@ -106,12 +106,12 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.3.2, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2023.2.1, occ 6.73.8
+   bazel 6.4.0, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2023.2.1, occ 6.73.8
    cmake 3.28.0, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.8, msbuild 17.6.3.22601
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
-C:\opt\bazel-6.3.2\bazel.exe
+C:\opt\bazel\bazel.exe
 C:\opt\Git\bin\git.exe
 C:\opt\Git\mingw64\bin\git.exe
 </pre>
@@ -171,7 +171,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.3.2">bazel-6.3.2-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.4.0">bazel-6.4.0-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.28.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.2.1.7_offline.exe</a>   <i>(1.2 GB)</i>
@@ -252,9 +252,10 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.3.2
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/6.3.2
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/6.4.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/6.4.0
 <!--
+6.4.0 -> https://
 6.3.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-632-2023-08-08
 6.3.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-630-2023-07-24
 6.2.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-621-2023-06-02
@@ -264,7 +265,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.27/release/3.27.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.28/release/3.28.html
 [cpp_lang]: https://isocpp.org/
 [cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download
