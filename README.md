@@ -41,7 +41,7 @@ For instance our development environment looks as follows (*November 2023*) <sup
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 47 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.28.0-windows-x86_64\      <i>(100 MB)</i>
+C:\opt\cmake-3.28.0-windows-x86_64\      <i>(111 MB)</i>
 C:\opt\doxygen\                          <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
@@ -171,7 +171,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.3.2">bazel-6.4.0-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.4.0">bazel-6.4.0-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.28.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.2.1.7_offline.exe</a>   <i>(1.2 GB)</i>
@@ -265,7 +265,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.27/release/3.27.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.28/release/3.28.html
 [cpp_lang]: https://isocpp.org/
 [cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download

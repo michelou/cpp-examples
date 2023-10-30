@@ -142,7 +142,11 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
+<<<<<<< HEAD
 *[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+=======
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+>>>>>>> 11240e4385d96a8f0326071eba39b56189aa877f
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
