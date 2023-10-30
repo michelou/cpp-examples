@@ -291,7 +291,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
-    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
+    if defined ONEAPI_ROOT echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
     if defined ORANGEC_HOME echo %_DEBUG_LABEL% Variables  : "ORANGEC_HOME=%ORANGEC_HOME%" ^(occ^) 1>&2
 )
 goto :eof
@@ -379,7 +379,7 @@ if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
 ) else if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
 ) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=Intel oneAPI C++
-) else if %_TOOLSET%==occ ( set __TOOLSET_NAME=Orange C++
+) else if %_TOOLSET%==occ ( set __TOOLSET_NAME=LADSoft Orange C++
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2

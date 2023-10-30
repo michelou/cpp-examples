@@ -99,6 +99,9 @@ help:
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
+	@$(ECHO) ""
+	@$(ECHO) "   Environment variables:"
+	@$(ECHO) "     TOOLSET=(bcc|clang|gcc|icx|msvc|occ)"
 
 ##############################################################################
 ## lint rules

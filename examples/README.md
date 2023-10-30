@@ -24,7 +24,7 @@ The code examples presented below can be built/run with the following command li
 
 This example consists of one source file [`src\main.cpp`](./hello/src/main.cpp).
 
-Batch file [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default) :
+Batch file [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options [`-bcc`][bcc_cli], [`-clang`][clang_cli], [`-gcc`][gcc_cli], [`-icx`][icx_cli], [`-msvc`][cl_cli] (default) or [`occ`][occ_cli] :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./hello/build.bat">build</a> -clang -verbose clean compile</b>
@@ -34,9 +34,14 @@ Generate configuration files into directory "build"
 Generate executable "hello.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`bcc`][bcc_cmd], [`gcc`][gcc_cmd], `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (respectively [`bcc`][bcc_cli], [`gcc`][gcc_cli], [`icx`][icx_cli], [`msvc`][cl_cli] or [`occ`][occ_cli]) :
 
 <pre style="font-size:80%;">
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=bcc clean build</b>
+"C:/opt/msys64/usr/bin/rm.exe" -rf "build"
+"c:/opt/BCC-7.30-32bit/bin/bcc32c.exe"  -I "src" -q -w  -o build/hello.exe src/main.cpp -lq
+src/main.cpp:
+&nbsp;
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/LLVM-16.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
@@ -45,10 +50,9 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
 "C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
 &nbsp;
-<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=bcc clean build</b>
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=occ clean build</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
-"c:/opt/BCC-7.30-32bit/bin/bcc32c.exe"  -I "src" -q -w  -o build/hello.exe src/main.cpp -lq
-src/main.cpp:
+"C:/opt/orangec/bin/occ.exe"  --nologo -std=c++14  -o build/hello.exe src/main/cpp/main.cpp
 </pre>
 
 ## <span id="call-by-copy">`call-by-copy` Example</span> [**&#x25B4;**](#top)
@@ -106,7 +110,7 @@ Generate configuration files into directory "build"
 Generate executable "move-constructor.exe"
 </pre>
 
-In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of five C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cmd], `icx`, `msvc`) :
+In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile`](./move-constructor/Makefile) and invokes one of five C++ compilers to generate executable `move-constructor.exe` using variable `TOOLSET`, e.g. `TOOLSET=clang` (or [`gcc`][gcc_cli], [`icx`][icx_cli], [`msvc`][cl_cli], [`occ`][occ_cli]) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">make</a> TOOLSET=clang clean build</b>
@@ -138,16 +142,20 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [bazel_cli]: https://bazel.build/reference/command-line-reference
-[bcc_cmd]: https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
+[bcc_cli]: https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
+[cl_cli]: https://learn.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax
+[clang_cli]: https://clang.llvm.org/docs/UsersManual.html#basic-usage
 [cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
-[gcc_cmd]: https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html
+[gcc_cli]: https://gcc.gnu.org/onlinedocs/gcc/Invoking-GCC.html
+[icx_cli]: https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/developer-guide-reference/2023-2/use-the-command-line.html
 [invivoo]: https://www.invivoo.com/
 [make_cli]: https://www.gnu.org/software/make/manual/html_node/Running.html
+[occ_cli]: https://orangec.readthedocs.io/en/latest/occ/OCC%20Command%20Line/
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [stackoverflow]: https://stackoverflow.com/

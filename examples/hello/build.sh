@@ -60,6 +60,7 @@ args() {
         -help)        HELP=true ;;
         -icx)         TOOLSET=icx ;;
         -msvc)        TOOLSET=msvc ;;
+        -occ)         TOOLSET=occ ;;
         -timer)       TIMER=true ;;
         -verbose)     VERBOSE=true ;;
         -*)
@@ -85,6 +86,7 @@ args() {
     debug "Variables  : MSVS_HOME=$MSVS_HOME"
     debug "Variables  : MSYS_HOME=$MSYS_HOME"
     debug "Variables  : ONEAPI_ROOT=$ONEAPI_ROOT"
+    debug "Variables  : ORANGEC_HOME=$ORANGEC_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -97,17 +99,18 @@ Usage: $BASENAME { <option> | <subcommand> }
     -bcc         use BCC/GNU Make toolset instead of MSVC/MSBuild
     -cl          use MSVC/MSBuild toolset (default)
     -clang       use Clang/GNU Make toolset instead of MSVC/MSBuild
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -gcc         use GCC/GNU Make toolset instead of MSVC/MSBuild
     -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
     -msvc        use MSVC/MSBuild toolset (alias for option -cl)
+    -occ         use LADSoft Orange C++ toolset instead of MSVC/MSBuild
     -timer       display total execution time
     -verbose     display progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile C++ source files
-    help         display this help message
+    help         print this help message
     lint         analyze C++ source files with Cppcheck
     run          execute the generated executable
 EOS
@@ -142,7 +145,7 @@ lint() {
     if $DEBUG; then
         debug "$CPPCHECK_CMD $CPPCHECK_OPTS$ $SOURCE_DIR" 1>&2
     elif $VERBOSE; then
-        echo "Analyze C++ source files in directory ${SOURCE_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Analyze C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR"
     if [[ $? -ne 0 ]]; then
@@ -159,6 +162,7 @@ compile() {
     clang) toolset_name="Clang/GNU Make" ;;
     gcc)   toolset_name="GCC/GNU Make" ;;
     icx)   toolset_name="Intel oneAPI C++" ;;
+    occ)   toolset_name="LADSoft Orange C++" ;;
     *)     toolset_name="MSVC/MSBuild" ;;
     esac
     $VERBOSE && echo "Toolset: $toolset_name, Project: $PROJECT_NAME" 1>&2
@@ -174,7 +178,7 @@ compile_bcc() {
 
     local cmake_opts="-G \"Unix Makefiles\""
 
-    pushd "$TARGET_DIE"
+    pushd "$TARGET_DIR"
     $DEBUG && debug "Current directory is: $PWD" 1>&2
 
     if $DEBUG; then
@@ -293,8 +297,8 @@ compile_gcc() {
 compile_icx() {
     local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
 
-    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
-    $DEBUG && icx_flags="-debug:all $icx_flags"
+    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$(mixed_path $TARGET_DIR/$PROJECT_NAME.exe)\""
+    $DEBUG && icx_flags="-debug:all -v $icx_flags"
 
     local source_files=
     local n=0
@@ -354,6 +358,33 @@ compile_msvc() {
         cleanup 1
     fi
     popd
+}
+
+compile_occ() {
+    local occ_flags="--nologo -std=c++14 /o\"$TARGET_DIR/$PROJECT_NAME.exe\""
+
+    local source_files=
+    local n=0
+    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+        source_files="$source_files \"$f\""
+        n=$((n + 1))
+    done
+    if [[ $n -eq 0 ]]; then
+        warning "No C++ source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n C++ source file$s"
+    if $DEBUG; then
+        debug "\"$OCC_CMD\" $occ_flags $source_files"
+    elif $VERBOSE; then
+        echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+    fi
+    eval "\"$OCC_CMD\" $occ_flags $source_files"
+    if [[ $? -ne 0 ]]; then
+        error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+        cleanup 1
+    fi
 }
 
 mixed_path() {
@@ -424,10 +455,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true      
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -441,11 +472,12 @@ if $cygwin || $mingw || $msys; then
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
-    GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
+    GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
     ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
+    OCC_CMD="$(mixed_path $ORANGEC_HOME)/bin/occ.exe"
     WINDRES_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/windres.exe"
 else
     CLANG_CMD=clang
@@ -453,6 +485,7 @@ else
     CPPCHECK_CMD=cppcheck
     GCC_CMD=gcc
     MAKE_CMD=make
+    OCC=occ
 fi
 
 PROJECT_CONFIG="Release"

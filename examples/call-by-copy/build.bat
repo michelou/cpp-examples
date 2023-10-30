@@ -139,6 +139,10 @@ set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
     set "_BCC32C_CMD=%BCC_HOME%\bin\bcc32c.exe"
 )
+set _OCC_CMD=
+if exist "%ORANGEC_HOME%\bin\occ.exe" (
+    set "_OCC_CMD=%ORANGEC_HOME%\bin\occ.exe"
+)
 set _MSBUILD_CMD=
 if exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
@@ -223,10 +227,11 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
+    ) else if "%__ARG%"=="-occ" ( set _TOOLSET=occ
     ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -240,7 +245,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -301,6 +306,10 @@ if %_TOOLSET%==msvc (
         goto :eof
     )
 )
+if %_TOOLSET%==occ if not defined _OCC_CMD (
+    echo %_WARNING_LABEL% OrangeC installation not found ^(use MSVC instead^) 1>&2
+    set _TOOLSET=msvc
+)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
@@ -315,6 +324,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" ^(icx^) 1>&2
+    if defined ORANGEC_HOME echo %_DEBUG_LABEL% Variables  : "ORANGEC_HOME=%ORANGEC_HOME%" ^(occ^) 1>&2
 )
 goto :eof
 
@@ -336,19 +346,20 @@ echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
+echo     %__BEG_O%-occ%__END%        use LADSoft Orange C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate executable
 echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%Doxygen%__END%
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
 echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_EXE_NAME%%__END%"
 goto :eof
@@ -607,6 +618,32 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 popd
+goto :eof
+
+:compile_occ
+set __OCC_OPTS=--nologo -std=c++14 /o"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+
+set __SOURCE_FILES=
+set __N=0
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\*.cpp"') do (
+    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No C++ source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
+) else ( set __N_FILES=%__N% C++ source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_OCC_CMD%" %__OCC_OPTS% %__SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+)
+call "%_OCC_CMD%" %__OCC_OPTS% %__SOURCE_FILES% %_STDOUT_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :doc

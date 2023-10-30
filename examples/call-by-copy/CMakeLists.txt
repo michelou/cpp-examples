@@ -12,7 +12,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-#include_directory(include)
+#include_directories(include)
 
 file(GLOB SOURCES src/main/cpp/*.cpp src/main/cpp/*.h)
 
