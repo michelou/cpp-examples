@@ -274,11 +274,17 @@ if defined __BAZEL_CMD (
     set "_BAZEL_HOME=%BAZEL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BAZEL_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
-    if not defined _BAZEL_HOME (
-        set __PATH=C:\opt
+    set __PATH=C:\opt
+    if exist "!__PATH!\bazel\" ( set "_BAZEL_HOME=!__PATH!\bazel"
+    ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        if not defined _BAZEL_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _BAZEL_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bazel installation directory "!_BAZEL_HOME!" 1>&2
     )
 )
 if not exist "%_BAZEL_HOME%\bazel.exe" (
@@ -297,7 +303,7 @@ set __BCC_CMD=
 for /f "delims=" %%f in ('where bcc32c.exe 2^>NUL') do set __BCC_CMD=%%f
 if defined __BCC_CMD (
     for /f "delims=" %%i in ("%__BCC_CMD%") do set "__BCC_BIN_DIR=%%~dpi"
-    for %%f in ("!__BCC_BIN_DIR!.") do set "_BCC_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__BCC_BIN_DIR!.") do set "_BCC_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of BCC executable found in PATH 1>&2
 ) else if defined BCC_HOME (
     set "_BCC_HOME=%BCC_HOME%"
@@ -355,9 +361,9 @@ set _CMAKE_HOME=
 set __CMAKE_CMD=
 for /f "delims=" %%f in ('where cmake.exe 2^>NUL') do set "__CMAKE_CMD=%%f"
 if defined __CMAKE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CMake executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__CMAKE_CMD%") do set "__CMAKE_BIN_DIR=%%~dpi"
-    for %%f in ("!__CMAKE_BIN_DIR!.") do set "_CMAKE_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__CMAKE_BIN_DIR!.") do set "_CMAKE_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CMake executable found in PATH 1>&2
     @rem keep _CMAKE_PATH undefined since executable already in path
     goto :eof
 ) else if defined CMAKE_HOME (
@@ -388,9 +394,9 @@ set _MSYS_PATH=
 set __MAKE_CMD=
 for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__MAKE_CMD%") do set "__MAKE_BIN_DIR=%%~dpi"
-    for %%f in ("!__MAKE_BIN_DIR!.") do set "_MSYS_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__MAKE_BIN_DIR!.") do set "_MSYS_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of GNU Make executable found in PATH 1>&2
     @rem keep _MSYS_PATH undefined since executable already in path
     goto :eof
 ) else if defined MSYS_HOME (
