@@ -11,11 +11,11 @@
 
 The code examples presented below can be built/run with the following command line tools:
 
-| Build&nbsp;tool | Build file | Parent file | Environment(s) |
-|:----------------|:-------------------|:------------|:---------------|
-| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](./hello/build.bat) | &nbsp; | Windows only |
-| [**`make.exe`**][make_cli] | [**`Makefile`**](./hello/Makefile) | [**`Makefile.inc`**](./Makefile.inc) | Any <sup><b>a)</b></sup> |
-| [**`sh.exe`**][sh_cli] | [**`build.sh`**](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
+| Build&nbsp;tool | Build&nbsp;file | Parent file | Environment(s) |
+|:----------------|:----------------|:------------|:---------------|
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](./hello/build.bat) | &nbsp; | Windows only |
+| [**`make.exe`**][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+| [**`sh.exe`**][sh_cli] | [`build.sh`](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
 </div>
@@ -142,11 +142,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ***
 
-<<<<<<< HEAD
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
-=======
 *[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
->>>>>>> 11240e4385d96a8f0326071eba39b56189aa877f
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -218,11 +218,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -309,11 +309,17 @@ if defined __BCC_CMD (
     set "_BCC_HOME=%BCC_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BCC_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
-    if not defined _BCC_HOME (
-        set __PATH=C:\opt
+    set __PATH=C:\opt
+    if exist "!__PATH!\bcc\" ( set "_BCC_HOME=!__PATH!\bcc"
+    ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
+        if not defined _BCC_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _BCC_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default BCC installation directory "!_BCC_HOME!" 1>&2
     )
 )
 if not exist "%_BCC_HOME%\bin\bcc32c.exe" (
@@ -336,14 +342,17 @@ if defined __DOXYGEN_CMD (
     set "_DOXYGEN_HOME=%DOXY_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOXY_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
-    if not defined _DOXYGEN_HOME (
-        set __PATH=C:\opt
-        if exist "!__PATH!\doxygen\" ( set "_DOXYGEN_HOME=!__PATH!\doxygen"
-        ) else (
-           for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\doxygen\" ( set "_DOXYGEN_HOME=!__PATH!\doxygen"
+    ) else (
+       for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+        if not defined _DOXYGEN_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
         )
+    )
+    if defined _DOXYGEN_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Doxygen installation directory "!_DOXYGEN_HOME!" 1>&2
     )
 )
 if not exist "%_DOXYGEN_HOME%\doxygen.exe" (
@@ -370,11 +379,17 @@ if defined __CMAKE_CMD (
     set "_CMAKE_HOME=%CMAKE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CMAKE_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\cmake*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
-    if not defined _CMAKE_HOME (
-        set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\cmake*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\cmake\" ( set "_CMAKE_HOME=!__PATH!\cmake"
+    ) else (
+       for /f %%f in ('dir /ad /b "!__PATH!\cmake-*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
+        if not defined _CMAKE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\cmake-*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _CMAKE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default CMake installation directory "!_CMAKE_HOME!" 1>&2
     )
 )
 if not exist "%_CMAKE_HOME%\bin\cmake.exe" (
@@ -669,6 +684,9 @@ if defined __CODE_CMD (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         )
+    )
+    if defined _VSCODE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default VSCode installation directory "!_VSCODE_HOME!" 1>&2
     )
 )
 if not exist "%_VSCODE_HOME%\code.exe" (
