@@ -516,7 +516,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
 set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
 set __LIB_VERSION=
-for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (
     echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
     set _EXITCODE=1

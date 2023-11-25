@@ -11,7 +11,7 @@
 
 The code examples presented below can be built/run with the following tools:
 
-| Build&nbsp;tool | Configuration file | Parent file | Environment(s) |
+| Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
 |:----------------|:-------------------|:------------|:---------------|
 | [`build.bat`](./simple-window/build.bat) | *none* | &nbsp; | Windows only |
 | [`make.exe`][make_cli] | [`Makefile`](./simple-window/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |

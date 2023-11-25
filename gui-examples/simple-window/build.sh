@@ -97,17 +97,17 @@ Usage: $BASENAME { <option> | <subcommand> }
     -bcc         use BCC/GNU Make toolset instead of MSVC/MSBuild
     -cl          use MSVC/MSBuild toolset (default)
     -clang       use Clang/GNU Make toolset instead of MSVC/MSBuild
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -gcc         use GCC/GNU Make toolset instead of MSVC/MSBuild
     -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
     -msvc        use MSVC/MSBuild toolset (alias for option -cl)
-    -timer       display total execution time
-    -verbose     display progress messages
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile C++ source files
-    help         display this help message
+    help         print this help message
     lint         analyze C++ source files with Cppcheck
     run          execute the generated executable
 EOS

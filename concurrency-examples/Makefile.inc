@@ -26,21 +26,24 @@ endif
 
 TARGET_EXT  = .exe
 PSEP        = ;
+LLVM_PATH   = $(subst \,/,$(LLVM_HOME))
+MSYS_PATH   = $(subst \,/,$(MSYS_HOME))
+#
 BCC         = $(subst \,/,$(BCC_HOME))/bin/bcc32c.exe
-CC          = $(subst \,/,$(MSYS_HOME))/mingw64/bin/g++.exe
+CC          = $(MSYS_PATH)/mingw64/bin/g++.exe
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
-CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
-CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
-CPPCHECK    = $(subst \,/,$(MSYS_HOME))/mingw64/bin/cppcheck.exe
-ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
-FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
+CLANG       = $(LLVM_PATH)/bin/clang.exe
+CP          = $(MSYS_PATH)/usr/bin/cp.exe
+CPPCHECK    = $(MSYS_PATH)/mingw64/bin/cppcheck.exe
+ECHO        = $(MSYS_PATH)/usr/bin/echo.exe
+FIND        = $(MSYS_PATH)/usr/bin/find.exe
 ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/bin/icx.exe
-LLC         = $(subst \,/,$(LLVM_HOME))/bin/llc.exe
-LLVM_CONFIG = $(subst \,/,$(LLVM_HOME))/bin/llvm-config.exe
-MKDIR       = $(subst \,/,$(MSYS_HOME))/usr/bin/mkdir.exe
-RM          = $(subst \,/,$(MSYS_HOME))/usr/bin/rm.exe
-TEST        = $(subst \,/,$(MSYS_HOME))/usr/bin/test.exe
-TOUCH       = $(subst \,/,$(MSYS_HOME))/usr/bin/touch.exe
+LLC         = $(LLVM_PATH)/bin/llc.exe
+LLVM_CONFIG = $(LLVM_PATH)/bin/llvm-config.exe
+MKDIR       = $(MSYS_PATH)/usr/bin/mkdir.exe
+RM          = $(MSYS_PATH)/usr/bin/rm.exe
+TEST        = $(MSYS_PATH)/usr/bin/test.exe
+TOUCH       = $(MSYS_PATH)/usr/bin/touch.exe
 #
 MSVC_INCPATH   = $(subst \,/,$(MSVC_HOME))/include
 MSVC_LIBPATH   = $(subst \,/,$(MSVC_HOME))/lib/$(ARCH)
@@ -48,9 +51,9 @@ WINSDK_INCROOT = $(subst \,/,$(WINSDK_HOME))/include
 WINSDK_INCPATH = $(WINSDK_INCROOT)/$(shell cd "$(WINSDK_INCROOT)" && ls -d [0-9]*/ | tail -n 1)
 WINSDK_LIBROOT = $(subst \,/,$(WINSDK_HOME))/lib
 WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d [0-9]*/ | tail -n 1)
-MINGW_XXX      = $(subst \,/,$(MSYS_HOME))/mingw64/include
-MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
-MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
+MINGW_XXX      = $(MSYS_PATH)/mingw64/include
+MINGW_INCPATH  = $(MSYS_PATH)/mingw64/x86_64-w64-mingw32/include
+MINGW_LIBPATH  = $(MSYS_PATH)/mingw64/x86_64-w64-mingw32/lib
 ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
 else
 TARGET_EXT  =
