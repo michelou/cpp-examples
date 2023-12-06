@@ -15,7 +15,7 @@ The code examples presented below can be built/run with the following command li
 |:----------------|:----------------|:-----------------|:---------------|
 | [**`cmd.exe`**][cmd_cli] | [`build.bat`](./templateMethod/build.bat) | &nbsp; | Windows only |
 | [**`make.exe`**][make_cli] | [`Makefile`](./templateMethod/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
-| [**`sh.exe`**][sh_cli] | [**`build.sh`**](./templateMethod/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
+| [**`sh.exe`**][sh_cli] | [`build.sh`](./templateMethod/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<
 </div>
@@ -93,7 +93,7 @@ Visiting engine
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

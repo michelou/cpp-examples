@@ -16,17 +16,18 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.28][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.42][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.43][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
-- [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup>
-- [oneAPI DPC++ 2023.2][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
+- [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup>
+- [oneAPI DPC++ 2024.0][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
 Optionally one may also install the following software:
-
-- [Bazel 6.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+<!--
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
+-->
+- [Bazel 6.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Doxygen 1.9][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
@@ -36,7 +37,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*December 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 47 MB)</i>
@@ -106,7 +107,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 6.4.0, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2023.2.1, occ 6.73.8
+   bazel 6.4.0, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2024.0.0, occ 6.73.8
    cmake 3.28.0, cl 19.36.32532, cppcheck 2.10, doxygen 1.9.8, msbuild 17.6.3.22601
    git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
@@ -148,7 +149,7 @@ The installed development tools for Windows give us access to the following C++ 
 <tr>
   <td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/invoke-the-compiler.html"><code><b>icx.exe</b></code></td>
-  <td>2023.2.1</td>
+  <td>2024.0.0</td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td>
 </tr>
 <tr>
@@ -164,26 +165,7 @@ The installed development tools for Windows give us access to the following C++ 
 </div>
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
-
-<dl><dd>
-In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
-</dd>
-<dd>
-<pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/tag/6.4.0">bazel-6.4.0-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
-<a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.28.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2023.2.1.7_offline.exe</a>   <i>(1.2 GB)</i>
-<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                           <i>(263 MB)</i>
-<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
-<a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
-</pre>
-</dd></dl>
-
-<span id="footnote_03">[3]</span> ***Cppcheck*** [↩](#anchor_03)
+<span id="footnote_02">[2]</span> ***Cppcheck*** [↩](#anchor_02)
 
 <dl><dd>
 <a href="https://cppcheck.sourceforge.io" rel="external">Cppcheck</a> for Windows is available either as <a href="https://cppcheck.sourceforge.io/#download">Windows installer</a> or as <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">MSYS2 package</a>.
@@ -221,6 +203,25 @@ C:\opt\msys64\mingw64\bin\cppcheck.exe
 </pre>
 </dd></dl>
 
+<span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
+
+<dl><dd>
+In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
+</dd>
+<dd>
+<pre style="font-size:80%;">
+<a href="https://github.com/bazelbuild/bazel/releases/tag/6.4.0">bazel-6.4.0-windows-x86_64.zip</a>                  <i>( 43 MB)</i>
+<a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.28.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.0.49523_offline.exe</a>   <i>(1.2 GB)</i>
+<a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                           <i>(263 MB)</i>
+<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                       <i>( 86 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
+<a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
+</pre>
+</dd></dl>
+
 <span id="footnote_04">[4]</span> **`setenv.bat` *usage*** [↩](#anchor_04)
 
 <dl><dd>
@@ -244,7 +245,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
