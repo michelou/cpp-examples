@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(hello VERSION 1.0.0 LANGUAGES CXX)
 
@@ -10,7 +10,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-#include_directory(include)
+#include_directories(include)
 
 file(GLOB SOURCES src/*.cpp src/*.h)
 

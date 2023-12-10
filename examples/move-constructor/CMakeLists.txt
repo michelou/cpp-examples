@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(move-constructor VERSION 1.0.0 LANGUAGES CXX)
 
@@ -10,7 +10,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-#include_directory(include)
+#include_directories(include)
 
 file(GLOB SOURCES src/main/cpp/*.cpp src/main/cpp/*.h)
 

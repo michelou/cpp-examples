@@ -24,7 +24,7 @@ The code examples presented below can be built/run with the following command li
 
 This example consists of one source file [`src\main.cpp`](./hello/src/main.cpp).
 
-Batch file [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options [`-bcc`][bcc_cli], [`-clang`][clang_cli], [`-gcc`][gcc_cli], [`-icx`][icx_cli], [`-msvc`][cl_cli] (default) or [`occ`][occ_cli] :
+Batch file [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options [`-bcc`][bcc_cli], [`-clang`][clang_cli], [`-gcc`][gcc_cli], [`-icx`][icx_cli], <span style="white-space: nowrap;">[`-msvc`][cl_cli]</span> (default) or [`occ`][occ_cli] :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./hello/build.bat">build</a> -clang -verbose clean compile</b>
@@ -59,7 +59,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing) and consists of one source file [`src\main\cpp\Main.cpp`](./call-by-copy/src/main/cpp/Main.cpp).
 
-Batch file [**`build.bat`**](./call-by-copy/build.bat) generates the `call-by-copy.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, `icx` or `-msvc` :
+Batch file [**`build.bat`**](./call-by-copy/build.bat) generates the `call-by-copy.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, <span style="white-space: nowrap;">`-icx`</span> or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./call-by-copy/build.bat">build</a> -msvc -verbose clean compile</b>
@@ -82,7 +82,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./class-dispatching/src/main/cpp/Main.cpp).
 
-Batch file [`build.bat`](./class-dispatching/build.bat) generates the `class-dispatching.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default).
+Batch file [`build.bat`](./class-dispatching/build.bat) generates the `class-dispatching.exe` executable using one of the options `-bcc`, `-clang`, <span style="white-space: nowrap;">`-gcc`</span>, `-icx` or `-msvc` (default).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./class-dispatching/build.bat">build</a> -msvc -verbose clean run</b>
@@ -100,7 +100,7 @@ Base Derived2foo 20
 
 This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
 
-Command [`build.bat`](./move-constructor/build.bat) generates the `move-constructor.exe` executable using one of the options `-bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` :
+Command [`build.bat`](./move-constructor/build.bat) generates the `move-constructor.exe` executable using one of the options `-bcc`, `-clang`, <span style="white-space: nowrap;">`-gcc`</span>, `-icx` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./move-constructor/build.bat">build</a> -clang -verbose clean compile</b>
@@ -122,7 +122,7 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 This example consists of one source file [`src\main\cpp\Main.cpp`](./tuple-iterators/src/main/cpp/Main.cpp).
 
-Batch file [`build.bat`](./tuple-iterators/build.bat) generates the `tuple-iterators.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, `-icx` or `-msvc` (default) :
+Batch file [`build.bat`](./tuple-iterators/build.bat) generates the `tuple-iterators.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, <span style="white-space: nowrap;">`-icx`</span> or `-msvc` (default) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./tuple-iterators/build.bat">build</a> -gcc -verbose clean compile</b>
