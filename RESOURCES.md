@@ -12,12 +12,18 @@
 
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw), January 2022.
 - [Red Hat Developer](https://developers.redhat.com/) articles :
+  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 2][article_riegel_abstractions2], August 2023.
+  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 1][article_riegel_abstractions1], August 2023.
+  - [C# 11: 5 new advanced features improving C# 11](https://developers.redhat.com/articles/2023/01/11/5-new-advanced-features-improving-c-11) by Tom Deseyn, January 2023.
+  - [C# 11: Pattern matching and static abstract interfaces](https://developers.redhat.com/articles/2023/01/02/c-11-pattern-matching-and-static-abstract-interfaces) by Tom Deseyn, January 2023.
+  - [C# 11: Raw strings, required members, and auto-default structs](https://developers.redhat.com/articles/2022/11/30/c-11-raw-strings-required-members-and-auto-default-structs#) by Tom Deseyn, November 2022.
   - [New C++ features in GCC 13][article_polacek_gcc13] by Marek Polacek, June 2023.
   - [New C++ features in GCC 12][article_polacek_gcc12] by Marek Polacek, April 2022.
   - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
   - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
   - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
   - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
+  - [Memory error checking in C and C++: Comparing Sanitizers and Valgrind][article_kratochvil] by Jan Kratochvil, May 2021.
   - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10) by Marek Polacek, September 2020.
   - [Static analysis in GCC 10](https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10) by David Malcolm, March 2020.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
@@ -62,6 +68,7 @@
   - [Move Semantics, Part 2][blog_kootker_2], March 2022.
   - [Move Semantics, Part 1][blog_kootker_1], March 2022.
 - [Fluent **{**C**++}**](https://www.fluentcpp.com/):
+  - [The Interesting Evolution of std::equal_range](https://www.fluentcpp.com/2022/01/10/the-interesting-evolution-of-stdequal_range/), January 2022.
   - [The Evolutions of Lambdas in C++14, C++17 and C++20](https://www.fluentcpp.com/2021/12/13/the-evolutions-of-lambdas-in-c14-c17-and-c20/), December 2021.
   - [Strong Types for Safe Indexing in Collections – Part 2](https://www.fluentcpp.com/2021/11/04/strong-types-for-safe-indexing-in-collections-part-2/), November 2021.
   - [Strong Types for Safe Indexing in Collections – Part 1](https://www.fluentcpp.com/2021/10/31/strong-types-for-safe-indexing-in-collections-part-1/), October 2021.
@@ -141,7 +148,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
@@ -152,9 +159,12 @@
 [article_gautham]: https://www.pwnthebox.net/reverse/engineering/and/binary/exploitation/series/2018/06/21/internals-of-compiling-Journey-from-C-program-to-an-executable.html
 [article_guelton_format]: https://developers.redhat.com/articles/2022/02/25/enforce-code-consistency-clang-format
 [article_guelton_mapping]: https://developers.redhat.com/blog/2021/05/04/optimizing-the-clang-compilers-line-to-offset-mapping
+[article_kratochvil]: https://developers.redhat.com/blog/2021/05/05/memory-error-checking-in-c-and-c-comparing-sanitizers-and-valgrind
 [article_malcolm]: https://developers.redhat.com/articles/2022/04/12/state-static-analysis-gcc-12-compiler
 [article_polacek_gcc12]: https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12
 [article_polacek_gcc13]: https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13
+[article_riegel_abstractions1]: https://developers.redhat.com/blog/2013/08/15/c-cpp11-parallelism
+[article_riegel_abstractions2]: https://developers.redhat.com/blog/2013/08/20/c-cpp11-concurrency
 [article_ritchie]: http://www.gotw.ca/publications/c_family_interview.htm
 [blog_benderksy_2014]: https://eli.thegreenplace.net/2014/variadic-templates-in-c/
 [blog_bendersky_2016]: https://eli.thegreenplace.net/2016/c11-threads-affinity-and-hyperthreading/

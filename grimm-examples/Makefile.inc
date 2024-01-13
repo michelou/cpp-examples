@@ -29,7 +29,7 @@ CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
 CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
 ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
 FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
-ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/bin/icx.exe
+ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/bin/icx.exe
 LLC         = $(subst \,/,$(LLVM_HOME))/bin/llc.exe
 LLVM_CONFIG = $(subst \,/,$(LLVM_HOME))/bin/llvm-config.exe
 MKDIR       = $(subst \,/,$(MSYS_HOME))/usr/bin/mkdir.exe
@@ -46,7 +46,7 @@ WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d [0-9]
 MINGW_XXX      = $(subst \,/,$(MSYS_HOME))/mingw64/include
 MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
-ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
+ONEAPI_LIBPATH = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/lib
 else
 TARGET_EXT  =
 PSEP        = :

@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <a href="."><b><code>concurrency-examples\</code></b></a> contains <a href="https://isocpp.org/" alt="C++">C++</a> code examples from the book <a href="https://leanpub.com/concurrencywithmodernc" rel="external">Concurrency with Modern C++</a> by Rainer Grimm (Leanpub, 2023).<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for running the example on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">bash scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for running the example on a Windows machine.
   </td>
   </tr>
 </table>
@@ -78,7 +78,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

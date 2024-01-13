@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -84,7 +84,7 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
-	@$(ECHO) "     help   display this help message"
+	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(PROJECT_NAME)$(TARGET_EXT)\""
 
@@ -100,4 +100,4 @@ lint:
 .PHONY: all build clean help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .cpp .o .obj .exe
+.SUFFIXES: .c .cpp .h .hpp .o .obj .exe

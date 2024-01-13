@@ -100,6 +100,13 @@ if not exist "%MSYS_HOME%\usr\bin\make.exe" (
 )
 set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
 
+if not exist "%DOXYGEN_HOME%\doxygen.exe" (
+    echo %_ERROR_LABEL% Doxygen installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
+
 if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
     echo %_ERROR_LABEL% GCC package not installed 1>&2
     echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
@@ -116,13 +123,6 @@ if not exist "%MSYS_HOME%\usr\bin\windres.exe" (
 )
 set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
-if not exist "%DOXYGEN_HOME%\doxygen.exe" (
-    echo %_ERROR_LABEL% Doxygen installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
-
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
     set _EXITCODE=1
@@ -132,8 +132,8 @@ set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
 set _ICX_CMD=
-if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+if exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
+    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\bin\icx.exe"
 )
 set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
@@ -315,15 +315,14 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
     if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
-    if defined CPPCHECK_HOME echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
     if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
-    echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "MSVS_HOME=%MSVS_HOME%" ^(cl^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
-    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" ^(icx^) 1>&2
+    if defined ONEAPI_ROOT echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" ^(icx^) 1>&2
     if defined ORANGEC_HOME echo %_DEBUG_LABEL% Variables  : "ORANGEC_HOME=%ORANGEC_HOME%" ^(occ^) 1>&2
 )
 goto :eof
@@ -350,8 +349,8 @@ echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
-echo     %__BEG_O%-occ%__END%        use LADSoft Orange C++ toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
+echo     %__BEG_O%-occ%__END%        use Orange C++ toolset instead of MSVC/MSBuild
+echo     %__BEG_O%-open%__END%       open generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
 echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -396,11 +395,11 @@ if %_TOOLSET%==gcc ( set __CPPCHECK_OPTS=--template=gcc --std=%_CXX_STD%
 set __CPPCHECK_OPTS=--platform=win64 %__CPPCHECK_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_MAIN_DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_MAIN_DIR=%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze C++ source files in directory "!_SOURCE_MAIN_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_CPPCHECK_CMD%" %__CPPCHECK_OPTS% "%_SOURCE_MAIN_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Found errors while analyzing C++ source files in directory "!_SOURCE_MAIN_DIR=%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Found errors while analyzing C++ source files in directory "!_SOURCE_MAIN_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -414,6 +413,7 @@ if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
 ) else if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang/GNU Make
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC/GNU Make
 ) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=Intel oneAPI C++
+) else if %_TOOLSET%==occ ( set __TOOLSET_NAME=LADSoft Orange C++
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
@@ -545,9 +545,9 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 ) else ( set __ARCH=x86
 )
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 set __LIB_VERSION=
-for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (
     echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
     set _EXITCODE=1
@@ -577,7 +577,7 @@ set "__LIB=%LIB%"
 set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
 
-call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES%
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     set "LIB=%__LIB%"
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
@@ -588,7 +588,7 @@ set "LIB=%__LIB%"
 goto :eof
 
 :compile_msvc
-set __CMAKE_OPTS=-Thost=%_PROJ_PLATFORM% -A %_PROJ_PLATFORM% -Wdeprecated
+set __CMAKE_OPTS="-Thost=%_PROJ_PLATFORM%" -A %_PROJ_PLATFORM% -Wdeprecated
 
 if %_VERBOSE%==1 echo Configuration: %_PROJ_CONFIG%, Platform: %_PROJ_PLATFORM% 1>&2
 

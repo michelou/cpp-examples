@@ -27,7 +27,7 @@ set _BAZEL_PATH=
 set _GIT_PATH=
 set _MSVS_PATH=
 set _MSYS_PATH=
-set _ONEAPI_PATH=
+@rem set _ONEAPI_PATH=
 set _VSCODE_PATH=
 
 call :bazel
@@ -562,13 +562,13 @@ if defined __ICX_CMD (
 ) else (
     set "_ONEAPI_ROOT=%ProgramFiles(x86)%\Intel\oneAPI"
 )
-if not exist "%_ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+if not exist "%_ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
     echo %_WARNING_LABEL% Intel DPC++ compiler executable not found ^("%_ONEAPI_ROOT%"^) 1>&2
     set _ONEAPI_ROOT=
     @rem set _EXITCODE=1
     goto :eof
 )
-@rem set "_ONEAPI_PATH=%_ONEAPI_ROOT%\compiler\latest\windows\bin"
+@rem set "_ONEAPI_PATH=%_ONEAPI_ROOT%\compiler\latest\bin"
 goto :eof
 
 @rem output parameters: _ORANGEC_HOME
@@ -760,10 +760,10 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%MSYS_HOME%\mingw64\bin\cppcheck.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cppcheck %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:cppcheck.exe"
 )
-where /q "%DOXYGEN_HOME%\bin:doxygen.exe"
+where /q "%DOXYGEN_HOME%:doxygen.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%DOXYGEN_HOME%\bin\doxygen.exe" -v 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% doxygen %%i,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%DOXYGEN_HOME%\bin:doxygen.exe"
+    for /f "tokens=1,*" %%i in ('"%DOXYGEN_HOME%\doxygen.exe" -v 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% doxygen %%i,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%DOXYGEN_HOME%:doxygen.exe"
 )
 if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __BIN_DIR=Bin\amd64
 ) else ( set __BIN_DIR=Bin

@@ -13,8 +13,8 @@ The code examples presented below can be built/run with the following tools:
 
 | Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
 |:----------------|:-------------------|:------------|:---------------|
-| [`build.bat`](./simple-window/build.bat) | *none* | &nbsp; | Windows only |
-| [`make.exe`][make_cli] | [`Makefile`](./simple-window/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](./simple-window/build.bat) | &nbsp; | Windows only |
+| [**`make.exe`**][make_cli] | [`Makefile`](./simple-window/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
 <div style="margin:0 0 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and UNIX".<br/>&nbsp;
 </div>
@@ -57,13 +57,14 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html#introduction
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [gcc_cli]: https://man7.org/linux/man-pages/man1/g++.1.html
 [make_cli]: https://ftp.gnu.org/old-gnu/Manuals/make-3.79.1/html_node/make_86.html
 [msbuild_cli]: https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference

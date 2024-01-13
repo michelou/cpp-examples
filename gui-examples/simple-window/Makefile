@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -63,4 +63,4 @@ run: build
 .PHONY: all build clean run
 
 .SUFFIXES:
-.SUFFIXES: .c .cpp .o .obj .exe
+.SUFFIXES: .c .cpp .h .hpp .o .obj .exe

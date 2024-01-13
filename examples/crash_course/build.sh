@@ -139,15 +139,14 @@ lint() {
     msvc)  cppcheck_opts="--template=vs --std=c++17" ;;
     *)     cppcheck_opts="=--std=c++14" ;;
     esac
-    cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
     if $DEBUG; then
-        debug "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR" 1>&2
+        debug "$CPPCHECK_CMD $CPPCHECK_OPTS$ $SOURCE_DIR" 1>&2
     elif $VERBOSE; then
-        echo "Analyze C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Analyze C++ source files in directory ${SOURCE_DIR/$ROOT_DIR\//}" 1>&2
     fi
     eval "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR"
     if [[ $? -ne 0 ]]; then
-        error "Failed to check C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\""
+        error "Failed to check C++ source files"
         cleanup 1
     fi
 }
@@ -441,7 +440,6 @@ if $cygwin || $mingw || $msys; then
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
-    CPPCHECK_PLATFORM=win64
     GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
     ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
@@ -452,7 +450,6 @@ else
     CLANG_CMD=clang
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
-    CPPCHECK_PLATFORM=native
     GCC_CMD=gcc
     MAKE_CMD=make
 fi

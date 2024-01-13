@@ -54,7 +54,7 @@ WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d [0-9]
 MINGW_XXX      = $(MSYS_PATH)/mingw64/include
 MINGW_INCPATH  = $(MSYS_PATH)/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(MSYS_PATH)/mingw64/x86_64-w64-mingw32/lib
-ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
+ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/lib
 else
 TARGET_EXT  =
 PSEP        = :

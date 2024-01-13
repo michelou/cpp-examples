@@ -1,5 +1,12 @@
+##
+## Copyright (c) 2018-2024 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 TOOLSET ?= gcc
-CXXSTD ?= c++17
+CXXSTD ?= c++20
 
 include ../Makefile.inc
 
@@ -10,18 +17,34 @@ SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)/$(PROJECT_CONFIG)
 
-ifeq ($(TOOLSET),msvc)
-CXX = $(CL)
-CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)ucrt" -I"$(WINSDK_INCPATH)um" -Fo"$(TARGET_DIR)/"
-CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)"
-else ifeq ($(TOOLSET),gcc)
-CXX = $(CC)
-CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
-CXXLINK =
+ifeq ($(TOOLSET),bcc)
+CXX = $(BCC)
+## see https://docwiki.embarcadero.com/RADStudio/Sydney/en/C%2B%2B_Compiler
+CXXFLAGS = -I "$(SOURCE_DIR)" -q -w
+## suppress linker identification banner
+CXXLINK = -lq
 else ifeq ($(TOOLSET),clang)
 CXX = $(CLANG)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
+else ifeq ($(TOOLSET),gcc)
+CXX = $(CC)
+CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
+CXXLINK =
+else ifeq ($(TOOLSET),icx)
+CXX = $(ICX)
+CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
+CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)"
+else ifeq ($(TOOLSET),msvc)
+CXX = $(CL)
+CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)ucrt" -I"$(WINSDK_INCPATH)um" -Fo"$(TARGET_DIR)/"
+CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)"
+else ifeq ($(TOOLSET),occ)
+CXX = $(OCC)
+CXXFLAGS = --nologo -std=c++14
+CXXLINK =
+else
+$(error Variable TOOLSET is invalid)
 endif
 CXXVARS =
 
@@ -45,7 +68,7 @@ else
 endif
 
 clean:
-	$(RM) -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
 	$(TARGET)
@@ -56,4 +79,4 @@ run: build
 .PHONY: all build clean run
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj .exe
+.SUFFIXES: .c .cpp .h .hpp .o .obj .exe

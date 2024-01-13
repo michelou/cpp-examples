@@ -85,12 +85,12 @@ if not exist "%MSYS_HOME%\usr\bin\make.exe" (
 )
 set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
 
-if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
+if not exist "%DOXYGEN_HOME%\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
+set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
 
 if not exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     echo %_ERROR_LABEL% MS Visual Studio installation not found 1>&2

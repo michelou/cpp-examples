@@ -280,19 +280,19 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo %__BEG_P%Options:%__END%
-echo   %__BEG_O%-debug%__END%      display commands executed by this script
+echo   %__BEG_O%-debug%__END%      print commands executed by this script
 echo   %__BEG_O%-cl%__END%         use CL/MSBuild toolset (default)
 echo   %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of CL/MSBuild
 echo   %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of CL/MSBuild
 echo   %__BEG_O%-msvc%__END%       use CL/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
-echo   %__BEG_O%-verbose%__END%    display progress messages
+echo   %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo %__BEG_P%Subcommands:%__END%
 echo   %__BEG_O%clean%__END%       delete generated files
 echo   %__BEG_O%compile%__END%     generate executable
 echo   %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%Doxygen%__END%
 echo   %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
-echo   %__BEG_O%help%__END%        display this help message
+echo   %__BEG_O%help%__END%        print this help message
 echo   %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
 echo   %__BEG_O%run%__END%         run the generated executable "%_TARGET_FILE%"
 goto :eof
@@ -463,11 +463,11 @@ if not exist "%__DOXYFILE%" (
 set __DOXYGEN_OPTS=-s
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_DOXYGEN_CMD%" %__DOXYGEN_OPTS% "%__DOXYFILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -50,6 +50,10 @@ CXX = $(CL)
 CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)ucrt" -I"$(WINSDK_INCPATH)um" -Fo"$(TARGET_DIR)/"
 CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)"
 CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=vs --std=c++17
+else ifeq ($(TOOLSET),occ)
+CXX = $(OCC)
+CXXFLAGS = --nologo -std=c++14
+CXXLINK =
 else
 $(error Variable TOOLSET is invalid)
 endif
@@ -90,7 +94,7 @@ help:
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
 	@$(ECHO) "     doc    generate HTML documentation"
-	@$(ECHO) "     help   display this help message"
+	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
 
