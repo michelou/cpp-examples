@@ -53,6 +53,9 @@ goto end
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
+set _STDOUT_REDIRECT=1^>NUL
+if %_DEBUG%==1 set _STDOUT_REDIRECT=1^>CON
+
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
 
@@ -280,13 +283,11 @@ if %_TOOLSET%==msvc (
         goto :eof
     )
 )
-for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
-set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
-
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
-    echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
+    if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
@@ -294,7 +295,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
-    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%"  ^(icx^) 1>&2
+    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" ^(icx^) 1>&2
 )
 goto :eof
 
@@ -600,10 +601,8 @@ goto :eof
 
 :doc
 @rem must be the same as property OUTPUT_DIRECTORY in file Doxyfile
-if not exist "%_TARGET_DOCS_DIR%" (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% mkdir "%_TARGET_DOCS_DIR%" 1>&2
-    mkdir "%_TARGET_DOCS_DIR%"
-)
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%"
+
 set "__DOXYFILE=%_ROOT_DIR%Doxyfile"
 if not exist "%__DOXYFILE%" (
     echo %_ERROR_LABEL% Doxygen configuration file not found 1>&2
@@ -655,10 +654,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
-) else ( set "__TARGET_DIR=%_TARGET_DIR%"
+if not %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%"
+) else ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_TARGET_FILE%"
+set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
 if not exist "%__EXE_FILE%" (
     echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found 1>&2
     set _EXITCODE=1

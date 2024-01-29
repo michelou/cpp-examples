@@ -18,7 +18,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [CMake 3.28][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.43][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
-- [MSYS2][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup>
+- [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
 - [oneAPI DPC++ 2024][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
@@ -253,8 +253,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.0.0
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.0.0
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.0.2
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.0.2
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -262,6 +262,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 6.3.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-630-2023-07-24
 6.2.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-621-2023-06-02
 6.2.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-620-2023-05-09
+7.0.2 -> https://github.com/bazelbuild/bazel/releases/tag/7.0.2
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
@@ -302,6 +303,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
+[msys2_changelog]: https://github.com/msys2/setup-msys2/blob/main/CHANGELOG.md
 [msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [orangec_downloads]: https://github.com/LADSoft/OrangeC/releases

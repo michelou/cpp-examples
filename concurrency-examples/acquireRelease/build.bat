@@ -74,12 +74,12 @@ set _PROJ_NAME=main
 for /f "tokens=1,2,* delims=( " %%f in ('findstr /b project "%__CMAKE_LIST_FILE%" 2^>NUL') do set "_PROJ_NAME=%%g"
 set _PROJ_CONFIG=Release
 set _PROJ_PLATFORM=x64
-set "_EXE_NAME=%_PROJ_NAME%.exe"
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\cpp"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_TARGET_FILE=%_PROJ_NAME%.exe"
 
 set _CMAKE_CMD=
 if exist "%CMAKE_HOME%\bin\cmake.exe" (
@@ -93,12 +93,12 @@ set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
-if not exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
+if not exist "%DOXYGEN_HOME%\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
+set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
 
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
     echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
@@ -126,8 +126,8 @@ set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
 set _ICX_CMD=
-if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+if exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
+    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\bin\icx.exe"
 )
 set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
@@ -220,7 +220,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -234,7 +234,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -289,7 +289,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
     if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
-    if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVC_HOME=%MSVC_HOME%" ^(cl^) 1>&2
@@ -331,7 +331,7 @@ echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%D
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
 echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
-echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_EXE_NAME%%__END%"
+echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_TARGET_FILE%%__END%"
 goto :eof
 
 :clean
@@ -416,12 +416,12 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %_MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %_MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -461,12 +461,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -497,12 +497,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -516,7 +516,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
 set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
 set __LIB_VERSION=
-for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (
     echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
     set _EXITCODE=1
@@ -524,7 +524,7 @@ if not defined __LIB_VERSION (
 )
 set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
 
-set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_EXE_NAME%"
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_TARGET_FILE%"
 if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
 set __SOURCE_FILES=
@@ -540,7 +540,7 @@ if %__N%==0 (
 ) else ( set __N_FILES=%__N% C++ source files
 )
 set __LIB_VERSION=
-for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
+for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (
     echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
     set _EXITCODE=1
@@ -551,8 +551,8 @@ set __LINK_FLAGS=-link
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%MSVC_HOME%lib\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\windows\compiler\lib"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib\intel64"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
@@ -588,12 +588,12 @@ if not %ERRORLEVEL%==0 (
 set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_EXE_NAME%" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -636,9 +636,9 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
+set "__EXE_FILE=%__TARGET_DIR%\%_TARGET_FILE%"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_EXE_NAME%" not found 1>&2
+    echo %_ERROR_LABEL% Executable "%_TARGET_FILE%" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -660,7 +660,7 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_EXE_NAME%"
+set "__EXE_FILE=%__TARGET_DIR%\%_TARGET_FILE%"
 if not exist "%__EXE_FILE%" (
     echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found 1>&2
     set _EXITCODE=1
