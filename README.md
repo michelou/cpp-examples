@@ -32,12 +32,12 @@ Optionally one may also install the following software:
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
-- [Visual Studio Code 1.85][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.86][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*February 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -102,7 +102,7 @@ We also define a virtual drive **`R:`** in our working environment in order to r
 
 ### **`setenv.bat`** <sup id="anchor_04">[4](#footnote_04)</sup>
 
-We execute command [**`setenv`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+We execute command [**`setenv`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`git.exe`**][git_cli] and [**`sh.exe`**][sh_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
@@ -111,10 +111,13 @@ Tool versions:
    cmake 3.28.1, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
    git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
 C:\opt\Git\bin\git.exe
 C:\opt\Git\mingw64\bin\git.exe
+C:\opt\Git\bin\sh.exe
+C:\opt\msys64\usr\bin\sh.exe
+C:\opt\Git\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv help`**](./setenv.bat) displays the help messsage :
@@ -173,15 +176,15 @@ The installed development tools for Windows give us access to the following C++ 
 Since our project depends on <a href="https://www.msys2.org/" rel="external">MSYS2</a> we choose to install the MSYS2 package <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck"><code>mingw-w64-x86_64-cppcheck</code></a> :
 <pre style="font-size:80%;">
 <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://archlinux.org/pacman/" rel="external">pacman.exe</a> -Ss cppcheck</b>
-mingw32/mingw-w64-i686-cppcheck 2.12.1-1
+mingw32/mingw-w64-i686-cppcheck 2.13.1-1
     static analysis of C/C++ code (mingw-w64)
-mingw64/mingw-w64-x86_64-cppcheck 2.12.1-1
+mingw64/mingw-w64-x86_64-cppcheck 2.13.1-1
     static analysis of C/C++ code (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.12.1-1
+ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.13.1-1
     static analysis of C/C++ code (mingw-w64)
-clang32/mingw-w64-clang-i686-cppcheck 2.12.1-1
+clang32/mingw-w64-clang-i686-cppcheck 2.13.1-1
     static analysis of C/C++ code (mingw-w64)
-clang64/mingw-w64-clang-x86_64-cppcheck 2.12.1-1
+clang64/mingw-w64-clang-x86_64-cppcheck 2.13.1-1
     static analysis of C/C++ code (mingw-w64)
 &nbsp;
 <b>&gt; %MSYS_HOME%\usr\bin\pacman.exe -Syu <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">mingw-w64-x86_64-cppcheck</a></b>
@@ -189,7 +192,7 @@ clang64/mingw-w64-clang-x86_64-cppcheck 2.12.1-1
 [...]
 Packages (10) less-643-1  libgnutls-3.8.1-1  mingw-w64-x86_64-bzip2-1.0.8-2  mingw-w64-x86_64-gcc-13.2.0-2  mingw-w64-x86_64-gcc-ada-13.2.0-2
               mingw-w64-x86_64-gcc-libs-13.2.0-2  mingw-w64-x86_64-headers-git-11.0.0.r107.gd367cc9d7-2  mingw-w64-x86_64-pcre-8.45-1
-              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.12.1-1
+              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.13.1-1
 
 Total Installed Size:  388.66 MiB
 Net Upgrade Size:       20.34 MiB
@@ -245,7 +248,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -310,6 +313,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [orangec_relnotes]: https://github.com/LADSoft/OrangeC/releases/tag/Orange-C-v6.73.1
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
