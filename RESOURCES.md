@@ -99,7 +99,8 @@
 
 ## <span id="books">Books</span> [**&#x25B4;**](#top)
 
-- [The C++ Standard Library][book_grimm_2023] (4<sup>th</sup> Ed.) by Rainer Grimm, March 2023.<br/><span style="font-size:80%;">(Leanpub, 344 pages)</span> 
+- [The C++ Standard Library][book_grimm_2023] (4<sup>th</sup> Ed.) by Rainer Grimm, March 2023.<br/><span style="font-size:80%;">(Leanpub, 344 pages)</span>
+- [Beautiful C++][book_davidson] by Guy Davidson and Kate Gregory, May 2022.<br/><span style="font-size:80%;">(Addison-Wesley, ISBN 978-0-13-764784-2, 346 pages)</span>
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
 - [C++20 - The Complete Guide][book_josuttis] by Nicolai M. Josuttis, December 2021.<br/><span style="font-size:80%;">(Leanpub, 474 pages)</span>
@@ -117,16 +118,16 @@
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
   - [GCC 13.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000179.html), July 2023.
-  - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023.
-  - [GCC 12.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000176.html), May 2023.
+  - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023 ([release notes](https://gcc.gnu.org/gcc-13/)).
+  - [GCC 12.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000176.html), May 2023).
   - [GCC 12.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000174.html), August 2022.
-  - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022.
+  - [GCC 12.1 Released](https://gcc.gnu.org/pipermail/gcc/2022-May/238653.html), May 2022 ([release notes](https://gcc.gnu.org/gcc-12/).
   - [GCC 11.4 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000177.html), May 2023.
   - [GCC 11.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2022/000170.html), April 2022.
-  - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021.
+  - [GCC 11.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000166.html), April 2021 ([release notes](https://gcc.gnu.org/gcc-11/)).
   - [GCC 10.5 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000178.html), July 2023.
   - [GCC 10.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2021/000165.html), April 2021
-  - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020.
+  - [GCC 10.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2020/000163.html), May 2020 ([release notes](https://gcc.gnu.org/gcc-10/)).
 
 ## <span id="tools">Tools</span> [**&#x25B4;**](#top)
 
@@ -170,6 +171,7 @@
 [blog_bendersky_2016]: https://eli.thegreenplace.net/2016/c11-threads-affinity-and-hyperthreading/
 [blog_kootker_2]: https://medium.com/factset/modern-c-in-depth-move-semantics-part-2-4c53e90d5f2
 [blog_kootker_1]: https://medium.com/factset/modern-c-in-depth-move-semantics-part-1-8a29d33944e4
+[book_davidson]: https://www.pearson.com/en-gb/subject-catalog/p/beautiful-c-30-core-guidelines-for-writing-clean-safe-and-fast-code/P200000009446
 [book_gaddis]: https://www.pearson.com/store/p/starting-out-with-c-early-objects/P100002716184/9780135213698
 [book_gregoire]: https://www.wiley.com/en-us/Professional+C%2B%2B%2C+5th+Edition-p-9781119695400
 [book_grimm]: https://leanpub.com/concurrencywithmodernc

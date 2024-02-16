@@ -15,7 +15,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [CMake 3.28][cmake_downloads] ([*release notes*][cmake_relnotes])
+- [CMake 3.29][cmake_downloads] ([*release notes*][cmake_relnotes])
 - [Git 2.43][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 16][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
@@ -42,7 +42,7 @@ For instance our development environment looks as follows (*February 2024*) <sup
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake-3.28.1-windows-x86_64\      <i>(111 MB)</i>
+C:\opt\cmake\                            <i>(112 MB)</i>
 C:\opt\doxygen\                          <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-16.0.6\                      <i>(3.1 GB)</i>
@@ -107,8 +107,8 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.0.1, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
-   cmake 3.28.1, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
+   bazel 7.0.2, bcc32c 7.30, clang 16.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
+   cmake 3.29.0, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
    git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
@@ -213,10 +213,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.0.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.0.2-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.28.1-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>   <i>(1.2 GB)</i>
+<a href="https://cmake.org/download/">cmake-3.29.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.6">LLVM-16.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20190524.exe</a>                       <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>

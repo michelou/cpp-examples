@@ -87,10 +87,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -128,6 +124,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we defined _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _INVERSE=[7m
+set _UNDERSCORE=[4m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
@@ -277,7 +279,7 @@ if defined __BAZEL_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\bazel\" ( set "_BAZEL_HOME=!__PATH!\bazel"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
         if not defined _BAZEL_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
@@ -312,7 +314,7 @@ if defined __BCC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\bcc\" ( set "_BCC_HOME=!__PATH!\bcc"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
         if not defined _BCC_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bcc-*" 2^>NUL') do set "_BCC_HOME=!__PATH!\%%f"
@@ -345,7 +347,7 @@ if defined __DOXYGEN_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\doxygen\" ( set "_DOXYGEN_HOME=!__PATH!\doxygen"
     ) else (
-       for /f %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
+       for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
         if not defined _DOXYGEN_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\doxygen-*" 2^>NUL') do set "_DOXYGEN_HOME=!__PATH!\%%f"
@@ -382,7 +384,7 @@ if defined __CMAKE_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\cmake\" ( set "_CMAKE_HOME=!__PATH!\cmake"
     ) else (
-       for /f %%f in ('dir /ad /b "!__PATH!\cmake-*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
+       for /f "delims=" %%f in ('dir /ad /b "!__PATH!\cmake-*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
         if not defined _CMAKE_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\cmake-*" 2^>NUL') do set "_CMAKE_HOME=!__PATH!\%%f"
@@ -588,7 +590,7 @@ if defined __OCC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\orangec\" ( set "_ORANGEC_HOME=!__PATH!\orangec"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\orangec*" 2^>NUL') do set "_ORANGEC_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\orangec*" 2^>NUL') do set "_ORANGEC_HOME=!__PATH!\%%f"
         if not defined _ORANGEC_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\orangec*" 2^>NUL') do set "_ORANGEC_HOME=!__PATH!\%%f"
@@ -631,7 +633,7 @@ if defined __GIT_CMD (
     for /f "delims=" %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
+        for /f "delims=" %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
@@ -643,7 +645,7 @@ if defined __GIT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
@@ -679,7 +681,7 @@ if defined __CODE_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         if not defined _VSCODE_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
