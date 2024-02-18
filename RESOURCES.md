@@ -84,6 +84,7 @@
 - [Structures and classes in C++](https://www.embedded.com/structures-and-classes-in-c/) by Colin Walls, September 2020.
 - [C++ Lambda Under the Hood](https://medium.com/software-design/c-lambda-under-the-hood-9b5cd06e550a) by [EventHelix](https://www.eventhelix.com/), June 2019.
 - [OpenGenus C++ Blog](https://iq.opengenus.org/tag/cpp/):
+  - [Lazy initialization in C++](https://iq.opengenus.org/lazy-initialization-in-cpp/) by Shone Binu.
   - [Advanced C++ topics](https://iq.opengenus.org/advanced-cpp-topics/) by Reshma Patil.
   - [Different ways to terminate a program in C++](https://iq.opengenus.org/different-ways-to-terminate-program-in-cpp/) by Subhrajit Dhar.
   - [Struct inheritance in C++](https://iq.opengenus.org/struct-inheritance-in-cpp/) by Harshit Raj.
@@ -100,12 +101,13 @@
 ## <span id="books">Books</span> [**&#x25B4;**](#top)
 
 - [The C++ Standard Library][book_grimm_2023] (4<sup>th</sup> Ed.) by Rainer Grimm, March 2023.<br/><span style="font-size:80%;">(Leanpub, 344 pages)</span>
+- [A Tour of C++](book_stroustrup) (3<sup>rd</sup> Ed.) by Bjarne Stroustrup, September 2022.<br/><span style="font-size:80%;">(Addison-Wesley, ISBN  978-0-13-681648-5, 320 pages)</span>
 - [Beautiful C++][book_davidson] by Guy Davidson and Kate Gregory, May 2022.<br/><span style="font-size:80%;">(Addison-Wesley, ISBN 978-0-13-764784-2, 346 pages)</span>
 - [Concurrency_with Modern C++][book_grimm] by Rainer Grimm, February 2022.<br/><span style="font-size:80%;">(Leanpub, 475 pages)</span>
 - [Design Patterns in Modern C++20][book_nesteruk] (2<sup>nd</sup> Ed.) by Dmitri Nesteruk, 2022.<br/><span style="font-size:80%;">(Nesteruk, ISBN 978-1-4842-7294-7, 390 pages)</span>
 - [C++20 - The Complete Guide][book_josuttis] by Nicolai M. Josuttis, December 2021.<br/><span style="font-size:80%;">(Leanpub, 474 pages)</span>
 - [Demystified Object-Oriented Programming with C++ ][book_kirk] by Dorothy R. Kirk, March 2021.<br/><span style="font-size:80%;">(Packt Publishing, ISBN 978-1-8392-1883-5, 568 pages)</span>
-- [Professional C++][book_gregoire] (<sup>5th</sup> Ed) by Marc Gregoire, February 2021.<br/><span style="font-size:80%;">(Wiley, ISBN 978-1-1196-9540-0, 1312 pages)</span>
+- [Professional C++][book_gregoire] (<sup>5th</sup> Ed.) by Marc Gregoire, February 2021.<br/><span style="font-size:80%;">(Wiley, ISBN 978-1-1196-9540-0, 1312 pages)</span>
 - [Real-Time C++][book_kormanyos] (4<sup>th</sup> Ed.) by Christopher Kormanyos, 2021.<br/><span style="font-size:80%;">(Springer, ISBN 978-3-6626-2995-6, 510 pages)</span>
 - [C++ Early Objects][book_gaddis] (10<sup>th</sup> Ed.) by Tony Gaddis et al., 2020.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-13-523500-3)</span>
 - [C++ Distilled][book_pohl] by Ira Pohl, July 2007.<br/><span style="font-size:80%;">(Pearson, ISBN 978-0-2016-9587-8, 210 pages)</span>
@@ -181,5 +183,6 @@
 [book_kormanyos]: https://www.springer.com/gp/book/9783662629956
 [book_nesteruk]: https://www.springerprofessional.de/en/design-patterns-in-modern-c-20/19833000
 [book_pohl]: https://www.amazon.com/Distilled-Concise-Reference-Style-Guide/dp/0201695871
+[book_stroustrup]: https://www.amazon.com/Tour-C-Bjarne-Stroustrup/dp/0136816487
 [tutorial_stroustrup]: https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
 [video_meyers]: https://dconf.org/2017/talks/meyers.html
