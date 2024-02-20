@@ -121,12 +121,12 @@ if not exist "%LLVM_HOME%\bin\clang.exe" (
 set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
-if not exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
+if not exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
     echo %_ERROR_LABEL% Intel oneAPI installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\bin\icx.exe"
 
 set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (
@@ -493,7 +493,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 ) else ( set __ARCH=x86
 )
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 set __LIB_VERSION=
 for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (

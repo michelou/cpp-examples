@@ -149,10 +149,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -190,6 +186,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _INVERSE=[7m
+set _UNDERSCORE=[4m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
@@ -226,7 +228,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-open" ( set _DOC_OPEN=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -240,7 +242,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -534,7 +536,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 ) else ( set __ARCH=x86
 )
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 set __LIB_VERSION=
 for /f %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (

@@ -1,0 +1,1 @@
+Source: https://www.makeuseof.com/what-is-diamond-problem-in-cpp/

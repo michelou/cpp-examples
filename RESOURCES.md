@@ -144,6 +144,7 @@
 - [Beginner's Guide to Linkers](https://www.lurklurk.org/linkers/linkers.html) by David Drysdale, 2010.
 - [C++ Core Guidelines][tutorial_stroustrup] by Bjarne Stroustrup and Herb Sutter, April 2022.
 - [C++ Reference](https://en.cppreference.com/w/): [C++11](https://en.cppreference.com/w/cpp/11), [C++14](https://en.cppreference.com/w/cpp/14), [C++17](https://en.cppreference.com/w/cpp/17), [C++20](https://en.cppreference.com/w/cpp/20), [C++23](https://en.cppreference.com/w/cpp/23).
+- [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
 
 ## <span id="videos">Videos</span>
 

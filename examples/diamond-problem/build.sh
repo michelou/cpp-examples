@@ -342,7 +342,7 @@ compile_msvc() {
     fi
     # MSBuild options must start with '-' (instead of '/').
     local msbuild_opts="-nologo \"-p:Configuration=$PROJECT_CONFIG\" \"-p:Platform=$PROJECT_PLATFORM\""
-    
+
     if $DEBUG; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     elif $VERBOSE; then
@@ -411,7 +411,7 @@ COMPILE=false
 DEBUG=false
 HELP=false
 LINT=false
-MAIN_CLASS="me.opc.se.bare.Main"
+MAIN_CLASS=Main
 MAIN_ARGS=
 RUN=false
 TIMER=false
