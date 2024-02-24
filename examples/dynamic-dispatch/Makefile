@@ -16,6 +16,7 @@ PROJECT_CONFIG ?= Release
 SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)
+TARGET_DOCS_DIR = $(TARGET_DIR)/docs
 
 ifeq ($(OS),Windows_NT)
 CPPCHECK_PLATFORM = win64
@@ -44,6 +45,9 @@ CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
 CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)/intel64"
 else ifeq ($(TOOLSET),msvc)
+ifeq (,$(wildcard $(MSVC_INCPATH)))
+$(error Variable MSVC_INCPATH is not set)
+endif
 TARGET_EXE_DIR = $(TARGET_DIR)/$(PROJECT_CONFIG)
 CXX = $(CL)
 ## see https://learn.microsoft.com/en-us/cpp/build/reference/compiler-options-listed-alphabeticall
@@ -93,9 +97,13 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
+    @$(ECHO) "     doc    generate HTML documentation with Doxygen"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
+	@$(ECHO) ""
+	@$(ECHO) "   Environment variables:"
+	@$(ECHO) "     TOOLSET=(bcc|clang|gcc|icx|msvc|occ)"
 
 ##############################################################################
 ## lint rules
@@ -104,9 +112,19 @@ lint:
 	"$(CPPCHECK)" $(CPPCHECK_OPTS) "$(SOURCE_DIR)"
 
 ##############################################################################
+## doc rules
+
+DOXYGEN_OPTS=-s
+DOXYFILE=Doxyfile
+
+doc:
+	[ -d "$(TARGET_DOCS_DIR)" ] || $(MKDIR) -p "$(TARGET_DOCS_DIR)"
+	"$(DOXYGEN)" $(DOXYGEN_OPTS) "$(DOXYFILE)"
+
+##############################################################################
 ## phony
 
-.PHONY: all build clean help lint run
+.PHONY: all build clean doc help lint run
 
 .SUFFIXES:
 .SUFFIXES: .c .cpp .h .hpp .o .obj .exe

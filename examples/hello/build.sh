@@ -70,6 +70,7 @@ args() {
         ## subcommands
         clean)   CLEAN=true ;;
         compile) COMPILE=true ;;
+        doc)     DOC=true ;;
         help)    HELP=true ;;
         lint)    LINT=true ;;
         run)     COMPILE=true && RUN=true ;;
@@ -80,7 +81,7 @@ args() {
         esac
     done
     debug "Options    : PROJECT_CONFIG=$PROJECT_CONFIG TIMER=$TIMER TOOLSET=$TOOLSET VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : LLVM_HOME=$LLVM_HOME"
     debug "Variables  : MSVS_HOME=$MSVS_HOME"
@@ -104,12 +105,13 @@ Usage: $BASENAME { <option> | <subcommand> }
     -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
     -msvc        use MSVC/MSBuild toolset (alias for option -cl)
     -occ         use LADSoft Orange C++ toolset instead of MSVC/MSBuild
-    -timer       display total execution time
-    -verbose     display progress messages
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile C++ source files
+    doc          generate HTML documentation with Doxygen
     help         print this help message
     lint         analyze C++ source files with Cppcheck
     run          execute the generated executable
@@ -119,7 +121,7 @@ EOS
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
-            debug "Delete directory $TARGET_DIR"
+            debug "rm -rf \"$TARGET_DIR\""
         elif $VERBOSE; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
@@ -142,14 +144,15 @@ lint() {
     msvc)  cppcheck_opts="--template=vs --std=c++17" ;;
     *)     cppcheck_opts="=--std=c++14" ;;
     esac
+    local cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
     if $DEBUG; then
-        debug "$CPPCHECK_CMD $CPPCHECK_OPTS$ $SOURCE_DIR" 1>&2
+        debug "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR" 1>&2
     elif $VERBOSE; then
         echo "Analyze C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR"
     if [[ $? -ne 0 ]]; then
-        error "Failed to check C++ source files"
+        error "Failed to check C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -189,7 +192,7 @@ compile_bcc() {
     eval "$CMAKE_CMD $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
+        error "Failed to generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     local make_opts=
@@ -250,7 +253,7 @@ compile_clang() {
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME$TARGET_EXT\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -295,14 +298,14 @@ compile_gcc() {
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/compiler/lib;$ONEAPI_ROOT%/compiler/latest/compiler/lib/intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/compiler/lib;$ONEAPI_ROOT/compiler/latest/compiler/lib/intel64"
 
     local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$(mixed_path $TARGET_DIR/$PROJECT_NAME.exe)\""
     $DEBUG && icx_flags="-debug:all -v $icx_flags"
 
     local source_files=
     local n=0
-    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $(find "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -345,7 +348,6 @@ compile_msvc() {
     fi
     # MSBuild options must start with '-' (instead of '/').
     local msbuild_opts="-nologo \"-p:Configuration=$PROJECT_CONFIG\" \"-p:Platform=$PROJECT_PLATFORM\""
-    
     if $DEBUG; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     elif $VERBOSE; then
@@ -361,12 +363,12 @@ compile_msvc() {
 }
 
 compile_occ() {
-    local occ_flags="--nologo -std=c++14 /o\"$TARGET_DIR/$PROJECT_NAME.exe\""
+    local occ_flags="--nologo -std=c++17 /o\"$(mixed_path $TARGET_DIR)/$PROJECT_NAME.exe\""
 
     local source_files=
     local n=0
     for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
-        source_files="$source_files \"$f\""
+        source_files="$source_files \"$(mixed_path $f)\""
         n=$((n + 1))
     done
     if [[ $n -eq 0 ]]; then
@@ -394,6 +396,30 @@ mixed_path() {
         echo "$*" | sed 's|/|\\\\|g'
     else
         echo "$*"
+    fi
+}
+
+doc() {
+    ## must be the same as property OUTPUT_DIRECTORY in file Doxyfile
+    if [[ ! -d "$TARGET_DOCS_DIR" ]]; then
+        $DEBUG && debug "mkdir \"$TARGET_DOCS_DIR\""
+        mkdir "$TARGET_DOCS_DIR"
+    fi
+    local doxyfile="$ROOT_DIR/Doxyfile"
+    if [[ ! -f "$doxyfile" ]]; then
+        error "Doxygen configuration file not found"
+        cleanup 1
+    fi
+    local doxygen_opts=-s
+    if $DEBUG; then
+        debug "\"$DOXYGEN\" $doxygen_opts \"$doxyfile\""
+    elif $VERBOSE; then
+       echo "Generate HTML documentation" 1>&2
+    fi
+    eval "\"$DOXYGEN\" $doxygen_opts \"$doxyfile\""
+    if [[ $? -ne 0 ]]; then
+        error "Failed to generate HTML documentation" 1>&2
+        cleanup 1
     fi
 }
 
@@ -433,11 +459,14 @@ EXITCODE=0
 ROOT_DIR="$(getHome)"
 
 SOURCE_DIR="$ROOT_DIR/src"
+CPP_SOURCE_DIR="$SOURCE_DIR/main/cpp"
 TARGET_DIR="$ROOT_DIR/build"
+TARGET_DOCS_DIR="$TARGET_DIR/docs"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MAIN_CLASS="me.opc.se.bare.Main"
@@ -458,7 +487,7 @@ case "$(uname -s)" in
     CYGWIN*) cygwin=true ;;
     MINGW*)  mingw=true ;;
     MSYS*)   msys=true ;;
-    Darwin*) darwin=true      
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -472,6 +501,8 @@ if $cygwin || $mingw || $msys; then
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
+    CPPCHECK_PLATFORM=win64
+    DOXYGEN="$(mixed_path $DOXYGEN_HOME)/doxygen.exe"
     GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
     ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
@@ -483,9 +514,11 @@ else
     CLANG_CMD=clang
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
+    CPPCHECK_PLATFORM=native
+    DOXYGEN=doxygen
     GCC_CMD=gcc
     MAKE_CMD=make
-    OCC=occ
+    OCC_CMD=occ
 fi
 
 PROJECT_CONFIG="Release"
@@ -510,6 +543,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

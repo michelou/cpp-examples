@@ -5,8 +5,8 @@
 ##
 ##############################################################################
 
-TOOLSET ?= msvc
-CXXSTD ?= c++17
+TOOLSET ?= gcc
+CXXSTD ?= c++20
 
 include ../Makefile.inc
 
@@ -16,6 +16,7 @@ PROJECT_CONFIG ?= Release
 SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)
+TARGET_DOCS_DIR = $(TARGET_DIR)/docs
 
 ifeq ($(OS),Windows_NT)
 CPPCHECK_PLATFORM = win64
@@ -96,6 +97,7 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
+    @$(ECHO) "     doc    generate HTML documentation with Doxygen"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
@@ -110,9 +112,19 @@ lint:
 	"$(CPPCHECK)" $(CPPCHECK_OPTS) "$(SOURCE_DIR)"
 
 ##############################################################################
+## doc rules
+
+DOXYGEN_OPTS=-s
+DOXYFILE=Doxyfile
+
+doc:
+	[ -d "$(TARGET_DOCS_DIR)" ] || $(MKDIR) -p "$(TARGET_DOCS_DIR)"
+	"$(DOXYGEN)" $(DOXYGEN_OPTS) "$(DOXYFILE)"
+
+##############################################################################
 ## phony
 
-.PHONY: all build clean help lint run
+.PHONY: all build clean doc help lint run
 
 .SUFFIXES:
 .SUFFIXES: .c .cpp .h .hpp .o .obj .exe

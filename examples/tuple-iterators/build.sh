@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -60,6 +60,7 @@ args() {
         -help)        HELP=true ;;
         -icx)         TOOLSET=icx ;;
         -msvc)        TOOLSET=msvc ;;
+        -occ)         TOOLSET=occ ;;
         -timer)       TIMER=true ;;
         -verbose)     VERBOSE=true ;;
         -*)
@@ -69,6 +70,7 @@ args() {
         ## subcommands
         clean)   CLEAN=true ;;
         compile) COMPILE=true ;;
+        doc)     DOC=true ;;
         help)    HELP=true ;;
         lint)    LINT=true ;;
         run)     COMPILE=true && RUN=true ;;
@@ -79,12 +81,13 @@ args() {
         esac
     done
     debug "Options    : PROJECT_CONFIG=$PROJECT_CONFIG TIMER=$TIMER TOOLSET=$TOOLSET VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : LLVM_HOME=$LLVM_HOME"
     debug "Variables  : MSVS_HOME=$MSVS_HOME"
     debug "Variables  : MSYS_HOME=$MSYS_HOME"
     debug "Variables  : ONEAPI_ROOT=$ONEAPI_ROOT"
+    debug "Variables  : ORANGEC_HOME=$ORANGEC_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -97,17 +100,19 @@ Usage: $BASENAME { <option> | <subcommand> }
     -bcc         use BCC/GNU Make toolset instead of MSVC/MSBuild
     -cl          use MSVC/MSBuild toolset (default)
     -clang       use Clang/GNU Make toolset instead of MSVC/MSBuild
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -gcc         use GCC/GNU Make toolset instead of MSVC/MSBuild
     -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
     -msvc        use MSVC/MSBuild toolset (alias for option -cl)
-    -timer       display total execution time
-    -verbose     display progress messages
+    -occ         use LADSoft Orange C++ toolset instead of MSVC/MSBuild
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile C++ source files
-    help         display this help message
+    doc          generate HTML documentation with Doxygen
+    help         print this help message
     lint         analyze C++ source files with Cppcheck
     run          execute the generated executable
 EOS
@@ -116,7 +121,7 @@ EOS
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
-            debug "Delete directory $TARGET_DIR"
+            debug "rm -rf \"$TARGET_DIR\""
         elif $VERBOSE; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
@@ -139,7 +144,7 @@ lint() {
     msvc)  cppcheck_opts="--template=vs --std=c++17" ;;
     *)     cppcheck_opts="=--std=c++14" ;;
     esac
-    cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
+    local cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
     if $DEBUG; then
         debug "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR" 1>&2
     elif $VERBOSE; then
@@ -160,6 +165,7 @@ compile() {
     clang) toolset_name="Clang/GNU Make" ;;
     gcc)   toolset_name="GCC/GNU Make" ;;
     icx)   toolset_name="Intel oneAPI C++" ;;
+    occ)   toolset_name="LADSoft Orange C++" ;;
     *)     toolset_name="MSVC/MSBuild" ;;
     esac
     $VERBOSE && echo "Toolset: $toolset_name, Project: $PROJECT_NAME" 1>&2
@@ -175,7 +181,7 @@ compile_bcc() {
 
     local cmake_opts="-G \"Unix Makefiles\""
 
-    pushd "$TARGET_DIE"
+    pushd "$TARGET_DIR"
     $DEBUG && debug "Current directory is: $PWD" 1>&2
 
     if $DEBUG; then
@@ -186,7 +192,7 @@ compile_bcc() {
     eval "$CMAKE_CMD $cmake_opts .."
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate configuration files into directory  \"${TARGET_DIR/$ROOT_DIR\//}\""
+        error "Failed to generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     local make_opts=
@@ -242,12 +248,12 @@ compile_clang() {
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
     elif $VERBOSE; then
-        echo "Generate executable \"$PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME.exe\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -280,22 +286,22 @@ compile_gcc() {
     if $DEBUG; then
         debug "$MAKE_CMD $make_opts"
     elif $VERBOSE; then
-        echo "Generate executable \"$PROJECT_NAME\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/compiler/lib;$ONEAPI_ROOT/compiler/latest/compiler/lib/intel64"
 
-    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
-    $DEBUG && icx_flags="-debug:all $icx_flags"
+    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$(mixed_path $TARGET_DIR/$PROJECT_NAME.exe)\""
+    $DEBUG && icx_flags="-debug:all -v $icx_flags"
 
     local source_files=
     local n=0
@@ -342,19 +348,45 @@ compile_msvc() {
     fi
     # MSBuild options must start with '-' (instead of '/').
     local msbuild_opts="-nologo \"-p:Configuration=$PROJECT_CONFIG\" \"-p:Platform=$PROJECT_PLATFORM\""
-    
     if $DEBUG; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     elif $VERBOSE; then
-        echo "Generate executable \"PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME.exe\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
+}
+
+compile_occ() {
+    local occ_flags="--nologo -std=c++17 /o\"$(mixed_path $TARGET_DIR)/$PROJECT_NAME.exe\""
+
+    local source_files=
+    local n=0
+    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+        source_files="$source_files \"$(mixed_path $f)\""
+        n=$((n + 1))
+    done
+    if [[ $n -eq 0 ]]; then
+        warning "No C++ source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n C++ source file$s"
+    if $DEBUG; then
+        debug "\"$OCC_CMD\" $occ_flags $source_files"
+    elif $VERBOSE; then
+        echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+    fi
+    eval "\"$OCC_CMD\" $occ_flags $source_files"
+    if [[ $? -ne 0 ]]; then
+        error "Failed to compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+        cleanup 1
+    fi
 }
 
 mixed_path() {
@@ -367,6 +399,30 @@ mixed_path() {
     fi
 }
 
+doc() {
+    ## must be the same as property OUTPUT_DIRECTORY in file Doxyfile
+    if [[ ! -d "$TARGET_DOCS_DIR" ]]; then
+        $DEBUG && debug "mkdir \"$TARGET_DOCS_DIR\""
+        mkdir "$TARGET_DOCS_DIR"
+    fi
+    local doxyfile="$ROOT_DIR/Doxyfile"
+    if [[ ! -f "$doxyfile" ]]; then
+        error "Doxygen configuration file not found"
+        cleanup 1
+    fi
+    local doxygen_opts=-s
+    if $DEBUG; then
+        debug "\"$DOXYGEN\" $doxygen_opts \"$doxyfile\""
+    elif $VERBOSE; then
+       echo "Generate HTML documentation" 1>&2
+    fi
+    eval "\"$DOXYGEN\" $doxygen_opts \"$doxyfile\""
+    if [[ $? -ne 0 ]]; then
+        error "Failed to generate HTML documentation" 1>&2
+        cleanup 1
+    fi
+}
+
 dump() {
     echo "dump"
 }
@@ -376,7 +432,7 @@ run() {
     if [[ $TOOLSET == "msvc" ]]; then target_dir="$TARGET_DIR/$PROJECT_CONFIG"
     else target_dir="$TARGET_DIR"
     fi
-    local exe_file="$target_dir/$PROJECT_NAME.exe"
+    local exe_file="$target_dir/$PROJECT_NAME$TARGET_EXT"
     if [[ ! -f "$exe_file" ]]; then
         error "Executable \"${exe_file/$ROOT_DIR\//}\" not found"
         cleanup 1
@@ -405,10 +461,12 @@ ROOT_DIR="$(getHome)"
 SOURCE_DIR="$ROOT_DIR/src"
 CPP_SOURCE_DIR="$SOURCE_DIR/main/cpp"
 TARGET_DIR="$ROOT_DIR/build"
+TARGET_DOCS_DIR="$TARGET_DIR/docs"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
+DOC=false
 HELP=false
 LINT=false
 MAIN_CLASS="me.opc.se.bare.Main"
@@ -429,32 +487,38 @@ case "$(uname -s)" in
     CYGWIN*) cygwin=true ;;
     MINGW*)  mingw=true ;;
     MSYS*)   msys=true ;;
-    Darwin*) darwin=true      
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
+TARGET_EXT=
 if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$GRAALVM_HOME" ]] && GRAALVM_HOME="$(mixed_path $GRAALVM_HOME)"
 	PSEP=";"
+    TARGET_EXT=".exe"
     BCC_CMD="$(mixed_path $BCC_HOME)/bin/bcc32c.exe"
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
     CPPCHECK_PLATFORM=win64
-    GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
+    DOXYGEN="$(mixed_path $DOXYGEN_HOME)/doxygen.exe"
+    GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
     ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
+    OCC_CMD="$(mixed_path $ORANGEC_HOME)/bin/occ.exe"
     WINDRES_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/windres.exe"
 else
     CLANG_CMD=clang
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
     CPPCHECK_PLATFORM=native
+    DOXYGEN=doxygen
     GCC_CMD=gcc
     MAKE_CMD=make
+    OCC_CMD=occ
 fi
 
 PROJECT_CONFIG="Release"
@@ -479,6 +543,9 @@ if $LINT; then
 fi
 if $COMPILE; then
     compile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1
