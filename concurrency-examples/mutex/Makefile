@@ -17,12 +17,7 @@ SOURCE_DIR = src
 TARGET_DIR = build
 TARGET_EXE_DIR = $(TARGET_DIR)
 
-ifeq ($(OS),Windows_NT)
-CPPCHECK_PLATFORM = win64
-else
-CPPCHECK_PLATFORM = native
-endif
-CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --std=$(CXXSTD)
+CPPCHECK_OPTS = --platform=win64 --std=$(CXXSTD)
 
 ifeq ($(TOOLSET),bcc)
 CXX = $(BCC)
@@ -38,18 +33,18 @@ else ifeq ($(TOOLSET),gcc)
 CXX = $(CC)
 CXXFLAGS = --std=$(CXXSTD) -O2 -Wall -Wno-unused-variable
 CXXLINK =
-CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=gcc --std=c++14
+CPPCHECK_OPTS = --platform=win64 --template=gcc --std=$(CXXSTD)
 else ifeq ($(TOOLSET),icx)
 CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
-CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)/intel64"
+CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)" -libpath:"$(ICX_LIBPATH)" -libpath:"$(ICX_LIBPATH)/intel64"
 else ifeq ($(TOOLSET),msvc)
 TARGET_EXE_DIR = $(TARGET_DIR)/$(PROJECT_CONFIG)
 CXX = $(CL)
 ## see https://learn.microsoft.com/en-us/cpp/build/reference/compiler-options-listed-alphabeticall
 CXXFLAGS = -nologo -std:$(CXXSTD) -EHsc -I"$(MSVC_INCPATH)" -I"$(WINSDK_INCPATH)ucrt" -I"$(WINSDK_INCPATH)um" -Fo"$(TARGET_DIR)/"
 CXXLINK = -link -libpath:"$(MSVC_LIBPATH)" -libpath:"$(WINSDK_LIBPATH)ucrt/$(ARCH)" -libpath:"$(WINSDK_LIBPATH)um/$(ARCH)"
-CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=vs --std=c++17
+CPPCHECK_OPTS = --platform=win64 --template=vs --std=$(CXXSTD)
 else
 $(error Variable TOOLSET is invalid)
 endif
@@ -89,9 +84,9 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
-	@$(ECHO) "     help   display this help message"
+	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
-	@$(ECHO) "     run    execute main program \"$(TARGET)\""
+	@$(ECHO) "     run    execute main program \"$(PROJECT_NAME)$(TARGET_EXT)\""
 
 ##############################################################################
 ## lint rules

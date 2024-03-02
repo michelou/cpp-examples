@@ -540,25 +540,14 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
 ) else ( set __N_FILES=%__N% C++ source files
 )
-set __LIB_VERSION=
-for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
-if not defined __LIB_VERSION (
-    echo %_ERROR_LABEL% Windows SDK library path not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-@rem alternative: define environment variable "LIB" with the 5 library paths listed below.
-set __LINK_FLAGS=-link
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%MSVC_HOME%lib\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib\intel64"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% %_STDERR_REDIRECT%
+set "__LIB=%LIB%"
+set "LIB=%__WINSDK_LIBPATH%;%__ONEAPI_LIBPATH%;%__MSVC_LIBPATH%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "LIB=%LIB%" 1>&2
+
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     set "LIB=%__LIB%"
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
