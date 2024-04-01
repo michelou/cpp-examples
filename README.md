@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -27,17 +27,17 @@ Optionally one may also install the following software:
 <!--
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 -->
-- [Bazel 7.0 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 7.1 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [Doxygen 1.10][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
-- [Visual Studio Code 1.86][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.87][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*April 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -107,7 +107,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.0.2, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
+   bazel 7.1.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
    cmake 3.29.0, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
    git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
 
@@ -213,7 +213,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.0.2-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.1.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.29.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
@@ -248,7 +248,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -256,8 +256,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.0.2
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.0.2
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.1.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.1.1
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -265,13 +265,16 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 6.3.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-630-2023-07-24
 6.2.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-621-2023-06-02
 6.2.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-620-2023-05-09
-7.0.2 -> https://github.com/bazelbuild/bazel/releases/tag/7.0.2
+7.0.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-702-2024-01-25
+7.1.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-710-2024-03-11
+7.1.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-711-2024-03-21
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.28/release/3.28.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.29/release/3.29.html
+[cobol_examples]: https://github.com/michelou/cobol-examples
 [cpp_lang]: https://isocpp.org/
 [cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download

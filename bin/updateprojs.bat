@@ -13,8 +13,8 @@ set _EXITCODE=0
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.12
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.13
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.2-RC3
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.2
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.2
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.3
 
 @rem files cpath.bat
 set _BATCH_AKKA_VERSION_OLD=__AKKA_VERSION=2.8.5
