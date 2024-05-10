@@ -14,10 +14,10 @@
 - [Red Hat Developer](https://developers.redhat.com/) articles :
   - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 2][article_riegel_abstractions2], August 2023.
   - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 1][article_riegel_abstractions1], August 2023.
+  - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
   - [C# 11: 5 new advanced features improving C# 11](https://developers.redhat.com/articles/2023/01/11/5-new-advanced-features-improving-c-11) by Tom Deseyn, January 2023.
   - [C# 11: Pattern matching and static abstract interfaces](https://developers.redhat.com/articles/2023/01/02/c-11-pattern-matching-and-static-abstract-interfaces) by Tom Deseyn, January 2023.
   - [C# 11: Raw strings, required members, and auto-default structs](https://developers.redhat.com/articles/2022/11/30/c-11-raw-strings-required-members-and-auto-default-structs#) by Tom Deseyn, November 2022.
-  - [New C++ features in GCC 13][article_polacek_gcc13] by Marek Polacek, June 2023.
   - [New C++ features in GCC 12][article_polacek_gcc12] by Marek Polacek, April 2022.
   - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
   - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
@@ -152,7 +152,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
