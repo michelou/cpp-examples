@@ -9,7 +9,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -28,11 +28,12 @@ Optionally one may also install the following software:
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 -->
 - [Bazel 7.1 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [ConEmu][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [Doxygen 1.10][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
-- [Visual Studio Code 1.87][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.89][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
@@ -43,6 +44,7 @@ For instance our development environment looks as follows (*May 2024*) <sup id="
 C:\opt\bazel\                            <i>( 51 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
 C:\opt\cmake\                            <i>(112 MB)</i>
+C:\opt\ConEmu\                           <i>( 26 MB)</i>
 C:\opt\doxygen\                          <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-17.0.6\                      <i>(3.1 GB)</i>
@@ -107,7 +109,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.1.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
+   bazel 7.1.2, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
    cmake 3.29.3, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
    git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 
@@ -213,13 +215,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.1.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.1.2-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.29.3-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
+<a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                       <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.89.1.zip</a>                     <i>(131 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
 </pre>
@@ -256,8 +260,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples?tab=readme-ov-file#playing-with-ada-on-windows
 [akka_examples]: https://github.com/michelou/akka-examples?tab=readme-ov-file#playing-with-akka-on-windows
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.1.1
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.1.1
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.1.2
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.1.2
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -268,6 +272,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 7.0.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-702-2024-01-25
 7.1.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-710-2024-03-11
 7.1.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-711-2024-03-21
+7.1.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-712-2024-05-08
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
@@ -275,6 +280,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [cmake_downloads]: https://cmake.org/download/
 [cmake_relnotes]: https://cmake.org/cmake/help/v3.29/release/3.29.html
 [cobol_examples]: https://github.com/michelou/cobol-examples
+[conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
+[conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_lang]: https://isocpp.org/
 [cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download
@@ -283,6 +290,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [docker_examples]: https://github.com/michelou/docker-examples
 [doxygen_changelog]: https://www.doxygen.nl/manual/changelog.html
 [doxygen_downloads]: https://www.doxygen.nl/download.html#srcbin
+[erlang_examples]: https://github.com/michelou/erlang-examples
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git

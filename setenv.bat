@@ -424,7 +424,7 @@ if defined __MAKE_CMD (
     for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     if not defined _MSYS_HOME (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_MSYS_HOME%\usr\bin\make.exe" (
@@ -457,7 +457,7 @@ if defined __CLANG_CMD (
     for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__DISTRO%*" 2^>NUL') do set "_LLVM_HOME=!__PATH!\%%f"
     if not defined _LLVM_HOME (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\%__DISTRO%*" 2^>NUL') do set "_LLVM_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__DISTRO%*" 2^>NUL') do set "_LLVM_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_LLVM_HOME%\bin\clang.exe" (
