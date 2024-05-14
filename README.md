@@ -32,8 +32,8 @@ Optionally one may also install the following software:
 - [Doxygen 1.10][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 - [Visual Studio Code 1.89][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
@@ -279,33 +279,33 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
 [cmake_relnotes]: https://cmake.org/cmake/help/v3.29/release/3.29.html
-[cobol_examples]: https://github.com/michelou/cobol-examples
+[cobol_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_lang]: https://isocpp.org/
-[cppcheck_changelog]: https://github.com/danmar/cppcheck/releases
+[cppcheck_changelog]: https://github.com/danmar/cppcheck/releases#top
 [cppcheck_downloads]: http://cppcheck.sourceforge.net/#download
-[dart_examples]: https://github.com/michelou/dart-examples
-[deno_examples]: https://github.com/michelou/deno-examples
-[docker_examples]: https://github.com/michelou/docker-examples
+[dart_examples]: https://github.com/michelou/dart-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
+[docker_examples]: https://github.com/michelou/docker-examples#top
 [doxygen_changelog]: https://www.doxygen.nl/manual/changelog.html
 [doxygen_downloads]: https://www.doxygen.nl/download.html#srcbin
-[erlang_examples]: https://github.com/michelou/erlang-examples
-[flix_examples]: https://github.com/michelou/flix-examples
+[erlang_examples]: https://github.com/michelou/erlang-examples#top
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
 [github_markdown]: https://github.github.com/gfm/
-[golang_examples]: https://github.com/michelou/golang-examples
-[graalvm_examples]: https://github.com/michelou/graalvm-examples
-[haskell_examples]: https://github.com/michelou/haskell-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
+[graalvm_examples]: https://github.com/michelou/graalvm-examples#top
+[haskell_examples]: https://github.com/michelou/haskell-examples#top
 [intel_dpc]: https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp
 [intel_dpc_relnotes]: https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html
-[kafka_examples]: https://github.com/michelou/kafka-examples
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[kafka_examples]: https://github.com/michelou/kafka-examples#top
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
 [llvm_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6
-[llvm_examples]: https://github.com/michelou/llvm-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
 [llvm_relnotes]: https://discourse.llvm.org/t/llvm-17-0-6-released/75281
 <!--
 14.0.6 -> https://discourse.llvm.org/t/llvm-14-0-6-release/63431
@@ -314,7 +314,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 17.0.4 -> https://discourse.llvm.org/t/llvm-17-0-4-released/74548
 17.0.6 -> https://discourse.llvm.org/t/llvm-17-0-6-released/75281
 -->
-[m2_examples]: https://github.com/michelou/m2-examples
+[m2_examples]: https://github.com/michelou/m2-examples#top
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html
@@ -326,15 +326,15 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/main/CHANGELOG.md
 [msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
-[nodejs_examples]: https://github.com/michelou/nodejs-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples#top
 [orangec_downloads]: https://github.com/LADSoft/OrangeC/releases
 [orangec_relnotes]: https://github.com/LADSoft/OrangeC/releases/tag/Orange-C-v6.73.1
-[rust_examples]: https://github.com/michelou/rust-examples
-[scala3_examples]: https://github.com/michelou/dotty-examples
+[rust_examples]: https://github.com/michelou/rust-examples#top
+[scala3_examples]: https://github.com/michelou/dotty-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
-[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [vs2019_downloads]: https://visualstudio.microsoft.com/en/downloads/
 [vs2019_relnotes]: https://docs.microsoft.com/en-us/visualstudio/releases/2019/release-notes
@@ -346,5 +346,5 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [winsdk_downloads]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
 [winsdk_relnotes]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/#relnote
-[wix_examples]: https://github.com/michelou/wix-examples
+[wix_examples]: https://github.com/michelou/wix-examples#top
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
