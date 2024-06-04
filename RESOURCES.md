@@ -11,21 +11,6 @@
 ## <span id="articles">Articles</span>
 
 - [Using GCC with MinGW](https://code.visualstudio.com/docs/cpp/config-mingw), January 2022.
-- [Red Hat Developer](https://developers.redhat.com/) articles :
-  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 2][article_riegel_abstractions2], August 2023.
-  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 1][article_riegel_abstractions1], August 2023.
-  - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
-  - [C# 11: 5 new advanced features improving C# 11](https://developers.redhat.com/articles/2023/01/11/5-new-advanced-features-improving-c-11) by Tom Deseyn, January 2023.
-  - [C# 11: Pattern matching and static abstract interfaces](https://developers.redhat.com/articles/2023/01/02/c-11-pattern-matching-and-static-abstract-interfaces) by Tom Deseyn, January 2023.
-  - [C# 11: Raw strings, required members, and auto-default structs](https://developers.redhat.com/articles/2022/11/30/c-11-raw-strings-required-members-and-auto-default-structs#) by Tom Deseyn, November 2022.
-  - [New C++ features in GCC 12][article_polacek_gcc12] by Marek Polacek, April 2022.
-  - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
-  - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
-  - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
-  - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
-  - [Memory error checking in C and C++: Comparing Sanitizers and Valgrind][article_kratochvil] by Jan Kratochvil, May 2021.
-  - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10) by Marek Polacek, September 2020.
-  - [Static analysis in GCC 10](https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10) by David Malcolm, March 2020.
 - [C++: generating a native interface automatically][article_dinechin] by Christophe de Dinechin, February 2021.
 - [The Edge of C++][article_ferenc] by Deák Ferenc, October 2020.
 - [Internals of Compiling - Journey from C/C++ program to an Executable][article_gautham] by Adwaith Gautham, June 2018.
@@ -89,12 +74,26 @@
   - [Different ways to terminate a program in C++](https://iq.opengenus.org/different-ways-to-terminate-program-in-cpp/) by Subhrajit Dhar.
   - [Struct inheritance in C++](https://iq.opengenus.org/struct-inheritance-in-cpp/) by Harshit Raj.
 - [RedHat Developer Blog](https://developers.redhat.com/new) :
+  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 2][article_riegel_abstractions2], August 2023.
+  - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 1][article_riegel_abstractions1], August 2023.
+  - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
   - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
   - [2022 Fall C++ Standards Committee Meeting trip report](https://developers.redhat.com/blog/2023/02/09/2022-fall-c-standards-committee-meeting-trip-report), February 2023.
-  - [New C++ features in GCC 12](https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12) by Marek Polacek, April 2022.
-  - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10#) by Marek Polacek, September 2020.
+  - [C# 11: 5 new advanced features improving C# 11](https://developers.redhat.com/articles/2023/01/11/5-new-advanced-features-improving-c-11) by Tom Deseyn, January 2023.
+  - [C# 11: Pattern matching and static abstract interfaces](https://developers.redhat.com/articles/2023/01/02/c-11-pattern-matching-and-static-abstract-interfaces) by Tom Deseyn, January 2023.
+  - [C# 11: Raw strings, required members, and auto-default structs](https://developers.redhat.com/articles/2022/11/30/c-11-raw-strings-required-members-and-auto-default-structs#) by Tom Deseyn, November 2022.
+  - [New C++ features in GCC 12][article_polacek_gcc12] by Marek Polacek, April 2022.
+  - [The state of static analysis in the GCC 12 compiler][article_malcolm] by David Malcolm, April 2022.
+  - [Enforce code consistency with clang-format][article_guelton_format] by Serge Guelton, February 2022.
+  - [Porting your code to C++17 with GCC 11](https://developers.redhat.com/articles/2021/08/06/porting-your-code-c17-gcc-11) by Marek Polacek, August 2021.
+  - [Optimizing the Clang compiler’s line-to-offset mapping][article_guelton_mapping] by Serge Guelton, May 2021.
+  - [Memory error checking in C and C++: Comparing Sanitizers and Valgrind][article_kratochvil] by Jan Kratochvil, May 2021.
+  - [New C++ features in GCC 10](https://developers.redhat.com/blog/2020/09/24/new-c-features-in-gcc-10) by Marek Polacek, September 2020.
   - [The joys and perils of aliasing in C and C++, Part 2](https://developers.redhat.com/blog/2020/06/03/the-joys-and-perils-of-aliasing-in-c-and-c-part-2) by Martin Sebor, June 2020.
   - [The joys and perils of C and C++ aliasing, Part 1](https://developers.redhat.com/blog/2020/06/02/the-joys-and-perils-of-c-and-c-aliasing-part-1) by Martin Sebor, June 2020.
+  - [New C++ features in GCC 12](https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12) by Marek Polacek, April 2022.
+  - [Static analysis in GCC 10](https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10) by David Malcolm, March 2020.
+
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
 - [Variadic templates in C++][blog_benderksy_2014] by Eli Bendersky, October 2014.
 
@@ -152,7 +151,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

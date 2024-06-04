@@ -27,7 +27,7 @@ Optionally one may also install the following software:
 <!--
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 -->
-- [Bazel 7.1 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 7.2 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [ConEmu][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [Doxygen 1.10][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*June 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -111,7 +111,7 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 Tool versions:
    bazel 7.1.2, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
    cmake 3.29.3, cl 19.36.32532, cppcheck 2.13.0, doxygen 1.10.0, msbuild 17.7.2.37605
-   git 2.45.0, diff 3.10, bash 5.2.26(1)-release
+   git 2.45.2, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -215,13 +215,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.1.2-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.2.0rc2-windows-x86_64.zip</a>               <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
 <a href="https://cmake.org/download/">cmake-3.29.3-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                <i>( 46 MB)</i>
 <a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.89.1.zip</a>                     <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
@@ -252,7 +252,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -260,8 +260,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples?tab=readme-ov-file#playing-with-ada-on-windows
 [akka_examples]: https://github.com/michelou/akka-examples?tab=readme-ov-file#playing-with-akka-on-windows
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.1.2
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.1.2
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.2.0rc2
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.2.0rc2
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -295,7 +295,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
