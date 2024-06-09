@@ -135,15 +135,15 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -clang      use Clang toolset instead of GCC
-echo     -debug      show commands executed by this script
+echo     -debug      print commands executed by this script
 echo     -gcc        use GCC toolset ^(default^)
 echo     -msvc       use MSVC toolset instead of GCC
-echo     -verbose    display progress messages
+echo     -verbose    print progress messages
 echo.
 echo   Subcommands:
 echo     clean       delete generated files
 echo     compile     generate executable
-echo     help        display this help message
+echo     help        print this help message
 echo     run         run the generated executable
 goto :eof
 

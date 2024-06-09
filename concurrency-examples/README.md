@@ -1,4 +1,4 @@
-# <span id="top">Book <i>Concurrency with Modern C++</i></span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">Book <i>Concurrency with Modern C++</i></span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -14,7 +14,22 @@
 
 ## <span id="acquireConsume">`acquireConsume` Example</span>
 
-This example consists of source file [`acquireConsume.cpp`](./acquireConsume/src/main/cpp/acquireConsume.cpp) and build script [`build.bat`](./acquireConsume/build.bat) (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc`).
+This example has the following directory structure :4
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</a>
+|   <a href="./acquireConsume/build.bat">build.bat</a>
+|   <a href="./acquireConsume/build.sh">build.sh</a></a>
+|   <a href="./acquireConsume/CMakeLists.txt">CMakeLists.txt
+|   <a href="./acquireConsume/Doxyfile">Doxyfile</a>
+|   <a href="./acquireConsume/Makefile">Makefile</a>
+\---src
+    \---main
+        \---cpp
+                <a href="./acquireConsume/src/main/cpp/acquireConsume.cpp">acquireConsume.cpp</a>
+</pre>
+
+Command [`build.bat`](./acquireConsume/build.bat)`run` generates and executes the C++ program `target\acquireConsume.exe` (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc` to specify a compiler).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./acquireConsume/build.bat">build</a> -verbose -gcc run</b>
@@ -26,7 +41,11 @@ Execute "build\acquireConsume.exe"
 *p2: C++11
 data: 2011
 atoData: 2014
-&nbsp;
+</pre>
+
+One may also run  command [`make`](https://linux.die.net/man/1/make)`run` :
+
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://linux.die.net/man/1/make">make</a> clean run</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
 "C:/opt/msys64/mingw64/bin/g++.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/acquireConsume.exe src/main/cpp/acquireConsume.cpp

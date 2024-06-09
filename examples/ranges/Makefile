@@ -126,4 +126,4 @@ doc:
 .PHONY: all build clean doc help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .cpp .o .obj .exe
+.SUFFIXES: .c .cpp .h .hpp .o .obj .exe

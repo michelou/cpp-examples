@@ -23,19 +23,20 @@ endif
 
 TARGET_EXT  = .exe
 PSEP        = ;
-CC          = $(subst \,/,$(MSYS_HOME))/mingw64/bin/g++.exe
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
 CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
-CP          = $(subst \,/,$(MSYS_HOME))/usr/bin/cp.exe
-ECHO        = $(subst \,/,$(MSYS_HOME))/usr/bin/echo.exe
-FIND        = $(subst \,/,$(MSYS_HOME))/usr/bin/find.exe
 ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/bin/icx.exe
 LLC         = $(subst \,/,$(LLVM_HOME))/bin/llc.exe
 LLVM_CONFIG = $(subst \,/,$(LLVM_HOME))/bin/llvm-config.exe
-MKDIR       = $(subst \,/,$(MSYS_HOME))/usr/bin/mkdir.exe
-RM          = $(subst \,/,$(MSYS_HOME))/usr/bin/rm.exe
-TEST        = $(subst \,/,$(MSYS_HOME))/usr/bin/test.exe
-TOUCH       = $(subst \,/,$(MSYS_HOME))/usr/bin/touch.exe
+## $(MSYS_HOME)\usr\bin\{cp.exe, make.exe, wget.exe}
+CC          = /usr/bin/g++.exe
+CP          = /usr/bin/cp.exe
+ECHO        = /usr/bin/echo.exe
+FIND        = /usr/bin/find.exe
+MKDIR       = /usr/bin/mkdir.exe
+RM          = /usr/bin/rm.exe
+TEST        = /usr/bin/test.exe
+TOUCH       = /usr/bin/touch.exe
 #
 MSVC_INCPATH   = $(subst \,/,$(MSVC_HOME))/include
 MSVC_LIBPATH   = $(subst \,/,$(MSVC_HOME))/lib/$(ARCH)

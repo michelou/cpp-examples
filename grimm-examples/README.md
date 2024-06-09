@@ -52,7 +52,23 @@ readData
 
 ## <span id="visitor">`visitor` Example</span> [**&#x25B4;**](#top)
 
-Source file [`visitor.cpp`](./visitor/src/main/cpp/visitor.cpp).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./visitor/00download.txt">00download.txt</a>
+|   <a href="./visitor/build.bat">build.bat</a>
+|   <a href="./visitor/build.sh">build.sh</a>
+|   <a href="./visitor/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./visitor/Doxyfile">Doxyfile
+|   <a href="./visitor/Makefile">Makefile</a>
+\---src
+    \---main
+        \---cpp
+                <a href="./visitor/src/main/cpp/visitor.cpp">visitor.cpp</a>
+</pre>
+
+Command [`build.bat`](./visitor/build.bat)`clean run` generates and executes the C++ program `build\Release\visitor.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./visitor/build.bat">build</a> -verbose clean run</b>

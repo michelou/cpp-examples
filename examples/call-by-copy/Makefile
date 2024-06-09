@@ -94,7 +94,7 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
-    @$(ECHO) "     doc    generate HTML documentation with Doxygen"
+	@$(ECHO) "     doc    generate HTML documentation with Doxygen"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""
@@ -124,4 +124,4 @@ doc:
 .PHONY: all build clean doc help lint run
 
 .SUFFIXES:
-.SUFFIXES: .c .cpp .o .obj .exe
+.SUFFIXES: .c .cpp .h .hpp .o .obj .exe

@@ -52,6 +52,9 @@ set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
+if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set _ARCH=x64
+) else ( set _ARCH=x86
+)
 if not exist "%LLVM_HOME%\bin\clang++.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
     set _EXITCODE=1
@@ -160,6 +163,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -185,11 +189,8 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_clang
-if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
-) else ( set __ARCH=x86
-)
 set __PTHREADS_INCPATH=..\pthreads-win32\include
-set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%__ARCH%
+set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%
 set __PTHREADS_LIBNAME=pthreadVC2
 
 set __CLANG_FLAGS=-g --std=%_CXX_STD% -O0 -D_TIMESPEC_DEFINED
@@ -218,7 +219,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set "__DLL_FILE=..\pthreads-win32\dll\%__ARCH%\%__PTHREADS_LIBNAME%.dll"
+set "__DLL_FILE=..\pthreads-win32\dll\%_ARCH%\%__PTHREADS_LIBNAME%.dll"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
@@ -259,18 +260,15 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_msvc
-if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
-) else ( set __ARCH=x86
-)
-if not exist "%MSVC_HOME%\bin\host%__ARCH%\%__ARCH%\cl.exe" (
+if not exist "%MSVC_HOME%\bin\host%_ARCH%\%_ARCH%\cl.exe" (
     echo %_ERROR_LABEL% Microsoft C++ compiler not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "__MSVC_CMD=%MSVC_HOME%\bin\host%__ARCH%\%__ARCH%\cl.exe"
+set "__MSVC_CMD=%MSVC_HOME%\bin\host%_ARCH%\%_ARCH%\cl.exe"
 
 set "__MSVC_INCPATH=%MSVC_HOME%\include"
-set "__MSVC_LIBPATH=%MSVC_HOME%\lib\%__ARCH%"
+set "__MSVC_LIBPATH=%MSVC_HOME%\lib\%_ARCH%"
 for /f "delims=" %%f in ('dir /ad /b "%WINSDK_HOME%\include\*"') do (
     set "__WINSDK_INCPATH=%WINSDK_HOME%\include\%%f"
 )
@@ -278,7 +276,7 @@ for /f "delims=" %%f in ('dir /ad /b "%WINSDK_HOME%\lib\*"') do (
     set "__WINSDK_LIBPATH=%WINSDK_HOME%\lib\%%f"
 )
 set __PTHREADS_INCPATH=..\pthreads-win32\include
-set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%__ARCH%
+set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%
 set __PTHREADS_LIBNAME=pthreadVC2
 
 set __MSVC_FLAGS=/nologo /std:%_CXX_STD% /EHsc /D_TIMESPEC_DEFINED
@@ -289,8 +287,8 @@ set __MSVC_FLAGS=%__MSVC_FLAGS% /I"%__PTHREADS_INCPATH%"
 set __MSVC_FLAGS=%__MSVC_FLAGS% /Fo"%_TARGET_OBJ_DIR%/" /Fe"%_TARGET%"
 
 set __LINK_FLAGS=-link -libpath:"%__MSVC_LIBPATH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__WINSDK_LIBPATH%\ucrt\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__WINSDK_LIBPATH%\um\%__ARCH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__WINSDK_LIBPATH%\ucrt\%_ARCH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__WINSDK_LIBPATH%\um\%_ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%" "%__PTHREADS_LIBNAME%.lib"
 
 set __SOURCE_FILES=
@@ -314,7 +312,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set "__DLL_FILE=..\pthreads-win32\dll\%__ARCH%\%__PTHREADS_LIBNAME%.dll"
+set "__DLL_FILE=..\pthreads-win32\dll\%_ARCH%\%__PTHREADS_LIBNAME%.dll"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
@@ -386,6 +384,10 @@ if not exist "%_TARGET%" (
     set _EXITCODE=1
     goto :eof
 )
+set "__LD_LIBRARY_PATH=%LD_LIBRARY_PATH%"
+if defined LD_LIBRARY_PATH ( set "LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;..\pthreads-win32\dll\%_ARCH%"
+) else ( set "LD_LIBRARY_PATH=..\pthreads-win32\dll\%_ARCH%"
+)
 @rem set __TARGET_ARGS=--block
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TARGET%" 1>&2
@@ -393,10 +395,12 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TARGET%" 1>&2
 )
 call "%_TARGET%"
 if not %ERRORLEVEL%==0 (
+    set "LD_LIBRARY_PATH=%__LD_LIBRARY_PATH%"
     echo %_ERROR_LABEL% Failed to execute "!_TARGET:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
+set "LD_LIBRARY_PATH=%__LD_LIBRARY_PATH%"
 goto :eof
 
 @rem #########################################################################
