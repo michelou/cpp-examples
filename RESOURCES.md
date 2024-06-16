@@ -1,10 +1,9 @@
-# <span id="top">ISO C++ Resources</span> <span style="size:20%;"><a href="README.md">↩</a></span>
+# <span id="top">ISO C++ Resources</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:100px;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://isocpp.org/" rel="external">ISO C++</a> related resources that caught our attention.
-  </td>
+  <td style="border:0;padding:0;vertical-align:text-top;">This document gathers <a href="https://isocpp.org/" rel="external">ISO C++</a> related resources that caught our attention.</td>
   </tr>
 </table>
 
