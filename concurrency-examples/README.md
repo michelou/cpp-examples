@@ -14,18 +14,18 @@
 
 ## <span id="acquireConsume">`acquireConsume` Example</span>
 
-This example has the following directory structure :4
+This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</a>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./acquireConsume/build.bat">build.bat</a>
 |   <a href="./acquireConsume/build.sh">build.sh</a></a>
 |   <a href="./acquireConsume/CMakeLists.txt">CMakeLists.txt
 |   <a href="./acquireConsume/Doxyfile">Doxyfile</a>
 |   <a href="./acquireConsume/Makefile">Makefile</a>
-\---src
-    \---main
-        \---cpp
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
                 <a href="./acquireConsume/src/main/cpp/acquireConsume.cpp">acquireConsume.cpp</a>
 </pre>
 
@@ -56,9 +56,22 @@ data: 2011
 atoData: 2014
 </pre>
 
-## <span id="fetch_mult">`fetch_mult` Example</span>
+## <span id="fetch_mult">`fetch_mult` Example</span> [**&#x25B4;**](#top)
 
-This example consists of source file [`fetch_mult.cpp`](./fetch_mult/src/fetch_mult.cpp) and build script [`build.bat`](./fetch_mult/build.bat) (with options `-clang`, `-gcc`, `-icx` and `-msvc`).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./fetch_mult/build.bat">build.bat</a>
+|   <a href="./fetch_mult/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./fetch_mult/Makefile">Makefile</a>
+\---<b>src</b>
+    \---main</b>
+        \---cpp</b>
+                <a href="./fetch_mult/src/fetch_mult.cpp">fetch_mult.cpp</a>
+</pre>
+
+Command [`build.bat`](./fetch_mult/build.bat)`-verbose clean run` (with options `-clang`, `-gcc`, `-icx` and `-msvc`) generates and executes the program `build\Release\fetch_mult.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fetch_mult/build.bat">build</a> -verbose clean run</b>
@@ -70,7 +83,11 @@ Generate executable "fetch_mult.exe"
 Execute "build\Release\fetch_mult.exe"
 5
 25
-&nbsp;
+</pre>
+
+Command [`make`]()`TOOLSET=icx clean run` generates and executes the program `build\Release\fetch_mult.exe` :
+
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://linux.die.net/man/1/make">make</a> TOOLSET=icx clean run</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
 "C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -Qstd=c++17 -O2 -Fe"build/Release/fetch_mult.exe"  -o build/Release/fetch_mult.exe src/main/cpp/fetch_mult.cpp -link -libpath:"X:/VC/Tools/MSVC/14.36.32532//lib/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/ucrt/x64" -libpath:"C:/Program Files (x86)/Windows Kits/10/lib/10.0.22000.0/um/x64" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib" -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
@@ -79,9 +96,22 @@ build/Release/fetch_mult.exe
 25
 </pre>
 
-## <span id="transitivity">`transitivity` Example</span>
+## <span id="transitivity">`transitivity` Example</span> [**&#x25B4;**](#top)
 
-This example consists of source file [`transitivity.cpp`](./transitivity/src/transitivity.cpp) and build script [`build.bat`](./transitivity/build.bat) (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc`).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./transitvity/build.bat">build.bat</a>
+|   <a href="./transitvity/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./transitvity/Makefile">Makefile</a>
+\---src
+    \--<b>-main</b>
+        \---<b>cpp</b>
+                <a href="./transitivity.cpp`](./transitivity/src/transitivity.cpp">transitivity.cpp</a>
+</pre>
+
+Command [`build.bat`](./transitivity/build.bat)`-verbose clean run` (with options `-bcc`, `-clang`, `-gcc`, `-icx` and `-msvc`) generates and executes the program `build\Release\transitivity.exe` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./transitivity/build.bat">build</a> -verbose clean run</b>
@@ -97,7 +127,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
