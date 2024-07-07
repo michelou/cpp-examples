@@ -42,7 +42,7 @@ if not %_EXITCODE%==0 goto end
 call :cmake
 if not %_EXITCODE%==0 goto end
 
-call :llvm 15
+call :llvm 17
 if not %_EXITCODE%==0 goto end
 
 call :msys
@@ -791,6 +791,7 @@ where /q "%GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do (
         set "__VERSION=%%l"
+        setlocal enabledelayedexpansion
         set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash !__VERSION:-release=!"
     )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:bash.exe"

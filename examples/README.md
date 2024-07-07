@@ -10,8 +10,8 @@
 
 The code examples presented below can be built/run with the following command line tools:
 
-| Build&nbsp;tool | Build&nbsp;file | Parent file | Environment(s) |
-|:----------------|:----------------|:------------|:---------------|
+| Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
+|:----------------|:----------------|:-----------------|:---------------|
 | [**`cmd.exe`**][cmd_cli] | [`build.bat`](./hello/build.bat) | &nbsp; | Windows only |
 | [**`make.exe`**][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
 | [**`sh.exe`**][sh_cli] | [`build.sh`](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
@@ -30,12 +30,11 @@ This example has the following directory structure :
 |   <a href="./hello/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./hello/Doxyfile">Doxyfile</a>
 |   <a href="./hello/Makefile">Makefile</a>
-\---src
-    |   <a href="./hello/src/BUILD.bazel">BUILD.bazel</a>
-    \---main
-        +---cpp
+\---<b>src</b>
+    \---<b>main</b>
+        +---<b>cpp</b>
         |       <a href="./hello/src/main.cpp">main.cpp</a>
-        \---resources
+        \---<b>resources</b>
                 <a href="./hello/src/main/resources/hello.png">hello.png</a>
                 <a href="./hello/src/main/resources/hello.txt">hello.txt</a>
 </pre>
@@ -73,7 +72,21 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ## <span id="call-by-copy">`call-by-copy` Example</span> [**&#x25B4;**](#top)
 
-This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing) and consists of one source file [`src\main\cpp\Main.cpp`](./call-by-copy/src/main/cpp/Main.cpp).
+This example comes from [stackoverflow] post [*What is object slicing?*](https://stackoverflow.com/questions/274626/what-is-object-slicing); it has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./call-by-copy/00download.txt">00download.txt</a>
+|   <a href="./call-by-copy/build.bat">build.bat</a>
+|   <a href="./call-by-copy/build.sh">build.sh</a>
+|   <a href="./call-by-copy/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./call-by-copy/Doxyfile">Doxyfile</a>
+|   <a href="./call-by-copy/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./call-by-copy/src/main/cpp/Main.cpp">Main.cpp</a>
+</pre>
 
 Batch file [**`build.bat`**](./call-by-copy/build.bat) generates the `call-by-copy.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, <span style="white-space: nowrap;">`-icx`</span> or `-msvc` :
 
@@ -96,9 +109,22 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ## <span id="class-dispatching">`class-dispatching` Example</span>
 
-This example consists of one source file [`src\main\cpp\Main.cpp`](./class-dispatching/src/main/cpp/Main.cpp).
+This example has the following directory structure :
 
-Batch file [`build.bat`](./class-dispatching/build.bat) generates the `class-dispatching.exe` executable using one of the options `-bcc`, `-clang`, <span style="white-space: nowrap;">`-gcc`</span>, `-icx` or `-msvc` (default).
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./class-dispatching/build.bat">build.bat</a>
+|   <a href="./class-dispatching/build.sh">build.sh</a>
+|   <a href="./class-dispatching/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./class-dispatching/Doxyfile">Doxyfile</a>
+|   <a href="./class-dispatching/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./class-dispatching/src/main/cpp/Main.cpp">Main.cpp</a>
+</pre>
+
+Command [`build.bat`](./class-dispatching/build.bat) generates the `class-dispatching.exe` executable using one of the options `-bcc`, `-clang`, <span style="white-space: nowrap;">`-gcc`</span>, `-icx` or `-msvc` (default).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./class-dispatching/build.bat">build</a> -msvc -verbose clean run</b>
@@ -112,9 +138,38 @@ Base Dervied1foo 10
 Base Derived2foo 20
 </pre>
 
+## <span id="func-destructuring">`func-destructuring`Example</span>
+
+This example <sup id="anchor_01">[1](#footnote_01)</sup> comes from Fekirs's blog post ["Destructure a C++ function"](https://fekir.info/post/destructure-cpp-function/); it has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./func-destructuring/00download.txt">00download.txt</a>
+|   <a href="./func-destructuring/build.bat">build.bat</a>
+|   <a href="./func-destructuring/CMakeLists.txt">CMakeLists.txt</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./func-destructuring/src/main/cpp/main.cpp">main.cpp</a>
+</pre>
+
+<!--=======================================================================-->
+
 ## <span id="move-constructor">`move-constructor` Example</span> [**&#x25B4;**](#top)
 
-This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)" and consists of one source file [`src\main\cpp\Main.cpp`](./move-constructor/src/main/cpp/Main.cpp).
+This example comes from [INVIVOO] post "[A la redécouverte du C++ : &amp;&amp; et std::mov](https://blog.invivoo.com/decouverte-du-cplusplus-et-stdmove/)". It has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./move-constructor/00download.txt">00download.txt
+|   <a href="./move-constructor/build.bat">build.bat
+|   <a href="./move-constructor/CMakeLists.txt">CMakeLists.txt
+|   <a href="./move-constructor/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./move-constructor/src/main/cpp/Main.cpp">Main.cpp</a>
+</pre>
 
 Command [`build.bat`](./move-constructor/build.bat) generates the `move-constructor.exe` executable using one of the options `-bcc`, `-clang`, <span style="white-space: nowrap;">`-gcc`</span>, `-icx` or `-msvc` :
 
@@ -136,7 +191,20 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 ## <span id="tuple-iterators">`tuple-iterators` Example</span>
 
-This example consists of one source file [`src\main\cpp\Main.cpp`](./tuple-iterators/src/main/cpp/Main.cpp).
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./tuple-iterators/build.bat">build.bat</a>
+|   <a href="./tuple-iterators/build.sh">build.sh</a>
+|   <a href="./tuple-iterators/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./tuple-iterators/Doxyfile">Doxyfile</a>
+|   <a href="./tuple-iterators/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./tuple-iterators/src/main/cpp/Main.cpp">Main.cpp</a>
+</pre>
 
 Batch file [`build.bat`](./tuple-iterators/build.bat) generates the `tuple-iterators.exe` executable using one of the options `bcc`, `-clang`, `-gcc`, <span style="white-space: nowrap;">`-icx`</span> or `-msvc` (default) :
 
@@ -155,6 +223,62 @@ In the same way command [`make.exe`][make_cli] reads the hand-written [`Makefile
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/msys64/mingw64/bin/g++.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/tuple-iterators.exe src/main/cpp/Main.cpp
 </pre>
+
+<!--=======================================================================-->
+
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
+
+<span id="footnote_01">[1]</span> **Support for <code>static_assert</code>** [↩](#anchor_01)
+
+<dl><dd>
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
+G:\examples\func-destructuring
+&nbsp;
+<b>&gt; <a href="./func-destructuring/build.bat">build</a> -debug -clang clean run</b>
+[build] Options    : _CXX_STD=c++17 _TOOLSET=clang _VERBOSE=0
+[build] Subcommands: _CLEAN=1 _COMPILE=1 _DOC=0 _DUMP=0 _LINT=0 _RUN=1
+[build] Variables  : "BCC_HOME=C:\opt\BCC-10.2"
+[build] Variables  : "CMAKE_HOME=C:\opt\cmake"
+[build] Variables  : "DOXYGEN_HOME=C:\opt\doxygen"
+[build] Variables  : "GIT_HOME=C:\opt\Git"
+[build] Variables  : "LLVM_HOME=C:\opt\LLVM-15.0.7" (clang)
+[build] Variables  : "MSVS_HOME=X:"
+[build] Variables  : "MSVS_CMAKE_HOME=X:\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake"
+[build] Variables  : "MSVS_MSBUILD_HOME=X:\MSBuild\Current"
+[build] Variables  : "MSYS_HOME=C:\opt\msys64" (gcc)
+[build] Variables  : "ONEAPI_ROOT=C:\Program Files (x86)\Intel\oneAPI" (icx)
+[build] Variables  : "ORANGEC_HOME=C:\opt\orangec" (occ)
+[build] rmdir /s /q "G:\examples\func-destructuring\build"
+[build] Current directory is: "G:\examples\func-destructuring\build"
+[build] "C:\opt\cmake\bin\cmake.exe" -G "Unix Makefiles" ..
+-- The CXX compiler identification is Clang 15.0.7 with GNU-like command-line
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/opt/LLVM-15.0.7/bin/clang++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (2.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: G:/examples/func-destructuring/build
+[build] "C:\opt\msys64\usr\bin\make.exe"
+[ 50%] Building CXX object CMakeFiles/func-destructuring.dir/src/main/cpp/main.cpp.obj
+In file included from G:/examples/func-destructuring/src/main/cpp/main.cpp:3:
+In file included from X:\VC\Tools\MSVC\14.39.33519\include\tuple:8:
+X:\VC\Tools\MSVC\14.39.33519\include\yvals_core.h:892:1: error: static assertion failed: error STL1000: Unexpected compiler version, expected Clang 16.0.0 or
+      newer.
+_EMIT_STL_ERROR(STL1000, "Unexpected compiler version, expected Clang 16.0.0 or newer.");
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+X:\VC\Tools\MSVC\14.39.33519\include\yvals_core.h:516:44: note: expanded from macro '_EMIT_STL_ERROR'
+#define _EMIT_STL_ERROR(NUMBER, MESSAGE)   static_assert(false, "error " #NUMBER ": " MESSAGE)
+                                           ^             ~~~~~
+1 error generated.
+make[2]: *** [CMakeFiles/func-destructuring.dir/build.make:76: CMakeFiles/func-destructuring.dir/src/main/cpp/main.cpp.obj] Error 1
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/func-destructuring.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
+Error: Failed to generate executable "func-destructuring.exe"
+</pre>
+</dd></dl>
 
 ***
 
