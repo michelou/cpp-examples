@@ -17,7 +17,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.30][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.46][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 17][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
 - [oneAPI DPC++ 2024][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
@@ -33,13 +33,13 @@ Optionally one may also install the following software:
 - [Doxygen 1.11][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.91][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.92][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*August 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -111,8 +111,8 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 7.2.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
-   cmake 3.30.0, cl 19.36.33523, cppcheck 2.14.1, doxygen 1.11.0, msbuild 17.9.8.16306
-   git 2.45.2, diff 3.10, bash 5.2.26(1)
+   cmake 3.30.2, cl 19.36.33523, cppcheck 2.14.1, doxygen 1.11.0, msbuild 17.9.8.16306
+   git 2.46.0, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -220,12 +220,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.2.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.30.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.30.2-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.91.0.zip</a>                     <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.46.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.92.0.zip</a>                     <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
@@ -255,7 +255,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -299,7 +299,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top

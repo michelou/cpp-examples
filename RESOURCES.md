@@ -117,6 +117,9 @@
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 14.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000184.html), August 2024.
+  - [GCC 14.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000180.html), May 2024 ([changes](https://gcc.gnu.org/gcc-14/changes.html)).
+  - [GCC 13.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000181.html), May 2024.
   - [GCC 13.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000179.html), July 2023.
   - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023 ([release notes](https://gcc.gnu.org/gcc-13/)).
   - [GCC 12.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000176.html), May 2023).
@@ -150,7 +153,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

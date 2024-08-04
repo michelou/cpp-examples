@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2024 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 TOOLSET ?= gcc
 CXXSTD ?= c++17
 
