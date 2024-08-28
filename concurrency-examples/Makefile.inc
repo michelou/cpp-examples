@@ -30,7 +30,7 @@ LLVM_PATH   = $(subst \,/,$(LLVM_HOME))
 MSYS_PATH   = $(subst \,/,$(MSYS_HOME))
 #
 BCC         = $(subst \,/,$(BCC_HOME))/bin/bcc32c.exe
-CC          = $(MSYS_PATH)/mingw64/bin/g++.exe
+CC          = $(MSYS_PATH)/usr/bin/g++.exe
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
 CLANG       = $(LLVM_PATH)/bin/clang.exe
 CP          = $(MSYS_PATH)/usr/bin/cp.exe

@@ -49,6 +49,7 @@ set _ERROR_LABEL=Error:
 set _WARNING_LABEL=Warning:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\cpp"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_TARGET_OBJ_DIR=%_TARGET_DIR%\obj"
 
@@ -68,6 +69,13 @@ if not exist "%MSYS_HOME%\mingw64\bin\g++.exe" (
     goto :eof
 )
 set "_CXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
+
+if not exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
+    echo %_ERROR_LABEL% oneAPI installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\bin\icx.exe"
 
 @rem use newer PowerShell version if available
 where /q pwsh.exe
@@ -99,6 +107,7 @@ if "%__ARG:~0,1%"=="-" (
     )else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-gcc" ( set _TOOLSET=gcc
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-icx" ( set _TOOLSET=icx
     ) else if "%__ARG%"=="-msvc" ( set _TOOLSET=msvc
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -136,6 +145,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVS_CMAKE_HOME=%MSVS_CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVS_MSBUILD_HOME=%MSVS_MSBUILD_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "ONEAPI_ROOT=%ONEAPI_ROOT%" 1>&2
 )
 goto :eof
 
@@ -144,15 +154,16 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -clang      use Clang toolset instead of GCC
-echo     -debug      show commands executed by this script
+echo     -debug      print commands executed by this script
 echo     -gcc        use GCC toolset ^(default^)
+echo     -icx        use oneAPI toolset instead of GCC
 echo     -msvc       use MSVC toolset instead of GCC
-echo     -verbose    display progress messages
+echo     -verbose    print progress messages
 echo.
 echo   Subcommands:
 echo     clean       delete generated files
 echo     compile     generate executable
-echo     help        display this help message
+echo     help        print this help message
 echo     run         run the generated executable
 goto :eof
 
@@ -179,11 +190,12 @@ goto :eof
 setlocal
 if not exist "%_TARGET_OBJ_DIR%" mkdir "%_TARGET_OBJ_DIR%"
 
-call :action_required "%_TARGET%" "%_SOURCE_DIR%\main\cpp\*.cpp" "%_SOURCE_DIR%\main\cpp\*.h"
+call :action_required "%_TARGET%" "%_SOURCE_MAIN_DIR%\*.cpp" "%_SOURCE_MAIN_DIR%\*.h"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 if %_TOOLSET%==clang ( set __TOOLSET_NAME=Clang
 ) else if %_TOOLSET%==gcc ( set __TOOLSET_NAME=GCC
+) else if %_TOOLSET%==icx ( set __TOOLSET_NAME=oneAPI
 ) else ( set __TOOLSET_NAME=MSVC
 )
 if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME% 1>&2
@@ -195,8 +207,8 @@ endlocal & set _EXITCODE=%_EXITCODE%
 goto :eof
 
 :compile_clang
-set __PTHREADS_INCPATH=..\pthreads-win32\include
-set __PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%
+set "__PTHREADS_INCPATH=..\pthreads-win32\include"
+set "__PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%"
 set __PTHREADS_LIBNAME=pthreadVC2
 
 set __CLANG_FLAGS=-g --std=%_CXX_STD% -O0 -D_TIMESPEC_DEFINED
@@ -206,7 +218,7 @@ set __CLANG_FLAGS=%__CLANG_FLAGS% -L"%__PTHREADS_LIBPATH%" -o "%_TARGET%"
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\main\cpp\*.cpp"') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%*.cpp"') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -244,7 +256,7 @@ set __CXX_FLAGS=%__CXX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-var
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\main\cpp\*.cpp"') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.cpp"') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -265,6 +277,37 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+:compile_icx
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib"
+
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -D_TIMESPEC_DEFINED
+set __ICX_FLAGS=%__ICX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable
+set __ICX_FLAGS=%__ICX_FLAGS% -o "%_TARGET%"
+
+set __LINK_FLAGS=-link -libpath:"%__ONEAPI_LIBPATH%"
+
+set __SOURCE_FILES=
+set __N=0
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.cpp"') do (
+    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No C++ source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% C++ source file
+) else ( set __N_FILES=%__N% C++ source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
 :compile_msvc
 if not exist "%MSVC_HOME%\bin\host%_ARCH%\%_ARCH%\cl.exe" (
     echo %_ERROR_LABEL% Microsoft C++ compiler not found 1>&2
@@ -299,7 +342,7 @@ set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%" "%__PTHREADS_LIB
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_DIR%\main\cpp\*.cpp"') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.cpp"') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -390,7 +433,7 @@ if not exist "%_TARGET%" (
     set _EXITCODE=1
     goto :eof
 )
-set "__LD_LIBRARY_PATH=%LD_LIBRARY_PATH%"
+setlocal
 if defined LD_LIBRARY_PATH ( set "LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;..\pthreads-win32\dll\%_ARCH%"
 ) else ( set "LD_LIBRARY_PATH=..\pthreads-win32\dll\%_ARCH%"
 )
@@ -401,12 +444,12 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TARGET%" 1>&2
 )
 call "%_TARGET%"
 if not %ERRORLEVEL%==0 (
-    set "LD_LIBRARY_PATH=%__LD_LIBRARY_PATH%"
+    endlocal
     echo %_ERROR_LABEL% Failed to execute "!_TARGET:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "LD_LIBRARY_PATH=%__LD_LIBRARY_PATH%"
+endlocal
 goto :eof
 
 @rem #########################################################################

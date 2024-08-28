@@ -3,7 +3,7 @@
 #include <cstring>
 #include <ctime>
 #include <iostream> // cout
-#include <thread>
+//#include <thread>
 //#include <sys/types.h>
 
 #include <pthread.h>

@@ -40,6 +40,7 @@ hs_err_pid*.log
 jmh_result.json
 *.src.tar.xz
 workingsets.xml
+MODULE.bazel.lock
 
 # project specific
 *_LOCAL/

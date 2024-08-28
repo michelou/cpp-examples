@@ -369,6 +369,9 @@ goto :eof
 
 :clean
 call :rmdir "%_TARGET_DIR%"
+for /f "delims=" %%f in ('dir /ad /s /b "%_ROOT_DIR%bazel-*"') do (
+    call :rmdir "%%f"
+)
 goto :eof
 
 @rem input parameter: %1=directory path

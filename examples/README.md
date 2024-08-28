@@ -226,6 +226,59 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 
 <!--=======================================================================-->
 
+## <span id="visitor-pattern">`visitor-pattern` Example</span>
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./visitor-pattern/build.bat">build.bat</a>
+|   <a href="./visitor-pattern/build.sh">build.sh</a>
+|   <a href="./visitor-pattern/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./visitor-pattern/Doxyfile">Doxyfile</a>
+|   <a href="./visitor-pattern/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./visitor-pattern/src/main/cpp/Main.cpp">Main.cpp</a>
+</pre>
+
+Batch files [**`build.bat`**](./visitor-pattern/build.bat)`-verbose run` generates and executes the C++ program `build\Release\visitor-pattern.exe` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./visitor-pattern/build.bat">build</a> -verbose run</b>
+Toolset: MSVC/MSBuild, Project: visitor-pattern
+Configuration: Release, Platform: x64
+Generate configuration files into directory "build"
+Generate executable "visitor-pattern.exe"
+Execute "build\Release\visitor-pattern.exe"
+do Up on This
+do Up on That
+do Up on TheOther
+do Down on This
+do Down on That
+do Down on TheOther
+</pre>
+
+Using build option `-gcc` we get the following output (same with option `-clang`, `-icx` or `-occ`) :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./visitor-pattern/build.bat">build</a> -verbose -gcc clean run</b>
+Delete directory "build"
+Toolset: GCC/GNU Make, Project: visitor-pattern
+Generate configuration files into directory "build"
+Generate executable "visitor-pattern.exe"
+Execute "build\visitor-pattern.exe"
+do Up on This
+do Up on That
+do Up on TheOther
+do Down on This
+do Down on That
+do Down on TheOther
+</pre>
+
+<!--=======================================================================-->
+
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> **Support for <code>static_assert</code>** [↩](#anchor_01)

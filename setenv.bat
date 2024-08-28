@@ -196,6 +196,7 @@ for /f "tokens=1,2,*" %%f in ('subst') do (
     set "__SUBST_DRIVE=%%f"
     set "__SUBST_DRIVE=!__SUBST_DRIVE:~0,2!"
     set "__SUBST_PATH=%%h"
+    @rem Windows local file systems are not case sensitive (by default)
     if /i "!__SUBST_DRIVE!"=="!__GIVEN_PATH:~0,2!" (
         set _DRIVE_NAME=!__SUBST_DRIVE:~0,2!
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
@@ -729,10 +730,10 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-7,*" %%i in ('"%MSYS_HOME%\mingw64\bin\gcc.exe" --version 2^>^&1 ^| findstr gcc') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% gcc %%o,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\mingw64\bin:gcc.exe"
 )
-where /q "%ONEAPI_ROOT%\compiler\latest\windows\bin:icx.exe"
+where /q "%ONEAPI_ROOT%\compiler\latest\bin:icx.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-11,12,*" %%a in ('"%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" /v 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% icx %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%ONEAPI_ROOT%\compiler\latest\windows\bin:icx.exe"
+    for /f "tokens=1-11,12,*" %%a in ('"%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" /v 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% icx %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%ONEAPI_ROOT%\compiler\latest\bin:icx.exe"
 )
 where /q "%ORANGEC_HOME%\bin:occ.exe"
 if %ERRORLEVEL%==0 (

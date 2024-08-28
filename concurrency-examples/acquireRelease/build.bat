@@ -107,15 +107,15 @@ if not exist "%MSYS_HOME%\usr\bin\make.exe" (
 )
 set "_MAKE_CMD=%MSYS_HOME%\usr\bin\make.exe"
 
-if not exist "%MSYS_HOME%\mingw64\bin\gcc.exe" (
+if not exist "%MSYS_HOME%\usr\bin\gcc.exe" (
     echo %_ERROR_LABEL% GCC package not installed 1>&2
     echo %_ERROR_LABEL% ^(use command "pacman.exe -S gcc"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GCC_CMD=%MSYS_HOME%\mingw64\bin\gcc.exe"
-set "_GXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
-set "_WINDRES_CMD=%MSYS_HOME%\mingw64\bin\windres.exe"
+set "_GCC_CMD=%MSYS_HOME%\usr\bin\gcc.exe"
+set "_GXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
+set "_WINDRES_CMD=%MSYS_HOME%\usr\bin\windres.exe"
 
 if not exist "%LLVM_HOME%\bin\clang.exe" (
     echo %_ERROR_LABEL% LLVM installation directory not found 1>&2
@@ -137,7 +137,6 @@ set _MSBUILD_CMD=
 if exist "%MSVS_MSBUILD_HOME%\bin\MSBuild.exe" (
     set "_MSBUILD_CMD=%MSVS_MSBUILD_HOME%\bin\MSBuild.exe"
 )
-
 set _PELOOK_CMD=pelook.exe
 goto :eof
 
@@ -554,8 +553,8 @@ set __LINK_FLAGS=-link
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%MSVC_HOME%lib\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib\intel64"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%\compiler\latest\lib"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
