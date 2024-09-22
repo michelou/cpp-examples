@@ -33,13 +33,13 @@ Optionally one may also install the following software:
 - [Doxygen 1.12][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.92][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.93][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*September 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -111,8 +111,8 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 7.3.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.2.1, occ 6.73.8
-   cmake 3.30.2, cl 19.36.33523, cppcheck 2.14.1, doxygen 1.12.0, msbuild 17.9.8.16306
-   git 2.46.0, diff 3.10, bash 5.2.26(1)
+   cmake 3.30.3, cl 19.36.33523, cppcheck 2.14.1, doxygen 1.12.0, msbuild 17.9.8.16306
+   git 2.46.1, diff 3.10, bash 5.2.32(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -181,15 +181,13 @@ The installed development tools for Windows give us access to the following C++ 
 Since our project depends on <a href="https://www.msys2.org/" rel="external">MSYS2</a> we choose to install the MSYS2 package <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck"><code>mingw-w64-x86_64-cppcheck</code></a> :
 <pre style="font-size:80%;">
 <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://archlinux.org/pacman/" rel="external">pacman.exe</a> -Ss cppcheck</b>
-mingw32/mingw-w64-i686-cppcheck 2.13.1-1
+clangarm64/mingw-w64-clang-aarch64-cppcheck 2.14.2-1
     static analysis of C/C++ code (mingw-w64)
-mingw64/mingw-w64-x86_64-cppcheck 2.13.1-1
+mingw64/mingw-w64-x86_64-cppcheck 2.14.2-1 [installed]
     static analysis of C/C++ code (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.13.1-1
+ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.14.2-1
     static analysis of C/C++ code (mingw-w64)
-clang32/mingw-w64-clang-i686-cppcheck 2.13.1-1
-    static analysis of C/C++ code (mingw-w64)
-clang64/mingw-w64-clang-x86_64-cppcheck 2.13.1-1
+clang64/mingw-w64-clang-x86_64-cppcheck 2.14.2-1
     static analysis of C/C++ code (mingw-w64)
 &nbsp;
 <b>&gt; %MSYS_HOME%\usr\bin\pacman.exe -Syu <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">mingw-w64-x86_64-cppcheck</a></b>
@@ -220,6 +218,7 @@ C:\opt\msys64\mingw64\bin\cppcheck.exe
 <tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S gcc</code></td><td>798</td></tr>
 <tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S automake</code></td><td>812</td></tr>
 <tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S mingw-w64-x86_64-cppcheck</code></td><td>843</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S texinfo</code></td><td>854</td></tr>
 <tr><td><i>(to be updated)</i></td><td>..</td></tr>
 </table>
 </blockquote>
@@ -236,11 +235,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.3.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.30.2-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.30.3-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.46.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.46.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
 <a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.92.0.zip</a>                     <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.2.1.83_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
@@ -271,7 +270,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -316,7 +315,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
