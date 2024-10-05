@@ -127,7 +127,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
