@@ -194,8 +194,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -371,6 +371,9 @@ goto :eof
 
 :clean
 call :rmdir "%_TARGET_DIR%"
+for /f "delims=" %%f in ('dir /ad /s /b "%_ROOT_DIR%bazel-*"') do (
+    call :rmdir "%%f"
+)
 goto :eof
 
 @rem input parameter: %1=directory path
@@ -422,8 +425,9 @@ if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
 ) else if %_TOOLSET%==occ ( set __TOOLSET_NAME=LADSoft Orange C++
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
-if %_VERBOSE%==1 echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
-
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Toolset: %_TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Toolset: %_TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
+)
 call :compile_%_TOOLSET%
 
 @rem save _EXITCODE value into parent environment
@@ -439,8 +443,9 @@ set "RC=%_WINDRES_CMD%"
 set __CMAKE_OPTS=-G "Unix Makefiles"
 
 pushd "%_TARGET_DIR%"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
-
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
+) else if %_VERBOSE%== 1 ( echo Current directory is: "%CD%" 1>&2
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -483,8 +488,9 @@ set "RC=%_WINDRES_CMD%"
 set __CMAKE_OPTS=-G "Unix Makefiles"
 
 pushd "%_TARGET_DIR%"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
-
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
+) else if %_VERBOSE%==1 ( echo Current directory is: "%CD%" 1>&2
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -495,8 +501,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set __MAKE_OPTS=
-
+if %_DEBUG%==1 ( set __MAKE_OPTS=--debug=v
+) else ( set __MAKE_OPTS=--debug=n
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
@@ -594,26 +601,28 @@ set "LIB=%__LIB%"
 goto :eof
 
 :compile_msvc
-set __CMAKE_OPTS=-Thost=%_PROJ_PLATFORM% -A %_PROJ_PLATFORM% -Wdeprecated
+set __MSVS_CMAKE_OPTS=-Thost=%_PROJ_PLATFORM% -A %_PROJ_PLATFORM% -Wdeprecated
 
-if %_VERBOSE%==1 echo Configuration: %_PROJ_CONFIG%, Platform: %_PROJ_PLATFORM% 1>&2
-
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Configuration: %_PROJ_CONFIG%, Platform: %_PROJ_PLATFORM% 1>&2
+) else if %_VERBOSE%==1 ( echo Configuration: %_PROJ_CONFIG%, Platform: %_PROJ_PLATFORM% 1>&2
+)
 pushd "%_TARGET_DIR%"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSVS_CMAKE_CMD%" %__CMAKE_OPTS% .. 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Current directory is: "%CD%" 1>&2
+) else if %_VERBOSE%==1 ( echo Current directory is: "%CD%" 1>&2
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "!_MSVS_CMAKE_CMD:%MSVS_HOME%=%%MSVS_HOME%%!" %__MSVS_CMAKE_OPTS% .. 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_MSVS_CMAKE_CMD%" %__CMAKE_OPTS% .. %_STDOUT_REDIRECT%
+call "%_MSVS_CMAKE_CMD%" %__MSVS_CMAKE_OPTS% .. %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to generate configuration files into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
+set __MSBUILD_OPTS=-nologo -m -property:"Configuration=%_PROJ_CONFIG%;Platform=%_PROJ_PLATFORM%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "!_MSBUILD_CMD:%MSVS_HOME%=%%MSVS_HOME%%!" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2
 )
 call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" %_STDOUT_REDIRECT%

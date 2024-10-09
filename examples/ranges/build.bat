@@ -78,6 +78,7 @@ set _PROJ_PLATFORM=x64
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%build"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_TARGET_FILE=%_PROJ_NAME%.exe"
 
 set _MSVS_CMAKE_CMD=
 if exist "%MSVS_CMAKE_HOME%\bin\cmake.exe" (
@@ -267,7 +268,7 @@ if %_TOOLSET%==msvc (
     )
 )
 for /f %%i in ("%~dp0.") do set _PROJECT_NAME=%%~ni
-set "_TARGET=%_TARGET_DIR%\%_PROJECT_NAME%.exe"
+set "_TARGET=%_TARGET_DIR%\%_TARGET_FILE%"
 
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
@@ -304,21 +305,21 @@ echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bcc%__END%        use BCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-cl%__END%         use MSVC/MSBuild toolset ^(default^)
 echo     %__BEG_O%-clang%__END%      use Clang/GNU Make toolset instead of MSVC/MSBuild
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-gcc%__END%        use GCC/GNU Make toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-icx%__END%        use Intel oneAPI C++ toolset instead of MSVC/MSBuild
 echo     %__BEG_O%-msvc%__END%       use MSVC/MSBuild toolset ^(alias for option %__BEG_O%-cl%__END%^)
 echo     %__BEG_O%-open%__END%       display generated HTML documentation ^(subcommand %__BEG_O%doc%__END%^)
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate executable
 echo     %__BEG_O%doc%__END%         generate HTML documentation with %__BEG_N%Doxygen%__END%
 echo     %__BEG_O%dump%__END%        dump PE/COFF infos for generated executable
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%lint%__END%        analyze C++ source files with %__BEG_N%Cppcheck%__END%
-echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_PROJ_NAME%.exe%__END%"
+echo     %__BEG_O%run%__END%         run the generated executable "%__BEG_O%%_TARGET_FILE%%__END%"
 goto :eof
 
 :clean
@@ -402,12 +403,12 @@ if not %ERRORLEVEL%==0 (
 )
 set __MAKE_OPTS=
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -448,12 +449,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -485,12 +486,12 @@ if not %ERRORLEVEL%==0 (
 set __MAKE_OPTS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MAKE_CMD%" %__MAKE_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MAKE_CMD%" %__MAKE_OPTS% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -512,7 +513,7 @@ if not defined __LIB_VERSION (
 )
 set "__WINSDK_LIBPATH=%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%;%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
 
-set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -O2 -Fe"%_TARGET_DIR%\%_TARGET_FILE%"
 if %_DEBUG%==1 set __ICX_FLAGS=-debug:all %__ICX_FLAGS%
 
 set __SOURCE_FILES=
@@ -565,12 +566,12 @@ if not %ERRORLEVEL%==0 (
 set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate executable "%_PROJ_NAME%.exe" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate executable "%_TARGET_FILE%" 1>&2
 )
 call "%_MSBUILD_CMD%" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate executable "%_PROJ_NAME%.exe" 1>&2
+    echo %_ERROR_LABEL% Failed to generate executable "%_TARGET_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -613,9 +614,9 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
+set "__EXE_FILE=%__TARGET_DIR%\%_TARGET_FILE%"
 if not exist "%__EXE_FILE%" (
-    echo %_ERROR_LABEL% Executable "%_PROJ_NAME%.exe" not found ^(%_TOOLSET%^) 1>&2
+    echo %_ERROR_LABEL% Executable "%_TARGET_FILE%" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -637,7 +638,7 @@ goto :eof
 if %_TOOLSET%==msvc ( set "__TARGET_DIR=%_TARGET_DIR%\%_PROJ_CONFIG%"
 ) else ( set "__TARGET_DIR=%_TARGET_DIR%"
 )
-set "__EXE_FILE=%__TARGET_DIR%\%_PROJ_NAME%.exe"
+set "__EXE_FILE=%__TARGET_DIR%\%_TARGET_FILE%"
 if not exist "%__EXE_FILE%" (
     echo %_ERROR_LABEL% Executable "!__EXE_FILE:%_ROOT_DIR%=!" not found ^(%_TOOLSET%^) 1>&2
     set _EXITCODE=1

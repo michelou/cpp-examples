@@ -1,4 +1,4 @@
-# <span id="top">C++ Examples with POSIX threads</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">C++ Examples with POSIX threads</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -28,9 +28,24 @@ The code examples presented below can be built/run with the following tools:
 
 ## <span id="fib">`fib` Example</span>
 
-This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples) and consists of the source files [`src\main\cpp\main.cpp`](./fib/src/main/cpp/main.cpp), [`src\main\cpp\thread.h`](./fib/src/main/cpp/thread.h) and [`src\main\cpp\thread.cpp`](./fib/src/main/cpp/thread.cpp).
+This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://github.com/microsoft/vscode-cpptools/tree/main/Code%20Samples); it has the following directory structure :
 
-Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to display the execution details). We give one of the options `-bcc`, `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./fib/00download.txt">00download.txt</a>
+|   <a href="./fib/build.bat">build.bat</a>
+|   <a href="./fib/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./fib/Doxyfile">Doxyfile</a>
+|   <a href="./fib/Makefile">Makefile</a>
+\---src
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./fib/src/main/cpp/main.cpp">main.cpp</a>
+                <a href="./fib/src/main/cpp/thread.cpp">thread.cpp</a>
+                <a href="./fib/src/main/cpp/thread.h">thread.h</a>
+</pre>
+
+Batch file [`build.bat`](./fib/build.bat) matches what the user would run from the command prompt (use option `-debug` to display the execution details). We specify the C++ compiler with one of the options `-bcc`, `-clang`, `-gcc` (*default*), `-icx` or `-msvc` :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="fib/build.bat">build</a> -verbose clean compile</b>
@@ -58,9 +73,22 @@ Copy file "pthreadVC2.dll" to directory "target"
 > pthreadVC2.dll
 > </pre>
 
+<!--=======================================================================-->
+
 ## <span id="myTurn">`myTurn` Example</span> [**&#x25B4;**](#top)
 
-This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber and consists of the single source file [`src\main\cpp\threads.cpp`](./fib/src/main/cpp/threads.cpp).
+This example comes from the YouTube video [*How to create and join threads in C*](https://www.youtube.com/watch?v=uA8X5zNOGw8) from Jacob Sorber; it has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./myTurn/00download.txt">00download.txt</a>
+|   <a href="./myTurn/build.bat">build.bat
+|   <a href="./myTurn/Makefile">Makefile</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./myTurn/src/main/cpp/threads.cpp">threads.cpp</a>
+</pre>
 
 Command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./myTurn/Makefile) and generates the `myTurn.exe` executable using variable `TOOLSET` with one of the values `clang`, `gcc`, `icx` or `msvc` to specify the C++ compiler :
 
@@ -129,10 +157,21 @@ My Turn! 7/8
 My Turn! 8/8
 </pre>
 
+<!--=======================================================================-->
 
 ## <span id="pThreadDemo">`pThreadDemo` Example</span> [**&#x25B4;**](#top)
 
-This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE) and consists of the single source file [`src\main\cpp\pThreadDemo.cpp`](./pThreadDemo/src/main/cpp/pThreadDemo.cpp).
+This example comes from the YouTube video [*Using Pthread In Windows*](https://www.youtube.com/watch?v=TearrHVpGcE); it has the following structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./pThreadDemo/00download.txt">00download.txt</a>
+|   <a href="./pThreadDemo/build.bat">build.bat</a>
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
+                <a href="./pThreadDemo/src/main/cpp/pThreadDemo.cpp">pThreadDemo.cpp</a>
+</pre>
 
 Batch file [`build.bat`](./pThreadDemo/build.bat) matches what the user would run from the command prompt (use option `-debug` to see the execution details). We give one of the options `-clang`, `-gcc` (*default*), `-icx` or `-msvc` to specify the C++ compiler :
 
@@ -185,7 +224,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

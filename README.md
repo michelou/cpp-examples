@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="docs/images/cpp_logo.png" width="100" alt="ISO C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> code examples coming from various websites and books.<br/>
-  It also includes build scripts (<a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">ISO C++</a> on a Windows machine.</td>
+  It also includes build scripts (<a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.</td>
   </tr>
 </table>
 
@@ -17,7 +17,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [CMake 3.30][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.46][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 17][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
 - [oneAPI DPC++ 2024][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
@@ -28,18 +28,19 @@ Optionally one may also install the following software:
 <!--
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 -->
-- [Bazel 7.2 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 7.3 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
-- [Doxygen 1.11][doxygen_downloads] ([*changelog*][doxygen_changelog])
+- [Doxygen 1.12][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
+- [LLVM 19][llvm_19_downloads] ([*release notes*][llvm_19_relnotes])
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.91][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.93][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*October 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -49,6 +50,7 @@ C:\opt\ConEmu\                           <i>( 26 MB)</i>
 C:\opt\doxygen\                          <i>(120 MB)</i>
 C:\opt\Git\                              <i>(367 MB)</i>
 C:\opt\LLVM-17.0.6\                      <i>(3.1 GB)</i>
+C:\opt\LLVM-19.1.1\                      <i>(2.0 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\orangec\                          <i>( 74 MB)</i>
 C:\opt\VSCode\                           <i>(341 MB)</i>
@@ -110,9 +112,9 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.2.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.0.2, occ 6.73.8
-   cmake 3.30.0, cl 19.36.33523, cppcheck 2.14.1, doxygen 1.11.0, msbuild 17.9.8.16306
-   git 2.45.2, diff 3.10, bash 5.2.26(1)
+   bazel 7.3.2, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.2.1, occ 6.73.8
+   cmake 3.30.4, cl 19.36.33523, cppcheck 2.15.0, doxygen 1.12.0, msbuild 17.9.8.16306
+   git 2.46.2, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -152,12 +154,12 @@ The installed development tools for Windows give us access to the following C++ 
 <tr><th>Devtool</th><th>C++&nbsp;Compiler</th><th>Version</th><th>ISO Standards <sup><b>a)</b></sup></th></tr>
 <tr><td><a href="https://www.embarcadero.com">Embarcadero</a></td><td><a href="https://www.embarcadero.com/free-tools/ccompiler"><code><b>bcc32c.exe</b></code></a></td><td>7.30</td><td>11</td></tr>
 <tr><td><a href="https://llvm.org/">LLVM</a></td><td><a href="https://clang.llvm.org/docs/UsersManual.html#basic-usage"><code><b>clang.exe</b></code></a></td><td><a href="https://discourse.llvm.org/t/llvm-17-0-6-released/75281">17.0.x</a</td><td><a href="https://clang.llvm.org/cxx_status.html">98, 11, 14, 17, 20, 2b</a> <sup><b>b)</b></sup></td></tr>
-<tr><td><a href="https://visualstudio.microsoft.com/">MSVS</a><br/>(Microsoft)</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td>19.36.32532</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
-<tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td>13.2.0</td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
+<tr><td><a href="https://visualstudio.microsoft.com/">MSVS</a><br/>(Microsoft)</td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/compiler-command-line-syntax"><code><b>cl.exe</b></code></a></td><td><a href="https://learn.microsoft.com/en-us/visualstudio/releases/2022/release-notes">19.41.34120</a></td><td><a href="https://docs.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version">14, 17, 20</a></td></tr>
+<tr><td><a href="https://www.msys2.org/">MSYS2</a></td><td><a href="https://man7.org/linux/man-pages/man1/g++.1.html"><code><b>g++.exe</b></code></a></td><td><a href="https://gcc.gnu.org/gcc-13/" rel="external">13.3.0</a></td><td><a href="https://gcc.gnu.org/projects/cxx-status.html">98, 11, 14, 17, 20, 23</a> <sup><b>b)</b></sup></td></tr>
 <tr>
   <td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/invoke-the-compiler.html"><code><b>icx.exe</b></code></td>
-  <td>2024.0.2</td>
+  <td><a href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html" rel="external">2024.2.1</a></td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td>
 </tr>
 <tr>
@@ -181,15 +183,13 @@ The installed development tools for Windows give us access to the following C++ 
 Since our project depends on <a href="https://www.msys2.org/" rel="external">MSYS2</a> we choose to install the MSYS2 package <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck"><code>mingw-w64-x86_64-cppcheck</code></a> :
 <pre style="font-size:80%;">
 <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://archlinux.org/pacman/" rel="external">pacman.exe</a> -Ss cppcheck</b>
-mingw32/mingw-w64-i686-cppcheck 2.13.1-1
+clangarm64/mingw-w64-clang-aarch64-cppcheck 2.15.0-1
     static analysis of C/C++ code (mingw-w64)
-mingw64/mingw-w64-x86_64-cppcheck 2.13.1-1
+mingw64/mingw-w64-x86_64-cppcheck 2.15.0-1 [installed]
     static analysis of C/C++ code (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.13.1-1
+ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.15.0-1
     static analysis of C/C++ code (mingw-w64)
-clang32/mingw-w64-clang-i686-cppcheck 2.13.1-1
-    static analysis of C/C++ code (mingw-w64)
-clang64/mingw-w64-clang-x86_64-cppcheck 2.13.1-1
+clang64/mingw-w64-clang-x86_64-cppcheck 2.15.0-1
     static analysis of C/C++ code (mingw-w64)
 &nbsp;
 <b>&gt; %MSYS_HOME%\usr\bin\pacman.exe -Syu <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">mingw-w64-x86_64-cppcheck</a></b>
@@ -197,7 +197,7 @@ clang64/mingw-w64-clang-x86_64-cppcheck 2.13.1-1
 [...]
 Packages (10) less-643-1  libgnutls-3.8.1-1  mingw-w64-x86_64-bzip2-1.0.8-2  mingw-w64-x86_64-gcc-13.2.0-2  mingw-w64-x86_64-gcc-ada-13.2.0-2
               mingw-w64-x86_64-gcc-libs-13.2.0-2  mingw-w64-x86_64-headers-git-11.0.0.r107.gd367cc9d7-2  mingw-w64-x86_64-pcre-8.45-1
-              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.13.1-1
+              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.15.0-1
 
 Total Installed Size:  388.66 MiB
 Net Upgrade Size:       20.34 MiB
@@ -209,7 +209,24 @@ Net Upgrade Size:       20.34 MiB
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /r %MSYS_HOME% cppcheck.exe</b>
 C:\opt\msys64\mingw64\bin\cppcheck.exe
 </pre>
+</dd>
+<dd>
+<blockquote>
+<b>Reminder</b>: How we created our MSYS2 installation (installation directory: <code>MSYS_HOME=C:\opt\msys64</code>) :
+<table style="font-size:90%;">
+<tr style="margin:0;padding:0;"><td><b>Executed&nbsp;command</b></td><td><b>Used&nbsp;size&nbsp;(MB)</b></td></tr>
+<tr><td><code><a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a></code></td><td>304</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S make</code></td><td>310</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S gcc</code></td><td>798</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S automake</code></td><td>812</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S mingw-w64-x86_64-cppcheck</code></td><td>843</td></tr>
+<tr><td><code>%MSYS_HOME%\usr\bin\<a href="https://www.msys2.org/docs/package-management/" rel="external">pacman.exe</a> -S texinfo</code></td><td>854</td></tr>
+<tr><td><i>(to be updated)</i></td><td>..</td></tr>
+</table>
+</blockquote>
 </dd></dl>
+
+<!--=======================================================================-->
 
 <span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
@@ -218,15 +235,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.2.1-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.3.2-windows-x86_64.zip</a>                  <i>( 49 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.30.0-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.30.4-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
-<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.91.0.zip</a>                     <i>(131 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.0.2.28_offline.exe</a>  <i>(1.2 GB)</i>
+<a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.46.2-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.93.1.zip</a>                     <i>(131 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.2.1.83_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
 </pre>
@@ -255,7 +272,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -263,8 +280,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples?tab=readme-ov-file#playing-with-ada-on-windows
 [akka_examples]: https://github.com/michelou/akka-examples?tab=readme-ov-file#playing-with-akka-on-windows
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.2.1
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.2.1
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.3.2
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.3.2
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -277,12 +294,14 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 7.1.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-711-2024-03-21
 7.1.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-712-2024-05-08
 7.2.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-721-2024-06-25
+7.3.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-731-2024-08-19
+7.3.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-732-2024-10-01
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v3.29/release/3.29.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v3.30/release/3.30.html
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
@@ -299,7 +318,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
@@ -317,6 +336,11 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 16.0.4 -> https://discourse.llvm.org/t/16-0-4-release/70692
 17.0.4 -> https://discourse.llvm.org/t/llvm-17-0-4-released/74548
 17.0.6 -> https://discourse.llvm.org/t/llvm-17-0-6-released/75281
+-->
+[llvm_19_downloads]: https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.1
+[llvm_19_relnotes]: https://discourse.llvm.org/t/llvm-19-1-1-released/82321
+<!--
+19.1.1 -> https://github.com/llvm/llvm-project/releases/tag/llvmorg-19.1.1
 -->
 [m2_examples]: https://github.com/michelou/m2-examples#top
 [man1_awk]: https://www.linux.org/docs/man1/awk.html

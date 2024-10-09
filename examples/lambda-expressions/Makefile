@@ -8,6 +8,8 @@
 TOOLSET ?= gcc
 CXXSTD ?= c++20
 
+PROJECT_CONFIG ?= Release
+
 SAMPLE ?= simple
 ifeq ($(filter $(SAMPLE),simple reference-capture this-capture value-capture),)
 $(error Value of variable SAMPLE must be one of simple, reference-capture, this-capture or value-capture)
@@ -15,8 +17,10 @@ endif
 
 include ../Makefile.inc
 
+##############################################################################
+## environment setup
+
 PROJECT_NAME   ?= $(shell basename $(CURDIR))
-PROJECT_CONFIG ?= Release
 
 SOURCE_DIR = src
 TARGET_DIR = build

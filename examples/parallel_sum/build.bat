@@ -182,8 +182,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -264,7 +264,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "MSVC_HOME=%MSVC_HOME%" ^(cl^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSYS_HOME=%MSYS_HOME%" ^(gcc^) 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -529,7 +529,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -537,7 +537,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

@@ -18,6 +18,10 @@
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
+- [Dargo's Blog](https://www.sandordargo.com/blog) :
+  - [What is std::ref?](https://www.sandordargo.com/blog/2024/08/21/std-ref), August 2024.
+  - [What to do if you don't want a default constructor?](https://www.sandordargo.com/blog/2024/07/17/what-should-be-a-default-value), July 2024.
+  - [Struct initialization](https://www.sandordargo.com/blog/2023/11/22/struct-initialization), November 2023.
 - [Sutter's Blog](https://herbsutter.com/) :
   - [C++23 “Pandemic Edition” is complete](https://herbsutter.com/2023/02/13/c23-pandemic-edition-is-complete-trip-report-winter-iso-c-standards-meeting-issaquah-wa-usa/), February 2023.
   - [Autumn ISO C++ standards meeting (Kona)](https://herbsutter.com/2022/11/) by Herb Sutter, November 2022.
@@ -35,6 +39,7 @@
   - [C++ performance guidelines](https://fekir.info/post/cpp-perf-guidelines/), January 2021.
   - [Detect member variables since C++11](https://fekir.info/post/detect-member-variables/), June 2019.
 - [Microsoft C++ Team Blog](https://devblogs.microsoft.com/cppblog/category/cplusplus/):
+  - [What’s New for C++ Developers in Visual Studio 2022 17.11](https://devblogs.microsoft.com/cppblog/whats-new-for-cpp-developers-in-visual-studio-2022-17-11/) by Sy Brand, August 2024.
   - [Documentation for C++20 Ranges](https://devblogs.microsoft.com/cppblog/documentation-for-cpp20-ranges/) by Sy Brand and Tyler Whitney, April 2023.
   - [Code Analysis Improvements in Visual Studio 17.6](https://devblogs.microsoft.com/cppblog/code-analysis-improvements-in-visual-studio-17-6/) by Gabor Horvath, March 2023.
   - [Convert Macros to Constexpr](https://devblogs.microsoft.com/cppblog/convert-macros-to-constexpr/) by Augustin Popa, June 2018.
@@ -112,11 +117,16 @@
 
 ## <span id="papers">Papers</span>
 
-- [C++ Standards Committee Papers](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/): [2019](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/), [2020](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/), [2021](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/), [2022](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/).
+- [The C++ Standards Committee - ISOCPP](https://www.open-std.org/JTC1/SC22/WG21/).
+  - [C++ Standards Committee Papers](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/): [2019](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/), [2020](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/), [2021](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/), [2022](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/).
+  - [Formatting Ranges](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2022/p2286r8.html) (Document# P2286R8), May 2022.
 
 ## <span id="news">News</span> [**&#x25B4;**](#top)
 
 - [GCC Announcements](https://gcc.gnu.org/pipermail/gcc-announce/) :
+  - [GCC 14.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000184.html), August 2024.
+  - [GCC 14.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000180.html), May 2024 ([changes](https://gcc.gnu.org/gcc-14/changes.html)).
+  - [GCC 13.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2024/000181.html), May 2024.
   - [GCC 13.2 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000179.html), July 2023.
   - [GCC 13.1 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000175.html), April 2023 ([release notes](https://gcc.gnu.org/gcc-13/)).
   - [GCC 12.3 Released](https://gcc.gnu.org/pipermail/gcc-announce/2023/000176.html), May 2023).
@@ -146,11 +156,12 @@
 
 ## <span id="videos">Videos</span>
 
+- [Microsoft Learn](https://learn.microsoft.com/en-us/) &ndash; [Pure Virtual C++ 2024](https://learn.microsoft.com/en-us/shows/pure-virtual-cpp-2024/), April 2024.
 - [Things that Matter][video_meyers] by Scott Meyers, 2017.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

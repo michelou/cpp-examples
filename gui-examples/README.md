@@ -25,12 +25,12 @@ Example `simple-window` is presented in the online document [theForger's Win32 A
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./simple-window/00download.txt">00download.txt</a>
-|   build.bat</a>
-|   build.sh</a>
-|   CMakeLists.txt</a>
-|   Doxyfile</a>
+|   <a href="./simple-window/build.bat">build.bat</a>
+|   <a href="./simple-window/build.sh">build.sh</a>
+|   <a href="./simple-window/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./simple-window/Doxyfile">Doxyfile</a>
 |   <a href="./simple-window/Makefile">Makefile</a>
-\---src
+\---<b>src</b>
         <a href="./simple-window/src/main.cpp">main.cpp</a>
 </pre>
 
@@ -70,7 +70,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
