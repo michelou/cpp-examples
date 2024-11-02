@@ -96,12 +96,6 @@ set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
-<<<<<<< HEAD
-set _DOXYGEN_CMD=
-if exist "%DOXYGEN_HOME%\bin\doxygen.exe" (
-    set "_DOXYGEN_CMD=%DOXYGEN_HOME%\bin\doxygen.exe"
-)
-=======
 if not exist "%DOXYGEN_HOME%\doxygen.exe" (
     echo %_ERROR_LABEL% Doxygen installation not found 1>&2
     set _EXITCODE=1
@@ -109,7 +103,6 @@ if not exist "%DOXYGEN_HOME%\doxygen.exe" (
 )
 set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
 
->>>>>>> a02d601eb2f6db4cf587548321f88f736103e1ec
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
     echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
     set _EXITCODE=1
@@ -302,14 +295,9 @@ if %_TOOLSET%==msvc (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _CXX_STD=%_CXX_STD% _TOOLSET=%_TOOLSET% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DUMP=%_DUMP% _LINT=%_LINT% _RUN=%_RUN% 1>&2
-<<<<<<< HEAD
-    echo %_DEBUG_LABEL% Variables  : "CPPCHECK_HOME=%CPPCHECK_HOME%" 1>&2
-    if defined _DOXYGEN_CMD echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
-=======
     if defined _BCC32C_CMD echo %_DEBUG_LABEL% Variables  : "BCC_HOME=%BCC_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "CMAKE_HOME=%CMAKE_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "DOXYGEN_HOME=%DOXYGEN_HOME%" 1>&2
->>>>>>> a02d601eb2f6db4cf587548321f88f736103e1ec
     echo %_DEBUG_LABEL% Variables  : "GIT_HOME=%GIT_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "LLVM_HOME=%LLVM_HOME%" ^(clang^) 1>&2
     echo %_DEBUG_LABEL% Variables  : "MSVC_HOME=%MSVC_HOME%" ^(cl^) 1>&2

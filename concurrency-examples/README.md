@@ -66,8 +66,8 @@ This example has the following directory structure :
 |   <a href="./fetch_mult/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./fetch_mult/Makefile">Makefile</a>
 \---<b>src</b>
-    \---main</b>
-        \---cpp</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
                 <a href="./fetch_mult/src/fetch_mult.cpp">fetch_mult.cpp</a>
 </pre>
 
@@ -95,17 +95,31 @@ build/Release/fetch_mult.exe
 5
 25
 </pre>
+## <span id="mutex">`mutex` Example</span> [**&#x25B4;**](#top)
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./mutex/build.bat">build.bat</a>
+|   <a href="./mutex/build.sh">build.sh</a>
+|   <a href="./mutex/CMakeLists.txt">CMakeLists.txt</a>
+|   <a href="./mutex/Doxyfile">Doxyfile</a>
+|   <a href="./mutex/Makefile">Makefile</a>
+\---<b>src</b>
+        <a href="./mutex/src/mutex.cpp">mutex.cpp</a>
+</pre>
 
 ## <span id="transitivity">`transitivity` Example</span> [**&#x25B4;**](#top)
 
 This example has the following directory structure :
 
 <pre style="font-size:80%;">
-<b&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./transitvity/build.bat">build.bat</a>
 |   <a href="./transitvity/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./transitvity/Makefile">Makefile</a>
-\---src
+\---<b>src</b>
     \--<b>-main</b>
         \---<b>cpp</b>
                 <a href="./transitivity.cpp`](./transitivity/src/transitivity.cpp">transitivity.cpp</a>
@@ -127,7 +141,7 @@ Execute "build\Release\transitivity.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
