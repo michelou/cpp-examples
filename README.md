@@ -54,12 +54,14 @@ C:\opt\LLVM-19.1.3\                      <i>(2.0 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\orangec\                          <i>( 74 MB)</i>
 C:\opt\VSCode\                           <i>(341 MB)</i>
-c:\Program Files\Cppcheck\               <i>( 35 MB)</i>
 C:\Program Files\Microsoft Visual Studio\2022\Community\        <i>(4.4 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
 C:\Program Files (x86)\Intel\oneAPI\     <i>(3.3 GB)</i>
 C:\Program Files (x86)\Windows Kits\10\  <i>(6.7 GB)</i>
 </pre>
+<!--
+c:\Program Files\Cppcheck\               <i>( 35 MB)</i>
+-->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git.exe`**][git_docs] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
