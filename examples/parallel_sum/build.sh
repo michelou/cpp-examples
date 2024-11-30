@@ -64,7 +64,7 @@ args() {
         -timer)       TIMER=1 ;;
         -verbose)     VERBOSE=1 ;;
         -*)
-            error "Unknown option $arg"
+            error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
@@ -75,7 +75,7 @@ args() {
         lint)    LINT=1 ;;
         run)     COMPILE=1 && RUN=1 ;;
         *)
-            error "Unknown subcommand $arg"
+            error "Unknown subcommand \"$arg\""
             EXITCODE=1 && return 0
             ;;
         esac
@@ -114,7 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation with Doxygen
     help         print this help message
     lint         analyze C++ source files with Cppcheck
-    run          execute the generated executable
+    run          execute the generated executable "$PROJECT_NAME.exe"
 EOS
 }
 
@@ -144,7 +144,7 @@ lint() {
     msvc)  cppcheck_opts="--template=vs --std=c++17" ;;
     *)     cppcheck_opts="=--std=c++14" ;;
     esac
-    cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
+    local cppcheck_opts="--platform=$CPPCHECK_PLATFORM $cppcheck_opts"
     if [[ $DEBUG -eq 1 ]]; then
         debug "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR" 1>&2
     elif [[ $VERBOSE -eq 1 ]]; then
@@ -165,7 +165,7 @@ compile() {
     clang) toolset_name="Clang/GNU Make" ;;
     gcc)   toolset_name="GCC/GNU Make" ;;
     icx)   toolset_name="Intel oneAPI C++" ;;
-    occ)   toolset_name="LADSoft OrangeC" ;;
+    occ)   toolset_name="LADSoft Orange C++" ;;
     *)     toolset_name="MSVC/MSBuild" ;;
     esac
     [[ $VERBOSE -eq 1 ]] && echo "Toolset: $toolset_name, Project: $PROJECT_NAME" 1>&2
@@ -248,12 +248,12 @@ compile_clang() {
     if [[ $DEBUG -eq 1 ]]; then
         debug "$MAKE_CMD $make_opts"
     elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Generate executable \"$PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to geenerate executable \"$PROJECT_NAME.exe\""
+        error "Failed to geenerate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
@@ -286,22 +286,22 @@ compile_gcc() {
     if [[ $DEBUG -eq 1 ]]; then
         debug "$MAKE_CMD $make_opts"
     elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Generate executable \"$PROJECT_NAME\"" 1>&2
+        echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/compiler/lib;$ONEAPI_ROOT/compiler/latest/compiler/lib/intel64"
 
-    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
-    [[ $DEBUG -eq 1 ]] && icx_flags="-debug:all $icx_flags"
+    local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$(mixed_path $TARGET_DIR/$PROJECT_NAME.exe)\""
+    [[ $DEBUG -eq 1 ]] && icx_flags="-debug:all -v $icx_flags"
 
     local source_files=
     local n=0
@@ -351,19 +351,19 @@ compile_msvc() {
     if [[ $DEBUG -eq 1 ]]; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     elif [[ $VERBOSE -eq 1 ]]; then
-        echo "Generate executable \"PROJECT_NAME.exe\"" 1>&2
+        echo "Generate executable \"PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
     if [[ $? -ne 0 ]]; then
         popd
-        error "Failed to generate executable \"$PROJECT_NAME.exe\""
+        error "Failed to generate executable \"$PROJECT_NAME$TARGET_EXT\""
         cleanup 1
     fi
     popd
 }
 
 compile_occ() {
-    local occ_flags="--nologo -std=c++14 /o\"$(mixed_path $TARGET_DIR)/$PROJECT_NAME.exe\""
+    local occ_flags="--nologo -std=c++17 /o\"$(mixed_path $TARGET_DIR)/$PROJECT_NAME.exe\""
 
     local source_files=
     local n=0
@@ -491,17 +491,19 @@ case "$(uname -s)" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
+TARGET_EXT=
 if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$GRAALVM_HOME" ]] && GRAALVM_HOME="$(mixed_path $GRAALVM_HOME)"
 	PSEP=";"
+    TARGET_EXT=".exe"
     BCC_CMD="$(mixed_path $BCC_HOME)/bin/bcc32c.exe"
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
     CPPCHECK_PLATFORM=win64
     DOXYGEN="$(mixed_path $DOXYGEN_HOME)/doxygen.exe"
-    GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
+    GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
     ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"

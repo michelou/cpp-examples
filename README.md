@@ -40,7 +40,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*December 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 51 MB)</i>
@@ -114,8 +114,8 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.4.0, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.2.1, occ 6.73.8
-   cmake 3.31.0, cl 19.36.33523, cppcheck 2.15.0, doxygen 1.12.0, msbuild 17.11.2.32701
+   bazel 7.4.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.2.1, occ 6.73.8
+   cmake 3.31.1, cl 19.36.33523, cppcheck 2.16.0, doxygen 1.12.0, msbuild 17.11.2.32701
    git 2.47.0, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
@@ -185,13 +185,13 @@ The installed development tools for Windows give us access to the following C++ 
 Since our project depends on <a href="https://www.msys2.org/" rel="external">MSYS2</a> we choose to install the MSYS2 package <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck"><code>mingw-w64-x86_64-cppcheck</code></a> :
 <pre style="font-size:80%;">
 <b>&gt; %MSYS_HOME%\usr\bin\<a href="https://archlinux.org/pacman/" rel="external">pacman.exe</a> -Ss cppcheck</b>
-clangarm64/mingw-w64-clang-aarch64-cppcheck 2.15.0-1
+clangarm64/mingw-w64-clang-aarch64-cppcheck 2.16.0-1
     static analysis of C/C++ code (mingw-w64)
-mingw64/mingw-w64-x86_64-cppcheck 2.15.0-1 [installed]
+mingw64/mingw-w64-x86_64-cppcheck 2.16.0-1 [installed]
     static analysis of C/C++ code (mingw-w64)
-ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.15.0-1
+ucrt64/mingw-w64-ucrt-x86_64-cppcheck 2.16.0-1
     static analysis of C/C++ code (mingw-w64)
-clang64/mingw-w64-clang-x86_64-cppcheck 2.15.0-1
+clang64/mingw-w64-clang-x86_64-cppcheck 2.16.0-1
     static analysis of C/C++ code (mingw-w64)
 &nbsp;
 <b>&gt; %MSYS_HOME%\usr\bin\pacman.exe -Syu <a href="https://packages.msys2.org/package/mingw-w64-x86_64-cppcheck" rel="external">mingw-w64-x86_64-cppcheck</a></b>
@@ -199,7 +199,7 @@ clang64/mingw-w64-clang-x86_64-cppcheck 2.15.0-1
 [...]
 Packages (10) less-643-1  libgnutls-3.8.1-1  mingw-w64-x86_64-bzip2-1.0.8-2  mingw-w64-x86_64-gcc-13.2.0-2  mingw-w64-x86_64-gcc-ada-13.2.0-2
               mingw-w64-x86_64-gcc-libs-13.2.0-2  mingw-w64-x86_64-headers-git-11.0.0.r107.gd367cc9d7-2  mingw-w64-x86_64-pcre-8.45-1
-              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.15.0-1
+              mingw-w64-x86_64-wineditline-2.206-1  mingw-w64-x86_64-cppcheck-2.16.0-1
 
 Total Installed Size:  388.66 MiB
 Net Upgrade Size:       20.34 MiB
@@ -237,15 +237,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.4.0-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.4.1-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.31.0-rc3-windows-x86_64.zip</a>             <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.31.1-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="">LLVM-19.1.3-win64.exe</a>                           <i>(336 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.47.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.95.0.zip</a>                     <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.47.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.95.3.zip</a>                     <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.2.1.83_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
@@ -275,7 +275,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -283,8 +283,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples?tab=readme-ov-file#playing-with-ada-on-windows
 [akka_examples]: https://github.com/michelou/akka-examples?tab=readme-ov-file#playing-with-akka-on-windows
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.4.0
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.4.0
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.4.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.4.1
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -300,6 +300,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 7.3.1 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-731-2024-08-19
 7.3.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-732-2024-10-01
 7.4.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.0
+7.4.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.1
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html

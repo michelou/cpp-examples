@@ -93,8 +93,15 @@ set _CPPCHECK_CMD=
 if exist "%MSYS_HOME%\mingw64\bin\cppcheck.exe" (
     set "_CPPCHECK_CMD=%MSYS_HOME%\mingw64\bin\cppcheck.exe"
 )
+if not exist "%DOXYGEN_HOME%\doxygen.exe" (
+    echo %_ERROR_LABEL% Doxygen installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_DOXYGEN_CMD=%DOXYGEN_HOME%\doxygen.exe"
+
 if not exist "%MSYS_HOME%\usr\bin\make.exe" (
-    echo %_ERROR_LABEL% GNU Make executable not found ^(MSYS installation directory^) 1>&2
+    echo %_ERROR_LABEL% MSYS installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
