@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
 
 > **&#9755;** Read the document <a href="https://www.geeksforgeeks.org/history-of-c/" rel="external">"History of C++"</a> to get a quick overview of the evolution of C++.
 
@@ -20,7 +20,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Git 2.47][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 17][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
-- [oneAPI DPC++ 2024][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
+- [oneAPI DPC++ 2025][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
 - [Visual Studio Community 2019][vs2019_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2019_relnotes])
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
@@ -28,32 +28,32 @@ Optionally one may also install the following software:
 <!--
 - [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
 -->
-- [Bazel 7.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Bazel 8.0 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
-- [Doxygen 1.12][doxygen_downloads] ([*changelog*][doxygen_changelog])
+- [Doxygen 1.13][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [LLVM 19][llvm_19_downloads] ([*release notes*][llvm_19_relnotes])
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.95][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.96][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*December 2024*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*January 2025*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\bazel\                            <i>( 51 MB)</i>
+C:\opt\bazel\                            <i>( 55 MB)</i>
 C:\opt\BCC-10.2\                         <i>(194 MB)</i>
-C:\opt\cmake\                            <i>(112 MB)</i>
+C:\opt\cmake\                            <i>(115 MB)</i>
 C:\opt\ConEmu\                           <i>( 26 MB)</i>
 C:\opt\doxygen\                          <i>(120 MB)</i>
-C:\opt\Git\                              <i>(367 MB)</i>
+C:\opt\Git\                              <i>(393 MB)</i>
 C:\opt\LLVM-17.0.6\                      <i>(3.1 GB)</i>
 C:\opt\LLVM-19.1.3\                      <i>(2.0 GB)</i>
 C:\opt\msys64\                           <i>(2.8 GB)</i>
 C:\opt\orangec\                          <i>( 74 MB)</i>
-C:\opt\VSCode\                           <i>(341 MB)</i>
+C:\opt\VSCode\                           <i>(381 MB)</i>
 C:\Program Files\Microsoft Visual Studio\2022\Community\        <i>(4.4 GB)</i>
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\  <i>(4.2 GB)</i>
 C:\Program Files (x86)\Intel\oneAPI\     <i>(3.3 GB)</i>
@@ -114,9 +114,9 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 7.4.1, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2024.2.1, occ 6.73.8
-   cmake 3.31.1, cl 19.36.33523, cppcheck 2.16.0, doxygen 1.12.0, msbuild 17.11.2.32701
-   git 2.47.0, diff 3.10, bash 5.2.37(1)
+   bazel 8.0.0, bcc32c 7.30, clang 17.0.6, gcc 13.2.0, icx 2025.0.1, occ 6.73.8
+   cmake 3.31.3, cl 19.36.33523, cppcheck 2.16.0, doxygen 1.13.0, msbuild 17.11.2.32701
+   git 2.47.1, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -161,7 +161,7 @@ The installed development tools for Windows give us access to the following C++ 
 <tr>
   <td><a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html" rel="external">oneAPI</a><br/>&nbsp;(Intel)</td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top/compiler-setup/use-the-command-line/invoke-the-compiler.html"><code><b>icx.exe</b></code></td>
-  <td><a href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html" rel="external">2024.2.1</a></td>
+  <td><a href="https://www.intel.com/content/www/us/en/developer/articles/release-notes/intel-oneapi-dpc-c-compiler-release-notes.html" rel="external">2025.0.1</a></td>
   <td><a href="https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-reference/compiler-options/compiler-option-details/language-options/std-qstd.html" rel="external">11, 14, <b>17</b>, 20</a></td>
 </tr>
 <tr>
@@ -237,16 +237,16 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/bazelbuild/bazel/releases/">bazel-7.4.1-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases/">bazel-8.0.0-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.31.1-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.31.3-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="">LLVM-19.1.3-win64.exe</a>                           <i>(336 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.47.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.95.3.zip</a>                     <i>(131 MB)</i>
-<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2024.2.1.83_offline.exe</a>  <i>(1.2 GB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.96.2.zip</a>                     <i>(131 MB)</i>
+<a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2025.0.1.44_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
 </pre>
@@ -275,7 +275,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -283,8 +283,8 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [ada_examples]: https://github.com/michelou/ada-examples?tab=readme-ov-file#playing-with-ada-on-windows
 [akka_examples]: https://github.com/michelou/akka-examples?tab=readme-ov-file#playing-with-akka-on-windows
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
-[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/7.4.1
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.4.1
+[bazel_downloads]: https://github.com/bazelbuild/bazel/releases/tag/8.0.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/8.0.0
 <!--
 7.0.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-700-2023-12-11
 6.4.0 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-640-2023-10-19
@@ -301,6 +301,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 7.3.2 -> https://github.com/bazelbuild/bazel/blob/master/CHANGELOG.md#release-732-2024-10-01
 7.4.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.0
 7.4.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.1
+8.0.0 -> https://github.com/bazelbuild/bazel/releases/tag/8.0.0
 -->
 [bcc_downloads]: https://www.embarcadero.com/free-tools/ccompiler
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
@@ -324,7 +325,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
@@ -366,6 +367,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [rust_examples]: https://github.com/michelou/rust-examples#top
 [scala3_examples]: https://github.com/michelou/dotty-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
+[sml_examples]: https://github.com/michelou/sml-examples#top
 [spark_examples]: https://github.com/michelou/spark-examples#top
 [spring_examples]: https://github.com/michelou/spring-examples#top
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top

@@ -37,7 +37,7 @@ This example comes from GitHub repository [`microsoft/vscode-cpptols`](https://g
 |   <a href="./fib/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./fib/Doxyfile">Doxyfile</a>
 |   <a href="./fib/Makefile">Makefile</a>
-\---src
+\---<b>src</b>
     \---<b>main</b>
         \---<b>cpp</b>
                 <a href="./fib/src/main/cpp/main.cpp">main.cpp</a>
@@ -224,7 +224,7 @@ See section 4 "Tweak the &lt;thread&gt; C++ header" in blog post <a href="http:/
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
