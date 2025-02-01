@@ -471,8 +471,6 @@ DEBUG=0
 DOC=0
 HELP=0
 LINT=0
-MAIN_CLASS="me.opc.se.bare.Main"
-MAIN_ARGS=
 RUN=0
 TIMER=0
 TOOLSET=msvc
@@ -485,11 +483,13 @@ cygwin=0
 mingw=0
 msys=0
 darwin=0
+linux=0
 case "$(uname -s)" in
     CYGWIN*) cygwin=1 ;;
     MINGW*)  mingw=1 ;;
     MSYS*)   msys=1 ;;
-    Darwin*) darwin=1
+    Darwin*) darwin=1 ;;
+    Linux*)  linux=1
 esac
 unset CYGPATH_CMD
 PSEP=":"

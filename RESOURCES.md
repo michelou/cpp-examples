@@ -18,7 +18,8 @@
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
-- [Dargo's Blog](https://www.sandordargo.com/blog) :
+- [Dargo's Blog](https://www.sandordargo.com/) :
+  - [C++26: Delete with a reason](https://www.sandordargo.com/blog/2024/12/18/cpp26-delete-with-a-reason), December 2024.
   - [What is std::ref?](https://www.sandordargo.com/blog/2024/08/21/std-ref), August 2024.
   - [What to do if you don't want a default constructor?](https://www.sandordargo.com/blog/2024/07/17/what-should-be-a-default-value), July 2024.
   - [Struct initialization](https://www.sandordargo.com/blog/2023/11/22/struct-initialization), November 2023.
@@ -39,11 +40,13 @@
   - [C++ performance guidelines](https://fekir.info/post/cpp-perf-guidelines/), January 2021.
   - [Detect member variables since C++11](https://fekir.info/post/detect-member-variables/), June 2019.
 - [Microsoft C++ Team Blog](https://devblogs.microsoft.com/cppblog/category/cplusplus/):
+  - [MSVC Compiler Language Updates in Visual Studio 2022 version 17.12](https://devblogs.microsoft.com/cppblog/msvc-compiler-language-updates-in-visual-studio-2022-version-17-12/) by Cameron DaCamara, December 2024.
   - [What’s New for C++ Developers in Visual Studio 2022 17.11](https://devblogs.microsoft.com/cppblog/whats-new-for-cpp-developers-in-visual-studio-2022-17-11/) by Sy Brand, August 2024.
   - [Documentation for C++20 Ranges](https://devblogs.microsoft.com/cppblog/documentation-for-cpp20-ranges/) by Sy Brand and Tyler Whitney, April 2023.
   - [Code Analysis Improvements in Visual Studio 17.6](https://devblogs.microsoft.com/cppblog/code-analysis-improvements-in-visual-studio-17-6/) by Gabor Horvath, March 2023.
   - [Convert Macros to Constexpr](https://devblogs.microsoft.com/cppblog/convert-macros-to-constexpr/) by Augustin Popa, June 2018.
 - [Modernes C++](http://www.modernescpp.com/) by Rainer Grimm :
+  - [Deferred Reclamation in C++26](https://www.modernescpp.com/index.php/deferred-reclamation-in-c26-read-copy-update-and-hazard-pointers/), January 2025.
   - [Type Erasure](http://www.modernescpp.com/index.php/type-erasure), April 2022.
   - [Software Design with Traits and Tag Dispatching](http://www.modernescpp.com/index.php/softwaredesign-with-traits-and-tag-dispatching), March 2022.
   - [Mixins](http://www.modernescpp.com/index.php/mixins), March 2022.
@@ -78,6 +81,7 @@
   - [Different ways to terminate a program in C++](https://iq.opengenus.org/different-ways-to-terminate-program-in-cpp/) by Subhrajit Dhar.
   - [Struct inheritance in C++](https://iq.opengenus.org/struct-inheritance-in-cpp/) by Harshit Raj.
 - [RedHat Developer Blog](https://developers.redhat.com/new) :
+  - [How to implement C23 #embed in GCC 15](https://developers.redhat.com/articles/2025/01/30/how-implement-c23-embed-gcc-15#) by Jakub Jelinek, January 2025.
   - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 2][article_riegel_abstractions2], August 2023.
   - [C/C++ Programming Abstractions for Parallelism and Concurrency - Part 1][article_riegel_abstractions1], August 2023.
   - [New C++ features in GCC 13](https://developers.redhat.com/articles/2023/06/21/new-c-features-gcc-13) by Marek Polacek, June 2023.
@@ -161,7 +165,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

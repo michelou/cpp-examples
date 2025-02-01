@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2025 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 TOOLSET ?= msvc
 CXXSTD ?= c++20
 

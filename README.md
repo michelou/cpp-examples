@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
 
 > **&#9755;** Read the document <a href="https://www.geeksforgeeks.org/history-of-c/" rel="external">"History of C++"</a> to get a quick overview of the evolution of C++.
 
@@ -40,7 +40,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2025*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*February 2025*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 55 MB)</i>
@@ -239,13 +239,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/">bazel-8.0.0-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-3.31.3-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-3.31.5-windows-x86_64.zip</a>                 <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="">LLVM-19.1.3-win64.exe</a>                           <i>(336 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.47.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.96.2.zip</a>                     <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.96.4.zip</a>                     <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2025.0.1.44_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
 <a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
@@ -275,7 +275,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
