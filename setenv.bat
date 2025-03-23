@@ -737,7 +737,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%ORANGEC_HOME%\bin:occ.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('"%ORANGEC_HOME%\bin\occ.exe" --version 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% occ %%l"
+    for /f "tokens=1-3,*" %%i in ('"%ORANGEC_HOME%\bin\occ.exe" --version 2^>^&1 ^| findstr Version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% occ %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%ORANGEC_HOME%\bin:occ.exe"
 )
 where /q "%CMAKE_HOME%\bin:cmake.exe"
@@ -773,7 +773,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __BIN_DIR=Bin\amd64
 )
 where /q "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 if %ERRORLEVEL%==0 (
-    for /f %%i in ('"%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%\msbuild.exe" -version ^| findstr /b [0-9]') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% msbuild %%i"
+    for /f %%i in ('"%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%\msbuild.exe" -version ^| findstr /b [0-9]') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% msbuild %%i,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MSVS_HOME%\MSBuild\Current\%__BIN_DIR%:msbuild.exe"
 )
 where /q "%GIT_HOME%\bin:git.exe"

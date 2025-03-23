@@ -39,6 +39,8 @@
   - [Macros usages in C++](https://fekir.info/post/macro-usages-in-cpp/), October 2021.
   - [C++ performance guidelines](https://fekir.info/post/cpp-perf-guidelines/), January 2021.
   - [Detect member variables since C++11](https://fekir.info/post/detect-member-variables/), June 2019.
+- [LinkedIn] Blog posts:
+  - [Range Improvements with C++23](https://www.linkedin.com/pulse/range-improvements-c23-rainer-grimm) by Rainer Grimm, June 2022.
 - [Microsoft C++ Team Blog](https://devblogs.microsoft.com/cppblog/category/cplusplus/):
   - [MSVC Compiler Language Updates in Visual Studio 2022 version 17.12](https://devblogs.microsoft.com/cppblog/msvc-compiler-language-updates-in-visual-studio-2022-version-17-12/) by Cameron DaCamara, December 2024.
   - [What’s New for C++ Developers in Visual Studio 2022 17.11](https://devblogs.microsoft.com/cppblog/whats-new-for-cpp-developers-in-visual-studio-2022-17-11/) by Sy Brand, August 2024.
@@ -101,7 +103,7 @@
   - [The joys and perils of C and C++ aliasing, Part 1](https://developers.redhat.com/blog/2020/06/02/the-joys-and-perils-of-c-and-c-aliasing-part-1) by Martin Sebor, June 2020.
   - [New C++ features in GCC 12](https://developers.redhat.com/articles/2022/04/25/new-c-features-gcc-12) by Marek Polacek, April 2022.
   - [Static analysis in GCC 10](https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10) by David Malcolm, March 2020.
-
+- [GCC and Make &ndash; Compiling, Linking and Building C/C++ Applications](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html) by Chua Hock-Huan, March 2018.
 - [C++11 threads, affinity and hyperthreading][blog_bendersky_2016] by Eli Bendersky, January 2016.
 - [Variadic templates in C++][blog_benderksy_2014] by Eli Bendersky, October 2014.
 
@@ -165,7 +167,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
