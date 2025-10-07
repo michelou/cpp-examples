@@ -42,6 +42,10 @@ jmh_result.json
 workingsets.xml
 MODULE.bazel.lock
 
+# bazel specific
+MODULE.bazel.lock
+bazel-*/
+
 # project specific
 *_LOCAL/
 *_LOCAL.md

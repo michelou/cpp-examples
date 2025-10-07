@@ -371,7 +371,7 @@ goto :eof
 
 :clean
 call :rmdir "%_TARGET_DIR%"
-for /f "delims=" %%f in ('dir /ad /s /b "%_ROOT_DIR%bazel-*"') do (
+for /f "delims=" %%f in ('dir /ad /s /b "%_ROOT_DIR%bazel-*" 2^>NUL') do (
     call :rmdir "%%f"
 )
 goto :eof
@@ -425,8 +425,8 @@ if %_TOOLSET%==bcc ( set __TOOLSET_NAME=BCC/GNU Make
 ) else if %_TOOLSET%==occ ( set __TOOLSET_NAME=LADSoft Orange C++
 ) else ( set __TOOLSET_NAME=MSVC/MSBuild
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Toolset: %_TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
-) else if %_VERBOSE%==1 ( echo Toolset: %_TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Toolset: %__TOOLSET_NAME%, Project: %_PROJ_NAME% 1>&2
 )
 call :compile_%_TOOLSET%
 
@@ -620,7 +620,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set __MSBUILD_OPTS=-nologo -m -property:"Configuration=%_PROJ_CONFIG%;Platform=%_PROJ_PLATFORM%"
+set __MSBUILD_OPTS=/nologo "/p:Configuration=%_PROJ_CONFIG%" "/p:Platform=%_PROJ_PLATFORM%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "!_MSBUILD_CMD:%MSVS_HOME%=%%MSVS_HOME%%!" %__MSBUILD_OPTS% "%_PROJ_NAME%.sln" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate executable "%_EXE_NAME%" 1>&2

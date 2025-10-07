@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:25%;"><a href="https://isocpp.org/" rel="external"><img src="../docs/images/cpp_logo.png" width="100" alt="C++ project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Directory <a href="."><strong><code>examples\</code></strong></a> contains <a href="https://isocpp.org/" rel="external" title="ISO C++">ISO C++</a> code examples coming from various websites - mostly from the <a href="https://isocpp.org/" rel="external" title="ISO C++">C++</a> project.<br/>
-  It also includes build scripts (<a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.</td>
+  It also includes build scripts (<a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://bazel.build/rules/lib/globals/module" rel="external">Bazel files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://isocpp.org/" rel="external">C++</a> on a Windows machine.</td>
   </tr>
 </table>
 
@@ -12,6 +12,7 @@ The code examples presented below can be built/run with the following command li
 
 | Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Environment(s) |
 |:----------------|:----------------|:-----------------|:---------------|
+| [**`bazel.exe`**][bazel_cli] | [`MODULE.bazel`](./hello/MODULE.bazel) | | Windows |
 | [**`cmd.exe`**][cmd_cli] | [`build.bat`](./hello/build.bat) | &nbsp; | Windows only |
 | [**`make.exe`**][make_cli] | [`Makefile`](./hello/Makefile) | [`Makefile.inc`](./Makefile.inc) | Any <sup><b>a)</b></sup> |
 | [**`sh.exe`**][sh_cli] | [`build.sh`](./hello/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
@@ -30,7 +31,9 @@ This example has the following directory structure :
 |   <a href="./hello/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./hello/Doxyfile">Doxyfile</a>
 |   <a href="./hello/Makefile">Makefile</a>
+|   <a href="./hello/MODULE.bazel">MODULE.bazel</a>
 \---<b>src</b>
+    |   <a href="./hello/src/BUILD.bazel">BUILD.bazel</a>
     \---<b>main</b>
         +---<b>cpp</b>
         |       <a href="./hello/src/main.cpp">main.cpp</a>
@@ -69,6 +72,27 @@ C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
 "C:/opt/orangec/bin/occ.exe"  --nologo -std=c++14  -o build/hello.exe src/main/cpp/main.cpp
 </pre>
+
+Finally command [`bazel.exe`][bazel_cli] reads its configuration from file [`MODULE.bazel`](./hello/MODULE.bazel) and generates the `hello.exe` executable into the output directory `bazel-bin\`.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://bazel.build/reference/command-line-reference" rel="external">bazel</a> clean & bazel build ...</b>
+INFO: Starting clean.
+INFO: Analyzed target //src:hello (70 packages loaded, 481 targets configured).
+INFO: From Compiling src/main/cpp/main.cpp:
+main.cpp
+INFO: Found 1 target...
+Target //src:hello up-to-date:
+  bazel-bin/src/hello.exe
+INFO: Elapsed time: 2.172s, Critical Path: 1.29s
+INFO: 6 processes: 4 internal, 2 local.
+INFO: Build completed successfully, 6 total actions
+&nbsp;
+<b>&gt; bazel-bin\src\hello.exe</b>
+Hello, World!
+</pre>
+
+<!--=========================================================================-->
 
 ## <span id="call-by-copy">`call-by-copy` Example</span> [**&#x25B4;**](#top)
 
@@ -335,7 +359,7 @@ Error: Failed to generate executable "func-destructuring.exe"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
