@@ -30,11 +30,11 @@ Optionally one may also install the following software:
 -->
 - [Bazel 8.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
-- [Doxygen 1.14][doxygen_downloads] ([*changelog*][doxygen_changelog])
+- [Doxygen 1.15][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [LLVM 19][llvm_19_downloads] ([*release notes*][llvm_19_relnotes])
 - [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.104][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.105][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
@@ -114,9 +114,9 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   bazel 8.4.2, bcc32c 7.30, clang 17.0.6, gcc 14.2.0, icx 2025.0.1, occ 6.73.8
-   cmake 4.1.2, cl 19.36.33523, cppcheck 2.18.3, doxygen 1.14.0,
-   msbuild 17.11.2.32701, git 2.49.0, diff 3.12, bash 5.2.37(1)
+   bazel 8.4.2, bcc32c 7.30, clang 17.0.6, gcc 15.2.0, icx 2025.0.1, occ 6.73.8
+   cmake 4.2.0-rc1, cl 19.36.33523, cppcheck 2.18.3, doxygen 1.15.0,
+   msbuild 17.11.2.32701, git 2.51.1, diff 3.12, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -238,13 +238,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/">bazel-8.4.2-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-4.1.2-windows-x86_64.zip</a>                  <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-4.2.0-rc1-windows-x86_64.zip</a>              <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
-<a href="https://www.doxygen.nl/download.html">doxygen-1.14.0.windows.x64.bin.zip</a>              <i>( 49 MB)</i>
+<a href="https://www.doxygen.nl/download.html">doxygen-1.15.0.windows.x64.bin.zip</a>              <i>(149 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="">LLVM-19.1.3-win64.exe</a>                           <i>(336 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.49.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.51.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
 <a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.104.3.zip</a>                    <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2025.0.1.44_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
@@ -331,7 +331,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.49.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.51.1.adoc
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
@@ -371,7 +371,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [orangec_downloads]: https://github.com/LADSoft/OrangeC/releases
 [orangec_relnotes]: https://github.com/LADSoft/OrangeC/releases/tag/Orange-C-v6.73.1
 [rust_examples]: https://github.com/michelou/rust-examples#top
-[scala3_examples]: https://github.com/michelou/dotty-examples#top
+[scala3_examples]: https://github.com/michelou/scala3-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [sml_examples]: https://github.com/michelou/sml-examples#top
 [spark_examples]: https://github.com/michelou/spark-examples#top

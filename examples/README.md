@@ -45,11 +45,25 @@ This example has the following directory structure :
 Batch file [**`build.bat`**](./hello/build.bat) generates the `hello.exe` executable using one of the options [`-bcc`][bcc_cli], [`-clang`][clang_cli], [`-gcc`][gcc_cli], [`-icx`][icx_cli], <span style="white-space: nowrap;">[`-msvc`][cl_cli]</span> (default) or [`occ`][occ_cli] :
 
 <pre style="font-size:80%;">
+<b>&gt; <a href="./hello/build.bat">build</a> -verbose clean run</b>
+Delete directory "build"
+Toolset: MSVC/MSBuild, Project: hello
+Configuration: Release, Platform: x64
+Current directory is: "F:\examples\hello\build"
+Generate configuration files into directory "build"
+Generate executable "hello.exe"
+Execute "build\Release\hello.exe"
+Hello, World!
+</pre>
+
+<pre style="font-size:80%;">
 <b>&gt; <a href="./hello/build.bat">build</a> -clang -verbose clean compile</b>
 Delete directory "build"
 Toolset: Clang/GNU Make, Project: hello
 Generate configuration files into directory "build"
 Generate executable "hello.exe"
+Execute "build\hello.exe"
+Hello, World!
 </pre>
 
 In the same way command [`make.exe`][make_cli] reads its configuration from file [`Makefile`](./hello/Makefile) and generates the `hello.exe` executable using variable `TOOLSET`, e.g. `TOOLSET=clang` (respectively [`bcc`][bcc_cli], [`gcc`][gcc_cli], [`icx`][icx_cli], [`msvc`][cl_cli] or [`occ`][occ_cli]) :
@@ -57,16 +71,16 @@ In the same way command [`make.exe`][make_cli] reads its configuration from file
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=bcc clean build</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
-"c:/opt/BCC-7.30-32bit/bin/bcc32c.exe"  -I "src" -q -w  -o build/hello.exe src/main.cpp -lq
-src/main.cpp:
+"c:/opt/BCC-7.30-32bit/bin/bcc32c.exe"  -I "src" -q -w  -o build/hello.exe src/main/cpp/main.cpp -lq
+src/main/cpp/main.cpp:
 &nbsp;
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=clang clean build</b>
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
-"C:/opt/LLVM-16.0.6//bin/clang.exe"  --std=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp
+"C:/opt/LLVM-19.1.0/bin/clang.exe"  --std=c++20 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main/cpp/main.cpp
 &nbsp;
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=icx clean build</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
-"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++17 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
+"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/bin/icx.exe"  -nologo -Qstd=c++20 -O2 -Wall -Wno-unused-variable  -o build/Release/hello.exe src/main/cpp/main.cpp -link -libpath:"C:/Program Files (x86)/Intel/oneAPI//compiler/latest/windows/compiler/lib/intel64"
 &nbsp;
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/html_node/Running.html" rel="external">make</a> TOOLSET=occ clean build</b>
 "C:/opt/msys64/usr/bin/rm.exe" -rf "build"
@@ -130,6 +144,15 @@ In the same way command [`make.exe`][make_cli] reads its configuration from file
 C:/opt/msys64/usr/bin/rm.exe -rf "build"
 "%MSVC_HOME%/bin\Hostx64/x64/cl.exe"  -nologo -std:c++17 -EHsc -I"%MSVC_HOME%/include" -I"%WINSDK_HOME%/include/10.0.22000.0/ucrt" -I"%WINSDK_HOME%/include/10.0.22000.0/um"  -Fe"build/Release/call-by-copy.exe" src/main/cpp/Main.cpp -link -libpath:"%MSVC_HOME%/lib/x64" -libpath:"%WINSDK_HOME%/lib/10.0.22000.0/ucrt/x64" -libpath:"%WINSDK_HOME%/lib/10.0.22000.0/um/x64" Main.cpp
 </pre>
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">make</a> TOOLSET=bcc clean build</b>
+"/usr/bin/rm.exe" -rf "build"
+"C:/opt/BCC-10.2/bin/bcc32c.exe"  -I "src" -q -w  -o build/call-by-copy.exe src/main/cpp/Main.cpp -lq
+src/main/cpp/Main.cpp:
+</pre>
+
+<!--======================================================================-->
 
 ## <span id="class-dispatching">`class-dispatching` Example</span>
 
