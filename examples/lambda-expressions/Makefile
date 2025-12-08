@@ -105,7 +105,7 @@ help:
 	@$(ECHO) "     all    alias for build"
 	@$(ECHO) "     build  compile C++ source files"
 	@$(ECHO) "     clean  delete generated files"
-    @$(ECHO) "     doc    generate HTML documentation with Doxygen"
+	@$(ECHO) "     doc    generate HTML documentation with Doxygen"
 	@$(ECHO) "     help   print this help message"
 	@$(ECHO) "     lint   analyze C++ source files with CppCheck"
 	@$(ECHO) "     run    execute main program \"$(TARGET)\""

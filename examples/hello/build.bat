@@ -636,7 +636,7 @@ popd
 goto :eof
 
 :compile_occ
-set __OCC_OPTS=--nologo -std=c++14 /o"%_TARGET_DIR%\%_PROJ_NAME%.exe"
+set __OCC_OPTS=--nologo -std=c++17 /o"%_TARGET_DIR%\%_PROJ_NAME%.exe"
 
 set __SOURCE_FILES=
 set __N=0

@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [COBOL][cobol_examples], [Component Pascal][component_pascal_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [MySQL][mysql_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
 
 > **&#9755;** Read the document <a href="https://www.geeksforgeeks.org/history-of-c/" rel="external">"History of C++"</a> to get a quick overview of the evolution of C++.
 
@@ -16,8 +16,8 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [CMake 4.1][cmake_downloads] ([*release notes*][cmake_relnotes])
-- [Git 2.51][git_releases] ([*release notes*][git_relnotes])
+- [CMake 4.2][cmake_downloads] ([*release notes*][cmake_relnotes])
+- [Git 2.52][git_releases] ([*release notes*][git_relnotes])
 - [LLVM 17][llvm_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][llvm_relnotes])
 - [MSYS2 2024][msys2_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][msys2_changelog])
 - [oneAPI DPC++ 2025][intel_dpc] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][intel_dpc_relnotes])
@@ -25,22 +25,21 @@ This project depends on the following external software for the **Microsoft Wind
 - [Windows SDK 10][winsdk_downloads] ([*release notes*][winsdk_relnotes])
 
 Optionally one may also install the following software:
-<!--
-- [Cppcheck 2.12][cppcheck_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*changelog*][cppcheck_changelog])
--->
+
 - [Bazel 8.4 LTS][bazel_downloads] ([*release notes*][bazel_relnotes])
+- [Cppcheck 2.18][cppcheck_downloads] ([*changelog*][cppcheck_changelog])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [Doxygen 1.15][doxygen_downloads] ([*changelog*][doxygen_changelog])
 - [Embarcadero C++ 7.30 Compiler][bcc_downloads]
 - [LLVM 19][llvm_19_downloads] ([*release notes*][llvm_19_relnotes])
-- [OrangeC 6.73][orangec_downloads] ([*release notes*][orangec_relnotes])
-- [Visual Studio Code 1.105][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [OrangeC 7.0][orangec_downloads] ([*release notes*][orangec_relnotes])
+- [Visual Studio Code 1.106][vscode_downloads] ([*release notes*][vscode_relnotes])
 - [Visual Studio Community 2022][vs2022_downloads] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][vs2022_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2025*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*December 2025*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\bazel\                            <i>( 55 MB)</i>
@@ -115,8 +114,8 @@ We execute command [**`setenv`**](setenv.bat) once to setup our development envi
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    bazel 8.4.2, bcc32c 7.30, clang 17.0.6, gcc 15.2.0, icx 2025.0.1, occ 6.73.8
-   cmake 4.2.0-rc1, cl 19.36.33523, cppcheck 2.18.3, doxygen 1.15.0,
-   msbuild 17.11.2.32701, git 2.51.1, diff 3.12, bash 5.2.37(1)
+   cmake 4.2.0, cl 19.36.33523, cppcheck 2.18.3, doxygen 1.15.0,
+   msbuild 17.11.2.32701, git 2.52.0, diff 3.12, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> bazel git sh</b>
 C:\opt\bazel\bazel.exe
@@ -238,17 +237,17 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/bazelbuild/bazel/releases/">bazel-8.4.2-windows-x86_64.zip</a>                  <i>( 50 MB)</i>
 <a href="https://www.embarcadero.com/free-tools/ccompiler" rel="external">BCC102.zip</a> (Embarcadero)                        <i>( 45 MB)</i>
-<a href="https://cmake.org/download/">cmake-4.2.0-rc1-windows-x86_64.zip</a>              <i>( 38 MB)</i>
+<a href="https://cmake.org/download/">cmake-4.2.0-windows-x86_64.zip</a>                  <i>( 38 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                            <i>(  5 MB)</i>
 <a href="https://www.doxygen.nl/download.html">doxygen-1.15.0.windows.x64.bin.zip</a>              <i>(149 MB)</i>
 <a href="https://github.com/llvm/llvm-project/releases/tag/llvmorg-17.0.6">LLVM-17.0.6-win64.exe</a>                           <i>(263 MB)</i>
 <a href="">LLVM-19.1.3-win64.exe</a>                           <i>(336 MB)</i>
 <a href="https://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                       <i>( 86 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.51.1-64-bit.7z.exe</a>                <i>( 46 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.104.3.zip</a>                    <i>(131 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.52.0-64-bit.7z.exe</a>                <i>( 46 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.106.3.zip</a>                    <i>(131 MB)</i>
 <a href="https://www.intel.com/content/www/us/en/developer/articles/tool/oneapi-standalone-components.html#dpcpp-cpp">w_dpcpp-cpp-compiler_p_2025.0.1.44_offline.exe</a>  <i>(1.2 GB)</i>
 <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">winsdksetup.exe</a>                                 <i>(1.3 MB)</i>
-<a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries6738.zip</a> (OrangeC)                <i>( 22 MB)</i>
+<a href="https://github.com/LADSoft/OrangeC/releases">ZippedBinaries707.zip</a> (OrangeC)                 <i>( 22 MB)</i>
 </pre>
 </dd></dl>
 
@@ -275,7 +274,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -313,8 +312,9 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [clang_cli]: https://clang.llvm.org/docs/ClangCommandLineReference.html
 [cmake_cli]: https://cmake.org/cmake/help/latest/manual/cmake.1.html
 [cmake_downloads]: https://cmake.org/download/
-[cmake_relnotes]: https://cmake.org/cmake/help/v4.1/release/4.0.html
+[cmake_relnotes]: https://cmake.org/cmake/help/v4.2/release/4.2.html
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
+[component_pascal_examples]: https://github.com/michelou/compondent-pascal-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_lang]: https://isocpp.org/
@@ -331,7 +331,7 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [git_cli]: https://git-scm.com/docs/git
 [git_docs]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.51.1.adoc
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.52.0.adoc
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
@@ -367,9 +367,10 @@ Concretely, in our GitHub projects which depend on Visual Studio (e.g. <a href="
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/main/CHANGELOG.md
 [msys2_downloads]: http://repo.msys2.org/distrib/x86_64/
+[mysql_examples]: https://github.com/michelou/mysql-examples#top
 [nodejs_examples]: https://github.com/michelou/nodejs-examples#top
 [orangec_downloads]: https://github.com/LADSoft/OrangeC/releases
-[orangec_relnotes]: https://github.com/LADSoft/OrangeC/releases/tag/Orange-C-v6.73.1
+[orangec_relnotes]: https://github.com/LADSoft/OrangeC/releases/tag/v7.0.7
 [rust_examples]: https://github.com/michelou/rust-examples#top
 [scala3_examples]: https://github.com/michelou/scala3-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html

@@ -43,7 +43,7 @@ CPPCHECK_OPTS = --platform=$(CPPCHECK_PLATFORM) --template=gcc --std=$(CXXSTD)
 else ifeq ($(TOOLSET),icx)
 CXX = $(ICX)
 CXXFLAGS = -nologo -Qstd=$(CXXSTD) -O2 -Wall -Wno-unused-variable -Fe"$(TARGET)"
-CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)/intel64"
+CXXLINK = -link -libpath:"$(ONEAPI_LIBPATH)"
 else ifeq ($(TOOLSET),msvc)
 ifeq (,$(wildcard $(MSVC_INCPATH)))
 $(error Variable MSVC_INCPATH is not set)
