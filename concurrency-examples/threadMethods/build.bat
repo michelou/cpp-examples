@@ -518,7 +518,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="AMD64" ( set __ARCH=x64
 ) else ( set __ARCH=x86
 )
 set "__MSVC_LIBPATH=%MSVC_HOME%lib\%__ARCH%"
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%compiler\latest\windows\compiler\lib;%ONEAPI_ROOT%compiler\latest\windows\compiler\lib\intel64"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 set __LIB_VERSION=
 for /f "delims=" %%i in ('dir /ad /b "%WINSDK_HOME%\Lib\10*" 2^>NUL') do set __LIB_VERSION=%%i
 if not defined __LIB_VERSION (
@@ -555,8 +555,8 @@ set __LINK_FLAGS=-link
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%MSVC_HOME%lib\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\um\%__ARCH%"
 set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%WINSDK_HOME%\Lib\%__LIB_VERSION%\ucrt\%__ARCH%"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib"
-set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%compiler\latest\lib\intel64"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%\compiler\latest\lib"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_ICX_CMD%" %__ICX_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directoy "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2

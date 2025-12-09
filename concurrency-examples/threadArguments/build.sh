@@ -20,7 +20,7 @@ getHome() {
 
 debug() {
     local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $1" 1>&2
 }
 
 warning() {
@@ -37,7 +37,7 @@ error() {
 cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
-    if $TIMER; then
+    if [[ $TIMER -eq 1 ]]; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
         echo "Total execution time: $(date -d @$duration +'%H:%M:%S')" 1>&2
@@ -47,7 +47,7 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return 1
+    [[ $# -eq 0 ]] && HELP=1 && return 1
 
     for arg in "$@"; do
         case "$arg" in
@@ -55,24 +55,24 @@ args() {
         -bcc)         TOOLSET=bcc ;;
         -cl)          TOOLSET=msvc ;;
         -clang)       TOOLSET=clang ;;
-        -debug)       DEBUG=true ;;
+        -debug)       DEBUG=1 ;;
         -gcc)         TOOLSET=gcc ;;
-        -help)        HELP=true ;;
+        -help)        HELP=1 ;;
         -icx)         TOOLSET=icx ;;
         -msvc)        TOOLSET=msvc ;;
         -occ)         TOOLSET=occ ;;
-        -timer)       TIMER=true ;;
-        -verbose)     VERBOSE=true ;;
+        -timer)       TIMER=1 ;;
+        -verbose)     VERBOSE=1 ;;
         -*)
             error "Unknown option $arg"
             EXITCODE=1 && return 0
             ;;
         ## subcommands
-        clean)   CLEAN=true ;;
-        compile) COMPILE=true ;;
-        help)    HELP=true ;;
-        lint)    LINT=true ;;
-        run)     COMPILE=true && RUN=true ;;
+        clean)   CLEAN=1 ;;
+        compile) COMPILE=1 ;;
+        help)    HELP=1 ;;
+        lint)    LINT=1 ;;
+        run)     COMPILE=1 && RUN=1 ;;
         *)
             error "Unknown subcommand $arg"
             EXITCODE=1 && return 0
@@ -88,7 +88,7 @@ args() {
     debug "Variables  : ONEAPI_ROOT=$ONEAPI_ROOT"
     debug "Variables  : ORANGEC_HOME=$ORANGEC_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-    $TIMER && TIMER_START=$(date +"%s")
+    [[ $TIMER -eq 1 ]] && TIMER_START=$(date +"%s")
 }
 
 help() {
@@ -118,9 +118,9 @@ EOS
 
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             debug "Delete directory $TARGET_DIR"
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
@@ -142,9 +142,9 @@ lint() {
     msvc)  cppcheck_opts="--template=vs --std=c++17" ;;
     *)     cppcheck_opts="=--std=c++14" ;;
     esac
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$CPPCHECK_CMD $CPPCHECK_OPTS$ $SOURCE_DIR" 1>&2
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Analyze C++ source files in directory \"${SOURCE_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$CPPCHECK_CMD $cppcheck_opts $SOURCE_DIR"
@@ -165,7 +165,7 @@ compile() {
     occ)   toolset_name="LADSoft Orange C++" ;;
     *)     toolset_name="MSVC/MSBuild" ;;
     esac
-    $VERBOSE && echo "Toolset: $toolset_name, Project: $PROJECT_NAME" 1>&2
+    [[ $VERBOSE -eq 1 ]] && echo "Toolset: $toolset_name, Project: $PROJECT_NAME" 1>&2
     
     compile_$TOOLSET
 }
@@ -179,11 +179,11 @@ compile_bcc() {
     local cmake_opts="-G \"Unix Makefiles\""
 
     pushd "$TARGET_DIR"
-    $DEBUG && debug "Current directory is: $PWD" 1>&2
+    [[ $DEBUG -eq 1 ]] && debug "Current directory is: $PWD" 1>&2
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$CMAKE_CMD $cmake_opts .."
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$CMAKE_CMD $cmake_opts .."
@@ -194,9 +194,9 @@ compile_bcc() {
     fi
     local make_opts=
     
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$MAKE_CMD $make_opts"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate executable \"$PROJECT_NAME\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
@@ -206,9 +206,9 @@ compile_bcc() {
         cleanup 1
     fi
     popd
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "cp $(mixed_path $BCC_HOME)/bin/cc32*mt.dll $TARGET_DIR/"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Copy DLL file to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     cp "$(mixed_path $BCC_HOME)/bin/cc32*mt.dll $TARGET_DIR/"
@@ -227,11 +227,11 @@ compile_clang() {
     local cmake_opts="-G \"Unix Makefiles\""
 
     pushd "$TARGET_DIR"
-    $DEBUG && debug "Current directory is: $PWD" 1>&2
+    [[ $DEBUG -eq 1 ]] && debug "Current directory is: $PWD" 1>&2
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$CMAKE_CMD $cmake_opts .."
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$CMAKE_CMD\" $cmake_opts .."
@@ -242,9 +242,9 @@ compile_clang() {
     fi
     local make_opts=
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$MAKE_CMD $make_opts"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
@@ -265,11 +265,11 @@ compile_gcc() {
     local cmake_opts="-G \"Unix Makefiles\""
 
     pushd "$TARGET_DIR"
-    $DEBUG && debug "Current directory is: $PWD" 1>&2
+    [[ $DEBUG -eq 1 ]] && debug "Current directory is: $PWD" 1>&2
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$CMAKE_CMD $cmake_opts .."
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$CMAKE_CMD\" $cmake_opts .."
@@ -280,9 +280,9 @@ compile_gcc() {
     fi
     local make_opts=--silent
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$MAKE_CMD $make_opts"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate executable \"$PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "$MAKE_CMD $make_opts"
@@ -295,14 +295,14 @@ compile_gcc() {
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/lib;$ONEAPI_ROOT/compiler/latest/lib/intel64"
 
     local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$(mixed_path $TARGET_DIR/$PROJECT_NAME.exe)\""
-    $DEBUG && icx_flags="-debug:all -v $icx_flags"
+    [[ $DEBUG -eq 1 ]] && icx_flags="-debug:all -v $icx_flags"
 
     local source_files=
     local n=0
-    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -312,9 +312,9 @@ compile_icx() {
     fi
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n C++ source file$s"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$ICX_CMD\" $icx_flags $source_files"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$ICX_CMD\" $icx_flags $source_files"
@@ -327,14 +327,14 @@ compile_icx() {
 compile_msvc() {
     local cmake_opts="-Thost=$PROJECT_PLATFORM -A $PROJECT_PLATFORM -Wdeprecated"
     
-    $VERBOSE && echo "Configuration: $PROJECT_CONFIG, Platform: $PROJECT_PLATFORM" 1>&2
+    [[ $VERBOSE -eq 1 ]] && echo "Configuration: $PROJECT_CONFIG, Platform: $PROJECT_PLATFORM" 1>&2
     
     pushd "$TARGET_DIR"
-    $DEBUG && debug "Current directory is: $PWD" 1>&2
+    [[ $DEBUG -eq 1 ]] && debug "Current directory is: $PWD" 1>&2
     
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$MSVS_CMAKE_CMD\" $cmake_opts .."
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate configuration files into directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$MSVS_CMAKE_CMD\" $cmake_opts .."
@@ -346,9 +346,9 @@ compile_msvc() {
     # MSBuild options must start with '-' (instead of '/').
     local msbuild_opts="-nologo \"-p:Configuration=$PROJECT_CONFIG\" \"-p:Platform=$PROJECT_PLATFORM\""
     
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Generate executable \"PROJECT_NAME$TARGET_EXT\"" 1>&2
     fi
     eval "\"$MSBUILD_CMD\" $msbuild_opts \"$PROJECT_NAME.sln\""
@@ -365,7 +365,7 @@ compile_occ() {
 
     local source_files=
     local n=0
-    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$(mixed_path $f)\""
         n=$((n + 1))
     done
@@ -375,9 +375,9 @@ compile_occ() {
     fi
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n C++ source file$s"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "\"$OCC_CMD\" $occ_flags $source_files"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Compile $n_files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "\"$OCC_CMD\" $occ_flags $source_files"
@@ -390,7 +390,7 @@ compile_occ() {
 mixed_path() {
     if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am "$*"
-    elif $mingw || $msys; then
+    elif [[ $(($mingw + $msys)) -gt 0 ]]; then
         echo "$*" | sed 's|/|\\\\|g'
     else
         echo "$*"
@@ -411,9 +411,9 @@ run() {
         error "Executable \"${exe_file/$ROOT_DIR\//}\" not found"
         cleanup 1
     fi
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$exe_file"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Execute \"${exe_file/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$exe_file"
@@ -435,33 +435,33 @@ ROOT_DIR="$(getHome)"
 SOURCE_DIR="$ROOT_DIR/src"
 TARGET_DIR="$ROOT_DIR/build"
 
-CLEAN=false
-COMPILE=false
-DEBUG=false
-HELP=false
-LINT=false
-RUN=false
-TIMER=false
+CLEAN=0
+COMPILE=0
+DEBUG=0
+HELP=0
+LINT=0
+RUN=0
+TIMER=0
 TOOLSET=msvc
-VERBOSE=false
+VERBOSE=0
 
 COLOR_START="[32m"
 COLOR_END="[0m"
 
-cygwin=false
-mingw=false
-msys=false
-darwin=false
+cygwin=0
+mingw=0
+msys=0
+darwin=0
 case "$(uname -s)" in
-    CYGWIN*) cygwin=true ;;
-    MINGW*)  mingw=true ;;
-    MSYS*)   msys=true ;;
-    Darwin*) darwin=true      
+    CYGWIN*) cygwin=1 ;;
+    MINGW*)  mingw=1 ;;
+    MSYS*)   msys=1 ;;
+    Darwin*) darwin=1      
 esac
 unset CYGPATH_CMD
 PSEP=":"
 TARGET_EXT=
-if $cygwin || $mingw || $msys; then
+if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$GRAALVM_HOME" ]] && GRAALVM_HOME="$(mixed_path $GRAALVM_HOME)"
 	PSEP=";"
@@ -470,9 +470,10 @@ if $cygwin || $mingw || $msys; then
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
+    FIND_CMD="$(mixed_path $MSYS_HOME)/usr/bin/find.exe"
     GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
     GXX_CMD="$(mixed_path $MSYS_HOME)/usr/bin/g++.exe"
-    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
+    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
@@ -482,6 +483,7 @@ else
     CLANG_CMD=clang
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
+    FIND_CMD=find
     GCC_CMD=gcc
     GXX=g++
     MAKE_CMD=make
@@ -500,18 +502,18 @@ args "$@"
 ##############################################################################
 ## Main
 
-$HELP && help && cleanup
+[[ $HELP -eq 1 ]] && help && cleanup
 
-if $CLEAN; then
+if [[ $CLEAN -eq 1 ]]; then
     clean || cleanup 1
 fi
-if $LINT; then
+if [[ $LINT -eq 1 ]]; then
     lint || cleanup 1
 fi
-if $COMPILE; then
+if [[ $COMPILE -eq 1 ]]; then
     compile || cleanup 1
 fi
-if $RUN; then
+if [[ $RUN -eq 1 ]]; then
     run || cleanup 1
 fi
 cleanup

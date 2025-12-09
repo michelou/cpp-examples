@@ -290,7 +290,7 @@ set "__PTHREADS_INCPATH=..\pthreads-win32\include"
 set "__PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%"
 set __PTHREADS_LIBNAME=pthreadVC2
 
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib"
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 
 set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -D_TIMESPEC_DEFINED
 set __ICX_FLAGS=%__ICX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable

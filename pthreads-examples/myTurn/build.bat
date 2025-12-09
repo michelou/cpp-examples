@@ -63,12 +63,12 @@ if not exist "%LLVM_HOME%\bin\clang++.exe" (
 )
 set "_CLANG_CMD=%LLVM_HOME%\bin\clang++.exe"
 
-if not exist "%MSYS_HOME%\mingw64\bin\g++.exe" (
+if not exist "%MSYS_HOME%\usr\bin\g++.exe" (
     echo %_ERROR_LABEL% MSYS2 installation directory not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_CXX_CMD=%MSYS_HOME%\mingw64\bin\g++.exe"
+set "_CXX_CMD=%MSYS_HOME%\usr\bin\g++.exe"
 
 if not exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
     echo %_ERROR_LABEL% oneAPI installation directory not found 1>&2
@@ -218,7 +218,7 @@ set __CLANG_FLAGS=%__CLANG_FLAGS% -L"%__PTHREADS_LIBPATH%" -o "%_TARGET%"
 
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%*.cpp"') do (
+for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.cpp"') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
@@ -251,8 +251,16 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_gcc
-set __CXX_FLAGS=-g --std=%_CXX_STD% -O0 -lpthread -o "%_TARGET%"
+set "__PTHREADS_INCPATH=..\pthreads-win32\include"
+set "__PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%"
+set __PTHREADS_LIBNAME=pthreadVC2
+
+set __CXX_FLAGS=-g --std=%_CXX_STD% -D_TIMESPEC_DEFINED -pthread
+set __CXX_FLAGS=%__CXX_FLAGS% -O0 -o "%_TARGET%" -I"%__PTHREADS_INCPATH%" -I"%_SOURCE_MAIN_DIR%"
+set __CXX_FLAGS=%__CXX_FLAGS% -L"%__PTHREADS_LIBPATH%" -l%__PTHREADS_LIBNAME%
 set __CXX_FLAGS=%__CXX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable
+
+set __LINK_FLAGS=-Xlinker -L"%__PTHREADS_LIBPATH%" -l%__PTHREADS_LIBNAME%
 
 set __SOURCE_FILES=
 set __N=0
@@ -278,13 +286,18 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_icx
-set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib"
+set "__PTHREADS_INCPATH=..\pthreads-win32\include"
+set "__PTHREADS_LIBPATH=..\pthreads-win32\lib\%_ARCH%"
+set __PTHREADS_LIBNAME=pthreadVC2
+
+set "__ONEAPI_LIBPATH=%ONEAPI_ROOT%\compiler\latest\lib;%ONEAPI_ROOT%\compiler\latest\lib\intel64"
 
 set __ICX_FLAGS=-nologo -Qstd=%_CXX_STD% -D_TIMESPEC_DEFINED
 set __ICX_FLAGS=%__ICX_FLAGS% -Wall -Wno-unused-variable -Wno-unused-but-set-variable
-set __ICX_FLAGS=%__ICX_FLAGS% -o "%_TARGET%"
+set __ICX_FLAGS=%__ICX_FLAGS% -I"%__PTHREADS_INCPATH%" -o "%_TARGET%"
 
 set __LINK_FLAGS=-link -libpath:"%__ONEAPI_LIBPATH%"
+set __LINK_FLAGS=%__LINK_FLAGS% -libpath:"%__PTHREADS_LIBPATH%" "%__PTHREADS_LIBNAME%.lib"
 
 set __SOURCE_FILES=
 set __N=0
@@ -307,7 +320,20 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem we either copy the library dependency or alter the PATH variable at execution time
+set "__DLL_FILE=..\pthreads-win32\dll\%_ARCH%\%__PTHREADS_LIBNAME%.dll"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Copy file "%__PTHREADS_LIBNAME%.dll" to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+copy /y "%__DLL_FILE%" "%_TARGET_DIR%\" 1>NUL
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to copy file "%__PTHREADS_LIBNAME%.dll" to directoy "!_TARGET_DIR:%_ROOT_DIR%=!"
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
+
 :compile_msvc
 if not exist "%MSVC_HOME%\bin\host%_ARCH%\%_ARCH%\cl.exe" (
     echo %_ERROR_LABEL% Microsoft C++ compiler not found 1>&2
@@ -355,7 +381,7 @@ if %__N%==0 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS%
+call "%__MSVC_CMD%" %__MSVC_FLAGS% %__SOURCE_FILES% %__LINK_FLAGS% 1>NUL
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

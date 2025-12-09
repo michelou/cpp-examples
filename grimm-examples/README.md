@@ -62,9 +62,9 @@ This example has the following directory structure :
 |   <a href="./visitor/CMakeLists.txt">CMakeLists.txt</a>
 |   <a href="./visitor/Doxyfile">Doxyfile
 |   <a href="./visitor/Makefile">Makefile</a>
-\---src
-    \---main
-        \---cpp
+\---<b>src</b>
+    \---<b>main</b>
+        \---<b>cpp</b>
                 <a href="./visitor/src/main/cpp/visitor.cpp">visitor.cpp</a>
 </pre>
 

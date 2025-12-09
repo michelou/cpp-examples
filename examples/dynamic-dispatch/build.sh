@@ -298,14 +298,14 @@ compile_gcc() {
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/lib;$ONEAPI_ROOT/compiler/latest/lib/intel64"
 
     local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
     [[ $DEBUG -eq 1 ]] && icx_flags="-debug:all $icx_flags"
 
     local source_files=
     local n=0
-    for f in $(find "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -367,7 +367,7 @@ compile_occ() {
 
     local source_files=
     local n=0
-    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$(mixed_path $f)\""
         n=$((n + 1))
     done
@@ -503,8 +503,9 @@ if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
     CPPCHECK_PLATFORM=win64
     DOXYGEN="$(mixed_path $DOXYGEN_HOME)/doxygen.exe"
-    GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
-    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
+    FIND_CMD="$(mixed_path $MSYS_HOME)/usr/bin/find.exe"
+    GCC_CMD="$(mixed_path $MSYS_HOME)/usr/bin/gcc.exe"
+    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
@@ -516,6 +517,7 @@ else
     CPPCHECK_CMD=cppcheck
     CPPCHECK_PLATFORM=native
     DOXYGEN=doxygen
+    FIND_CMD=find
     GCC_CMD=gcc
     MAKE_CMD=make
     OCC_CMD=occ

@@ -121,8 +121,8 @@ set "_CLANG_CMD=%LLVM_HOME%\bin\clang.exe"
 set "_CLANGXX_CMD=%LLVM_HOME%\bin\clang++.exe"
 
 set _ICX_CMD=
-if exist "%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe" (
-    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\windows\bin\icx.exe"
+if exist "%ONEAPI_ROOT%\compiler\latest\bin\icx.exe" (
+    set "_ICX_CMD=%ONEAPI_ROOT%\compiler\latest\bin\icx.exe"
 )
 set _BCC32C_CMD=
 if exist "%BCC_HOME%\bin\bcc32c.exe" (

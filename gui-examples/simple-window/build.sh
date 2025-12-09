@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2024 Stéphane Micheloud
+# Copyright (c) 2018-2025 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -20,7 +20,7 @@ getHome() {
 
 debug() {
     local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $1" 1>&2
 }
 
 warning() {
@@ -37,7 +37,7 @@ error() {
 cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
-    if $TIMER; then
+    if [[ $TIMER -eq 1 ]]; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
         echo "Total execution time: $(date -d @$duration +'%H:%M:%S')" 1>&2
@@ -47,7 +47,7 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return 1
+    [[ $# -eq 0 ]] && HELP=1 && return 1
 
     for arg in "$@"; do
         case "$arg" in
@@ -55,22 +55,24 @@ args() {
         -bcc)         TOOLSET=bcc ;;
         -cl)          TOOLSET=msvc ;;
         -clang)       TOOLSET=clang ;;
-        -debug)       DEBUG=true ;;
+        -debug)       DEBUG=1 ;;
         -gcc)         TOOLSET=gcc ;;
-        -help)        HELP=true ;;
+        -help)        HELP=1 ;;
         -icx)         TOOLSET=icx ;;
         -msvc)        TOOLSET=msvc ;;
-        -timer)       TIMER=true ;;
-        -verbose)     VERBOSE=true ;;
+        -occ)         TOOLSET=occ ;;
+        -timer)       TIMER=1 ;;
+        -verbose)     VERBOSE=1 ;;
         -*)
-            error "Unknown option $arg"
+            error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
-        clean)   CLEAN=true ;;
-        compile) COMPILE=true ;;
-        help)    HELP=true ;;
-        lint)    LINT=true ;;
+        clean)   CLEAN=1 ;;
+        compile) COMPILE=1 ;;
+        doc)     DOC=1 ;;
+        help)    HELP=1 ;;
+        lint)    LINT=1 ;;
         run)     COMPILE=true && RUN=true ;;
         *)
             error "Unknown subcommand $arg"
@@ -79,12 +81,13 @@ args() {
         esac
     done
     debug "Options    : PROJECT_CONFIG=$PROJECT_CONFIG TIMER=$TIMER TOOLSET=$TOOLSET VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     debug "Variables  : GIT_HOME=$GIT_HOME"
     debug "Variables  : LLVM_HOME=$LLVM_HOME"
     debug "Variables  : MSVS_HOME=$MSVS_HOME"
     debug "Variables  : MSYS_HOME=$MSYS_HOME"
     debug "Variables  : ONEAPI_ROOT=$ONEAPI_ROOT"
+    debug "Variables  : ORANGEC_HOME=$ORANGEC_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -101,23 +104,25 @@ Usage: $BASENAME { <option> | <subcommand> }
     -gcc         use GCC/GNU Make toolset instead of MSVC/MSBuild
     -icx         use Intel oneAPI C++ toolset instead of MSVC/MSBuild
     -msvc        use MSVC/MSBuild toolset (alias for option -cl)
+    -occ         use LADSoft Orange C++ toolset instead of MSVC/MSBuild
     -timer       print total execution time
     -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile C++ source files
+    doc          generate HTML documentation with Doxygen
     help         print this help message
     lint         analyze C++ source files with Cppcheck
-    run          execute the generated executable
+    run          execute the generated executable "$PROJECT_NAME.exe"
 EOS
 }
 
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
-            debug "Delete directory $TARGET_DIR"
-        elif $VERBOSE; then
+        if [[ $DEBUG -eq 1 ]]; then
+            debug "rm -rf \"$TARGET_DIR\""
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
@@ -292,14 +297,14 @@ compile_gcc() {
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/lib;$ONEAPI_ROOT/compiler/latest/lib/intel64"
 
     local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
     $DEBUG && icx_flags="-debug:all $icx_flags"
 
     local source_files=
     local n=0
-    for f in $(find "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$CPP_SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -442,8 +447,9 @@ if $cygwin || $mingw || $msys; then
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
     CPPCHECK_PLATFORM=win64
+    FIND_CMD="$(mixed_path $MSYS_HOME)/usr/bin/find.exe"
     GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
-    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
+    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
@@ -453,6 +459,7 @@ else
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
     CPPCHECK_PLATFORM=native
+    FIND_CMD=find
     GCC_CMD=gcc
     MAKE_CMD=make
 fi

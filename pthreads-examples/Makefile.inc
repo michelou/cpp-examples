@@ -25,7 +25,7 @@ TARGET_EXT  = .exe
 PSEP        = ;
 CL          = $(subst \,/,$(MSVC_HOME))/bin/Host$(ARCH)/$(ARCH)/cl.exe
 CLANG       = $(subst \,/,$(LLVM_HOME))/bin/clang.exe
-ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/bin/icx.exe
+ICX         = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/bin/icx.exe
 LLC         = $(subst \,/,$(LLVM_HOME))/bin/llc.exe
 LLVM_CONFIG = $(subst \,/,$(LLVM_HOME))/bin/llvm-config.exe
 ## $(MSYS_HOME)\usr\bin\{cp.exe, make.exe, wget.exe}
@@ -46,7 +46,7 @@ WINSDK_LIBROOT = $(subst \,/,$(WINSDK_HOME))/lib
 WINSDK_LIBPATH = $(WINSDK_LIBROOT)/$(shell cd "$(WINSDK_LIBROOT)" && ls -d */ | tail -n 1)
 MINGW_INCPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/include
 MINGW_LIBPATH  = $(subst \,/,$(MSYS_HOME))/mingw64/x86_64-w64-mingw32/lib
-ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/windows/compiler/lib
+ICX_LIBPATH    = $(subst \,/,$(ONEAPI_ROOT))/compiler/latest/lib
 else
 TARGET_EXT  =
 PSEP        = :

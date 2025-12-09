@@ -291,14 +291,14 @@ compile_gcc() {
 }
 
 compile_icx() {
-    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest\windows\compiler\lib;$ONEAPI_ROOT%compiler/latest\windows\compiler\lib\intel64"
+    local oneapi_libpath="$ONEAPI_ROOT/compiler/latest/lib;$ONEAPI_ROOT/compiler/latest/lib/intel64"
 
     local icx_flags="-Qstd=$CXX_STD -O2 -Fe\"$TARGET_DIR/$PROJECT_NAME.exe\""
     [[ $DEBUG -eq 1 ]] && icx_flags="-debug:all $icx_flags"
 
     local source_files=
     local n=0
-    for f in $(find "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
+    for f in $($FIND_CMD "$SOURCE_DIR/" -type f -name "*.cpp" 2>/dev/null); do
         source_files="$source_files \"$f\""
         n=$((n + 1))
     done
@@ -441,8 +441,9 @@ if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CLANG_CMD="$(mixed_path $LLVM_HOME)/bin/clang.exe"
     CMAKE_CMD="$(mixed_path $CMAKE_HOME)/bin/cmake.exe"
     CPPCHECK_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/cppcheck.exe"
+    FIND_CMD="$(mixed_path $MSYS_HOME)/usr/bin/find.exe"
     GCC_CMD="$(mixed_path $MSYS_HOME)/mingw64/bin/gcc.exe"
-    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/windows/bin/icx.exe"
+    ICX_CMD="$(mixed_path $ONEAPI_ROOT)/compiler/latest/bin/icx.exe"
     MAKE_CMD="$(mixed_path $MSYS_HOME)/usr/bin/make.exe"
     MSBUILD_CMD="$(mixed_path $MSVS_MSBUILD_HOME)/bin/MSBuild.exe"
     MSVS_CMAKE_CMD="$(mixed_path $MSVS_CMAKE_HOME)/bin/cmake.exe"
@@ -451,6 +452,7 @@ else
     CLANG_CMD=clang
     CMAKE_CMD=cmake
     CPPCHECK_CMD=cppcheck
+    FIND_CMD=find
     GCC_CMD=gcc
     MAKE_CMD=make
 fi
